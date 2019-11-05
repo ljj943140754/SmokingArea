@@ -1,3 +1,4 @@
+这是静态表格
 <table class="layui-table"  >
   <thead>
     <tr>
@@ -15,5 +16,8 @@
 	       </th>
   	  </tr>
   </tbody>
+
 </table>
-�Ҹ���ô���ء�����
+我该这样做
+</table>
+
