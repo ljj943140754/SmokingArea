@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smokeroom.mapper.TaskRouteDetailMapper">
+  <resultMap id="BaseResultMap" type="com.smokeroom.entity.TaskRouteDetail">
+    <result column="rdt_tsk_id" jdbcType="INTEGER" property="rdt_tsk_id" />
+    <result column="rdt_fac_id" jdbcType="INTEGER" property="rdt_fac_id" />
+    <result column="rdt_tsk_seq" jdbcType="INTEGER" property="rdt_tsk_seq" />
+  </resultMap>
+  <insert id="insert" parameterType="com.smokeroom.entity.TaskRouteDetail">
+    insert into task_route_detail (rdt_tsk_id, rdt_fac_id, rdt_tsk_seq
+      )
+    values (#{rdt_tsk_id,jdbcType=INTEGER}, #{rdt_fac_id,jdbcType=INTEGER}, #{rdt_tsk_seq,jdbcType=INTEGER}
+      )
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select rdt_tsk_id, rdt_fac_id, rdt_tsk_seq
+    from task_route_detail
+  </select>
+</mapper>

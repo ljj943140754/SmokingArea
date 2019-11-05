@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+</head>
+<body>
+  <div class="layui-form" lay-filter="mailboxForm" style="display: flex;"  ng-controller="mailboxCtrl">
+		<div style="flex:3;">
+			<div class="layui-form-item" >
+					<label class="layui-form-label">站点</label>
+					<div class="layui-input-inline">
+						 <select lay-filter="querySelect"   class="layui-input" name="site_id"   >
+							<option value="-1">请选择站点</option>
+							<option  
+							ng-repeat="site in sitelist" 
+							value="{{site.id}}"  
+							ng-bind="site.name"></option>
+						</select> 
+					</div>
+			</div>
+			<table  id="addressTable" lay-filter="mailboxtable"></table>
+		</div>
+		<div  style="flex:3;" >
+		<div class="layui-form-item">
+			<label class="layui-form-label">名称</label>
+			<div class="layui-input-inline">
+				<input  name="name" placeholder="输入邮筒名称" class="layui-input">
+			</div>
+			<label class="layui-form-label">站点</label>
+			<div class="layui-input-inline">
+				 <select   class="layui-input" name="site_id"   >
+					<option  ng-repeat="site in sitelist" value="{{site.id}}"  ng-bind="site.name"></option>
+				</select> 
+			</div>
+		</div>
+		 <div class="layui-form-item">
+			 <label class="layui-form-label">经度</label>
+			<div class="layui-input-inline">
+				<input  ng-model="lng" placeholder="点击地图获取"  readonly="readonly"  name="lng"   class="layui-input">
+			</div>
+			<label class="layui-form-label">纬度</label>
+			<div class="layui-input-inline">
+				<input ng-model="lat" placeholder="点击地图获取经"  readonly="readonly" name="lat"    class="layui-input" readonly="readonly">
+			</div>
+		</div>
+		
+		<div class="layui-form-item" >
+				 <button type="button" style="margin-left:110px;"  
+					class="layui-btn"  ng-click="insert()">添加</button>
+		</div>
+<div id="baidumap" style="width:100%;height:100%;"></div>
+		<div id="printeTemplate" style="display:none" align="center"></div>
+		</div>
+</div>
+</body>
+<script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-xs" lay-event="detail">详情</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+  <a class="layui-btn layui-btn-xs" lay-event="printcode">打印二维码</a>
+</script>
+</html>

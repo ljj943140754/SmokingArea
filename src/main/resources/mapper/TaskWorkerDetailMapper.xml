@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smokeroom.mapper.TaskWorkerDetailMapper">
+  <resultMap id="BaseResultMap" type="com.smokeroom.entity.TaskWorkerDetail">
+    <result column="wdt_tsk_id" jdbcType="INTEGER" property="wdt_tsk_id" />
+    <result column="wdt_worker_id" jdbcType="INTEGER" property="wdt_worker_id" />
+  </resultMap>
+  <insert id="insert" parameterType="com.smokeroom.entity.TaskWorkerDetail">
+    insert into task_worker_detail (wdt_tsk_id, wdt_worker_id)
+    values (#{wdt_tsk_id,jdbcType=INTEGER}, #{wdt_worker_id,jdbcType=INTEGER})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select wdt_tsk_id, wdt_worker_id
+    from task_worker_detail
+  </select>
+</mapper>

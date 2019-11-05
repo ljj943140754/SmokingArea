@@ -1,0 +1,18 @@
+<table class="layui-table"  >
+  <thead>
+    <tr>
+      <th >站点</th>
+      <th width="100">序号</th>
+      <th width="80">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+  	  <tr ng-repeat="item in insertModel">
+  	  		<th ><label ng-bind="item.name"></label></th>
+	  	   <th ><input class="layui-input" ng-model="item.seq" /></th>
+	       <th >
+	       	 <a ng-click="deleteItem($index)" class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除<i class="layui-icon layui-icon-delete"></i></a>
+	       </th>
+  	  </tr>
+  </tbody>
+</table>

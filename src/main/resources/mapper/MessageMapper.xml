@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smokeroom.mapper.MessageMapper">
+  <resultMap id="BaseResultMap" type="com.smokeroom.entity.Message">
+    <id column="msg_id" jdbcType="INTEGER" property="msg_id" />
+    <result column="msg_content" jdbcType="VARCHAR" property="msg_content" />
+    <result column="msg_creation" jdbcType="TIMESTAMP" property="msg_creation" />
+    <result column="msg_status" jdbcType="INTEGER" property="msg_status" />
+    <result column="msg_expire" jdbcType="BIGINT" property="msg_expire" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from message
+    where msg_id = #{msg_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.smokeroom.entity.Message">
+    insert into message (msg_id, msg_content, msg_creation,  msg_expire)
+    values (null, #{msg_content,jdbcType=VARCHAR}, now(),  #{msg_expire,jdbcType=BIGINT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.smokeroom.entity.Message">
+    update message
+    set   msg_status = #{msg_status,jdbcType=INTEGER}
+         where msg_id = #{msg_id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select msg_id, msg_content, msg_creation, msg_status, msg_expire
+    from message
+    where msg_id = #{msg_id,jdbcType=INTEGER}
+  </select>
+  
+  
+  <select id="get" resultMap="BaseResultMap">
+    select msg_id, msg_content, msg_creation, msg_status, msg_expire
+    from message
+    where 1
+    <if test="msg_id!=null">
+      and msg_id=#{msg_id}
+    </if>
+    <if test="msg_creation!=null">
+      and  datediff(msg_creation,#{msg_creation}) = 0
+    </if>
+    <if test="msg_status!=null">
+      and msg_status=#{msg_status}
+    </if>
+    order by msg_creation desc;
+  </select>
+   
+  
+</mapper>

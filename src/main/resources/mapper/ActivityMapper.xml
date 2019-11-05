@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smokeroom.mapper.ActivityMapper">
+  <resultMap id="BaseResultMap" type="com.smokeroom.entity.Activity">
+    <id column="at_id" jdbcType="INTEGER" property="at_id" />
+    <result column="at_uid" jdbcType="INTEGER" property="at_uid" />
+    <result column="at_title" jdbcType="VARCHAR" property="at_title" />
+    <result column="at_status" jdbcType="INTEGER" property="at_status" />
+    <result column="at_max_count" jdbcType="INTEGER" property="at_max_count" />
+    <result column="at_creation" jdbcType="TIMESTAMP" property="at_creation" />
+    <result column="at_content" jdbcType="VARCHAR" property="at_content" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from activity
+    where at_id = #{at_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.smokeroom.entity.Activity">
+    insert into activity (at_id, at_uid, at_title, 
+      at_status, at_max_count, at_creation, 
+      at_content)
+    values (#{at_id,jdbcType=INTEGER}, #{at_uid,jdbcType=INTEGER}, #{at_title,jdbcType=VARCHAR}, 
+      #{at_status,jdbcType=INTEGER}, #{at_max_count,jdbcType=INTEGER}, #{at_creation,jdbcType=TIMESTAMP}, 
+      #{at_content,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.smokeroom.entity.Activity">
+    update activity
+    set at_uid = #{at_uid,jdbcType=INTEGER},
+      at_title = #{at_title,jdbcType=VARCHAR},
+      at_status = #{at_status,jdbcType=INTEGER},
+      at_max_count = #{at_max_count,jdbcType=INTEGER},
+      at_creation = #{at_creation,jdbcType=TIMESTAMP},
+      at_content = #{at_content,jdbcType=VARCHAR}
+    where at_id = #{at_id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select at_id, at_uid, at_title, at_status, at_max_count, at_creation, at_content
+    from activity
+    where at_id = #{at_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select at_id, at_uid, at_title, at_status, at_max_count, at_creation, at_content
+    from activity
+  </select>
+</mapper>

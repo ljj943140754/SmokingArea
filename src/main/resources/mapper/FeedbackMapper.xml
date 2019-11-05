@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smokeroom.mapper.FeedbackMapper">
+  <resultMap id="BaseResultMap" type="com.smokeroom.entity.Feedback">
+    <id column="fb_id" jdbcType="INTEGER" property="fb_id" />
+    <result column="fb_uid" jdbcType="INTEGER" property="fb_uid" />
+    <result column="fb_res" jdbcType="VARCHAR" property="fb_res" />
+    <result column="fb_content" jdbcType="VARCHAR" property="fb_content" />
+    <result column="fb_status" jdbcType="INTEGER" property="fb_status" />
+    <result column="fb_rly_content" jdbcType="VARCHAR" property="fb_rly_content" />
+    <result column="fb_creation" jdbcType="TIMESTAMP" property="fb_creation" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from feedback
+    where fb_id = #{fb_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.smokeroom.entity.Feedback">
+    insert into feedback (fb_id, fb_uid, fb_res, 
+      fb_content, fb_status, fb_rly_content, 
+      fb_creation)
+    values (null, #{fb_uid,jdbcType=INTEGER}, #{fb_res,jdbcType=VARCHAR}, 
+      #{fb_content,jdbcType=VARCHAR}, #{fb_status,jdbcType=INTEGER}, #{fb_rly_content,jdbcType=VARCHAR}, 
+      now())
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.smokeroom.entity.Feedback">
+    update feedback
+    set 
+    <if test="fb_status!=null">
+      fb_status = #{fb_status,jdbcType=INTEGER},
+    </if>
+    <if test="fb_rly_content!=null">
+      fb_rly_content = #{fb_rly_content,jdbcType=VARCHAR}
+    </if>
+    where fb_id = #{fb_id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="com.smokeroom.entity.Feedback" resultMap="BaseResultMap">
+    select fb_id, fb_uid, fb_res, fb_content, fb_status, fb_rly_content, fb_creation
+    from feedback
+    where 1
+    <if test="fb_id!=null">
+   	 and fb_id = #{fb_id}
+    </if>
+    <if test="fb_uid!=null">
+   	 and fb_uid = #{fb_uid}
+    </if>
+    <if test="fb_status!=null">
+   	 and fb_status = #{fb_status}
+    </if>
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+    select fb_id, fb_uid, fb_res, fb_content, fb_status, fb_rly_content, fb_creation
+    from feedback
+  </select>
+</mapper>

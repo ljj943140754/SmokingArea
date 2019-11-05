@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" >
+</head>
+<body>
+
+<div ng-controller="homeCtrl">
+       <div  ng-show="!!userinfo">
+         	<div class="layui-form-item"  >
+				<label class="layui-form-label">姓名</label>
+			    <label   class="layui-input-inline" style="line-height:40px;" >
+			     {{userinfo.name}} 
+			    </label>
+			</div>
+			<div class="layui-form-item"  >
+				<label  class="layui-form-label">岗位</label>
+			    <label   class="layui-input-inline" style="line-height:40px;">
+			     {{formateWorkerType(userinfo.type)}} 
+			    </label>
+			</div>
+			<div class="layui-form-item"  >
+				<label class="layui-form-label">  工号</label>
+			     <label  class="layui-input-inline" style="line-height:40px;">  {{userinfo.id}} </label>
+			</div>
+			<div class="layui-form-item"  >
+				<label  class="layui-form-label">电话</label>
+			    <label   class="layui-input-inline" style="line-height:40px;">
+			     {{userinfo.tel}} 
+			    </label>
+			</div>
+			
+        	<div class="layui-form-item"  >
+				<label class="layui-form-label"> </label>
+			    <button type="button"  
+							class="layui-btn"  ng-click="loginout()">注销</button>
+			</div>
+        </div>
+       <div  ng-show="!userinfo">
+	        <div class="layui-form-item"  >
+				<label class="layui-form-label">管理员账号</label>
+				<div class="layui-input-inline">
+					<input ng-model="login.wk_num"  class="layui-input"  >
+				</div>
+			</div>
+			<div class="layui-form-item"  >
+					<label class="layui-form-label">管理员密码</label>
+					<div class="layui-input-inline">
+						 <input type="password"  ng-model="login.wk_password"   class="layui-input"   />
+					</div>		 
+			</div>
+			<div class="layui-form-item"  >
+				<label class="layui-form-label"></label>
+			    <button type="button"  
+							class="layui-btn"  ng-click="loginsys()">登陆</button>
+			</div>
+       
+       </div>
+         <div id="allmap" style="width:100%;height:400px;"></div>
+</div>
+
+</body>
+</html>

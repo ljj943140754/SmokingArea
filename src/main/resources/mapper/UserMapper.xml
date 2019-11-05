@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smokeroom.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.smokeroom.entity.User">
+    <id column="ur_id" jdbcType="INTEGER" property="ur_id" />
+    <result column="ur_openid" jdbcType="VARCHAR" property="ur_openid" />
+    <result column="ur_wechat_id" jdbcType="VARCHAR" property="ur_wechat_id" />
+    <result column="ur_phone" jdbcType="VARCHAR" property="ur_phone" />
+    <result column="ur_nickname" jdbcType="VARCHAR" property="ur_nickname" />
+    <result column="ur_unionid" jdbcType="VARCHAR" property="ur_unionid" />
+    <result column="ur_scores" jdbcType="INTEGER" property="ur_scores" />
+    <result column="ur_creation" jdbcType="TIMESTAMP" property="ur_creation" />
+    <result column="ur_lastupdated" jdbcType="TIMESTAMP" property="ur_lastupdated" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where ur_id = #{ur_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.smokeroom.entity.User">
+    insert into user (ur_id, ur_openid, ur_wechat_id, 
+      ur_phone, ur_nickname, ur_unionid, 
+      ur_scores, ur_creation, ur_lastupdated
+      )
+    values (#{ur_id,jdbcType=INTEGER}, #{ur_openid,jdbcType=VARCHAR}, #{ur_wechat_id,jdbcType=VARCHAR}, 
+      #{ur_phone,jdbcType=VARCHAR}, #{ur_nickname,jdbcType=VARCHAR}, #{ur_unionid,jdbcType=VARCHAR}, 
+      #{ur_scores,jdbcType=INTEGER}, #{ur_creation,jdbcType=TIMESTAMP}, #{ur_lastupdated,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.smokeroom.entity.User">
+    update user
+    set ur_openid = #{ur_openid,jdbcType=VARCHAR},
+      ur_wechat_id = #{ur_wechat_id,jdbcType=VARCHAR},
+      ur_phone = #{ur_phone,jdbcType=VARCHAR},
+      ur_nickname = #{ur_nickname,jdbcType=VARCHAR},
+      ur_unionid = #{ur_unionid,jdbcType=VARCHAR},
+      ur_scores = #{ur_scores,jdbcType=INTEGER},
+      ur_creation = #{ur_creation,jdbcType=TIMESTAMP},
+      ur_lastupdated = #{ur_lastupdated,jdbcType=TIMESTAMP}
+    where ur_id = #{ur_id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select ur_id, ur_openid, ur_wechat_id, ur_phone, ur_nickname, ur_unionid, ur_scores, 
+    ur_creation, ur_lastupdated
+    from user
+    where ur_id = #{ur_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ur_id, ur_openid, ur_wechat_id, ur_phone, ur_nickname, ur_unionid, ur_scores, 
+    ur_creation, ur_lastupdated
+    from user
+  </select>
+</mapper>

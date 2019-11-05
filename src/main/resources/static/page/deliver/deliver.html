@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" >
+</head>
+<body  >
+
+<div class="layui-tab"  ng-controller="orderCtrl"   >
+  <ul class="layui-tab-title">
+    <li class="layui-this">发货单查询</li>
+    <li>新增发货单</li>  
+  </ul>
+  <div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">
+    
+			<div class="layui-form-item"  >
+					<label class="layui-form-label">发货单号</label>
+					<div class="layui-input-inline">
+						<input   class="layui-input" id="query_deliver_id">
+					</div>
+				 
+				<label class="layui-form-label">出库时间</label>
+				<div class="layui-input-inline">
+					 <input class="layui-input" readonly="readonly" class="layui-input" id="query_sendtime"  />
+				</div>
+				 <label class="layui-form-label"></label>
+	    		<button type="button"  
+						class="layui-btn"  ng-click="query()">查询</button>
+		</div>
+		<div class="layui-form-item"  >
+		    <button type="button"  
+						class="layui-btn"  ng-click="startDeliver()">出库</button>
+		   <button type="button"  
+						class="layui-btn"  ng-click="printDeliver()">打印</button>
+		  
+		    <table id="deliver_table" lay-filter="deliver_table" ></table>
+		</div>
+	
+	
+	<!-- 模板 -->
+	<div   style="display:none"   id="printeTemplate"  >
+			<table  class="layui-table" style="margin:50px  auto;width:700px;" >
+				<tr>
+					<th>发货单</th>
+					<th>{{printitem.id}}</th>
+					<th>货件总数</th>
+					<th>{{printitem.goodz_total}}</th>
+				</tr>
+				 
+				<tr>
+					<th>路线</th>
+					<th>{{printitem.route_name}}</th>
+					<th>司机</th>
+					<th>{{printitem.driver_name}}</th>
+				</tr>
+				<tr>
+					<th>车辆</th>
+					<th  >{{printitem.truck_name}}</th>
+					<th colspan="2" rowspan="3" align="center" valign="middle">
+					     <div align="center"  id="idcode" ></div>
+					</th>
+				</tr>
+				<tr>
+					<th>车牌</th>
+					<th>{{printitem.truck_num}}</th>
+				</tr>
+				<tr>
+					<th>发货时间</th>
+					<th>{{printitem.sendtime}}</th>
+				</tr>
+			</table>		
+		</div>    
+		
+			
+	<div class="layui-collapse"  ng-show="routesitelist">
+			  <div class="layui-colla-item">
+			    <h2 class="layui-colla-title">路线详情</h2>
+			    <div class="layui-colla-content layui-show"  style="padding:0px 50px 50px;" >
+					<ul class="layui-timeline">
+					  <li ng-repeat="item in routesitelist  | orderBy : '+seq'" class="layui-timeline-item">
+					    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+					    <div class="layui-timeline-content layui-text">
+					      <div class="layui-timeline-title" >
+					       	第{{$index + 1 }}站 {{item.site.name}}  
+					      </div>
+					      <p >
+					             详细地址:{{ item.site.address.address}}
+					            <a ng-click="showDetail(item.site.address.lng,item.site.address.lat)" class="layui-btn layui-btn-xs" lay-event="detail">位置<i class="layui-icon layui-icon-location"></i></a>
+					      </p>
+					    </div>
+					  </li>
+				    </ul> 
+			    </div>
+			  </div>
+			  <div class="layui-colla-item">
+			    <h2 class="layui-colla-title">入库详情</h2>
+			    <div class="layui-colla-content layui-show"  style="padding:0px 50px 50px;"> 
+					<table class="layui-table"  >
+					  <thead>
+					    <tr>
+					      <th width="200">入库站点</th>
+					      <th width="200">入库人员</th>
+					      <th width="130">入库时间</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  	  <tr ng-repeat="item in recrecordlist | orderBy : '+creationtime'">
+					  	  		<th ><label ng-bind="item.site_name"></label></th>
+						  	   <th > <label>{{item.worker_name}}【工号{{item.worker_id}}】</label></th>
+						       <th >
+						       	   <label ng-bind="item.creationtime"></label>
+						       </th>
+					  	  </tr>
+					  </tbody>
+					</table>			    
+			    </div>
+			  </div>
+			  
+			   <div class="layui-colla-item"  >
+			    <h2 class="layui-colla-title">货物清单(共{{orderlist.length}}件)</h2>
+			    <div class="layui-colla-content layui-show"  style="padding:0px 50px 50px;" >
+					<table class="layui-table"  >
+					  <thead>
+					    <tr>
+					      <th width="100">订单号</th>
+					      <th width="120">寄件人</th>
+					      <th  >寄件地址</th>
+					         <th width="120">收件人</th>
+					      <th  >收件地址</th>
+					       <th width="150">寄件时间</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  	  <tr ng-repeat="item in orderlist ">
+					  	  		<th ><label ng-bind="item.id"></label></th>
+						  	    <th ><label ng-bind="item.send_username"></label></th>
+						  	    <th ><label ng-bind="item.send_addr_detail"></label></th>
+						  	    <th ><label ng-bind="item.rec_username"></label></th>
+						  	    <th ><label ng-bind="item.rec_addr_detail"></label></th>
+						  	    <th ><label ng-bind="item.creationtime"></label></th>
+					  	  </tr>
+					  </tbody>
+					</table>			    
+			    </div>
+			  </div>
+		</div>  
+    </div>
+    <div class="layui-tab-item">
+		<div class="layui-form-item"  >
+			<label class="layui-form-label">选择路线</label>
+			<div class="layui-input-inline">
+				<select lay-ignore  style="height:40px;"  
+						ng-model="insertmodel.route_id" 
+						ng-options="route.id as route.name for route in routelist" >
+				</select> 
+			</div>
+			<label class="layui-form-label">出库时间</label>
+			<div class="layui-input-inline">
+				 <input class="layui-input" readonly="readonly" class="layui-input" id="sendtime"  />
+			</div>
+		</div>
+		<div class="layui-form-item"  >		
+			<label class="layui-form-label">选择车辆</label>
+			<div class="layui-input-inline">
+				 <select lay-ignore  style="height:40px;"  
+						ng-model="insertmodel.truck_id" 
+						ng-options="truck.id as truck.name for truck in trucklist" >
+				</select> 
+			</div>
+			<label class="layui-form-label">选择驾驶员</label>
+			<div class="layui-input-inline">
+				<select lay-ignore  style="height:40px;"  
+						ng-model="insertmodel.driver_id" 
+						ng-options="driver.id as driver.name for driver in driverlist" >
+				</select> 
+			</div>
+		</div>
+		<div class="layui-form-item"  >
+			<label class="layui-form-label"></label>
+	    		<button type="button"  class="layui-btn"  
+				    ng-click="insert()">新增</button>
+				<button type="button"  class="layui-btn"  
+				    ng-click="insertReset()">重置</button>
+		</div>   
+		
+		
+    </div>
+ 
+  </div>
+
+
+
+
+
+ </div>
+   <script type="text/html" id="barDemo2">
+   <a class="layui-btn layui-btn-xs" lay-event="detail">详情</a>
+ </script>
+ 
+</body>
+</html>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smokeroom.mapper.FacilityMapper">
+  <resultMap id="BaseResultMap" type="com.smokeroom.entity.Facility">
+    <id column="fy_id" jdbcType="INTEGER" property="fy_id" />
+    <result column="fy_lat" jdbcType="VARCHAR" property="fy_lat" />
+    <result column="fy_lng" jdbcType="VARCHAR" property="fy_lng" />
+    <result column="fy_type" jdbcType="INTEGER" property="fy_type" />
+    <result column="fy_name" jdbcType="VARCHAR" property="fy_name" />
+    <result column="fy_detail" jdbcType="VARCHAR" property="fy_detail" />
+    <result column="fy_res_link" jdbcType="VARCHAR" property="fy_res_link" />
+    <result column="fy_creation" jdbcType="TIMESTAMP" property="fy_creation" />
+    <result column="fy_createdby" jdbcType="INTEGER" property="fy_createdby" />
+    <result column="fy_lastupdated" jdbcType="TIMESTAMP" property="fy_lastupdated" />
+    <result column="fy_lastupdatedby" jdbcType="INTEGER" property="fy_lastupdatedby" />
+    <result column="fy_isdel" jdbcType="INTEGER" property="fy_isdel" />
+  </resultMap>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from facility
+    where fy_id = #{fy_id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.smokeroom.entity.Facility">
+    insert into facility (<include refid="fy_part"></include>)
+    values ( null, #{fy_lat,jdbcType=VARCHAR}, #{fy_lng,jdbcType=VARCHAR}, 
+      #{fy_type,jdbcType=INTEGER}, #{fy_name,jdbcType=VARCHAR}, #{fy_detail,jdbcType=VARCHAR}, 
+      #{fy_res_link,jdbcType=VARCHAR}, now(), #{fy_createdby,jdbcType=INTEGER}, 
+      now(), #{fy_lastupdatedby,jdbcType=INTEGER}, #{fy_isdel,jdbcType=INTEGER}
+      )
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.smokeroom.entity.Facility">
+    update facility
+    set 
+     <if test="fy_lat!=null">
+      	fy_lat = #{fy_lat,jdbcType=VARCHAR},
+     </if>
+      <if test="fy_lng!=null">
+      	fy_lng = #{fy_lng,jdbcType=VARCHAR},
+      </if>
+      <if test="fy_type!=null">
+      	fy_type = #{fy_type,jdbcType=INTEGER},
+      </if>
+      <if test="fy_name!=null">
+     	 fy_name = #{fy_name,jdbcType=VARCHAR},
+      </if>
+      <if test="fy_detail!=null">
+      	fy_detail = #{fy_detail,jdbcType=VARCHAR},
+      </if>
+	      <if test="fy_res_link!=null">
+	      fy_res_link = #{fy_res_link,jdbcType=VARCHAR},
+	      </if>
+	   <if test="fy_lastupdatedby!=null">
+      	fy_lastupdatedby = #{fy_lastupdatedby,jdbcType=INTEGER},
+	   </if>
+	   <if test="fy_isdel!=null">
+      	fy_isdel = #{fy_isdel,jdbcType=INTEGER}
+	   </if>
+      	fy_lastupdated = now()
+    where fy_id = #{fy_id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByPrimaryKey" parameterType="com.smokeroom.entity.Facility" resultMap="BaseResultMap">
+    select 
+    	<include refid="fy_part"></include>
+    from facility
+    where 1 
+    <if test="fy_id">
+    	and fy_id =#{fy_id}
+    </if>
+    <if test="fy_type!=null">
+    	and fy_type=#{fy_type}
+    </if>
+    <if test="fy_name!=null">
+    	and fy_name=#{fy_name}
+    </if>
+    <if test="fy_creation!=null">
+    	and fy_creation=#{fy_creation}
+    </if>
+    <if test="fy_createdby!=null">
+    	and fy_createdby=#{fy_createdby}
+    </if>
+    <if test="fy_isdel!=null">
+   		and fy_isdel=#{fy_isdel}
+   	</if>
+  </select>
+  
+  <sql id="fy_part">
+  fy_id, fy_lat, fy_lng, fy_type, fy_name, fy_detail, fy_res_link, fy_creation,fy_createdby,
+   fy_lastupdated, fy_lastupdatedby, fy_isdel
+  </sql>
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+    select <include refid="fy_part"></include>
+    from facility
+  </select>
+</mapper>

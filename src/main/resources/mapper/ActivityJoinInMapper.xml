@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smokeroom.mapper.ActivityJoinInMapper">
+  <resultMap id="BaseResultMap" type="com.smokeroom.entity.ActivityJoinIn">
+    <result column="ji_at_id" jdbcType="INTEGER" property="ji_at_id" />
+    <result column="ji_uid" jdbcType="INTEGER" property="ji_uid" />
+    <result column="ji_creation" jdbcType="TIMESTAMP" property="ji_creation" />
+  </resultMap>
+  <insert id="insert" parameterType="com.smokeroom.entity.ActivityJoinIn">
+    insert into activity_join_in (ji_at_id, ji_uid, ji_creation
+      )
+    values (#{ji_at_id,jdbcType=INTEGER}, #{ji_uid,jdbcType=INTEGER}, #{ji_creation,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ji_at_id, ji_uid, ji_creation
+    from activity_join_in
+  </select>
+</mapper>

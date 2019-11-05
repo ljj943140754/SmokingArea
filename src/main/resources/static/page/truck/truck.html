@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" >
+</head>
+<body>
+<form class="layui-form"  lay-filter="truckform"  ng-controller="truckCtrl" >
+	<div class="layui-collapse">
+		  <div class="layui-colla-item">
+		    <div class="layui-colla-content layui-show">
+				<div class="layui-form-item"  >
+						<label class="layui-form-label">车辆名称</label>
+						<div class="layui-input-inline">
+							<input   ng-model="name"  class="layui-input">
+						</div>
+						<label class="layui-form-label">车牌号</label>
+						<div class="layui-input-inline">
+							<input  ng-model="num" class="layui-input">
+						</div>
+						<label class="layui-form-label">站点</label>
+					<div class="layui-input-inline">
+						<select lay-ignore  style="height:40px;"  
+							ng-model="site_id" 
+							ng-options="site.id as site.name for site in sitelist" >
+						</select> 
+					</div>
+			    </div>
+			    <div class="layui-form-item"  >
+					    <label class="layui-form-label">备注</label>
+						<div class="layui-input-block">
+							<input  ng-model="description" class="layui-input"  />
+						</div>
+			    </div>
+			    <div class="layui-form-item" >
+			            <label class="layui-form-label"></label>
+			    		 <button type="button"  
+								class="layui-btn"  ng-click="insert()">添加</button>
+						<button type="button"  
+								class="layui-btn"  ng-click="query()">查询</button>
+			    </div>
+			    <div class="layui-form-item" >
+					<table class="layui-table"  >
+					  <thead>
+					    <tr>
+					      <th width="100px">车辆名称</th>
+					      <th width="100px">车牌号</th>
+					      <th >描述</th>
+					      <th width="200px">时间</th>
+					      <th width="80px"></th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  	  <tr ng-repeat="item in queryModel">
+					  	  	<th ><label ng-bind="item.name"></label></th>
+						  	<th ><label ng-bind="item.num"></label> </th>
+						  	<th ><label ng-bind="item.description"></label> </th>
+						   <th ><label ng-bind="item.creationtime"></label> </th>
+						    <th >
+						       	 <a ng-click="deleteItem($index)" class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除<i class="layui-icon layui-icon-delete"></i></a>
+						     </th>
+					  	  </tr>
+					  </tbody>
+					</table>			    
+			    </div>
+		    </div>
+		  </div>
+  </div>
+</form>
+</body>
+</html>

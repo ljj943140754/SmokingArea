@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" >
+</head>
+<body>
+<form class="layui-form"  lay-filter="truckform"  ng-controller="orderCtrl" >
+	<div class="layui-collapse">
+		  <div class="layui-colla-item">
+		  	<h2 class="layui-colla-title">订单查询</h2>
+		    <div class="layui-colla-content layui-show">
+				<div class="layui-form-item"  >
+						<label class="layui-form-label">订单号</label>
+						<div class="layui-input-inline">
+							<input   ng-model="search.id"  class="layui-input">
+						</div>
+					<label class="layui-form-label">发货站点</label>
+					<div class="layui-input-inline">
+						<select lay-ignore  style="height:40px;"  
+							ng-model="search.send_site_id" 
+							ng-options="site.id as site.name for site in sitelist" >
+						</select> 
+					</div>
+					<label class="layui-form-label">收货站点</label>
+					<div class="layui-input-inline">
+						<select lay-ignore  style="height:40px;"  
+							ng-model="search.rec_site_id" 
+							ng-options="site.id as site.name for site in sitelist" >
+						</select> 
+					</div>
+			</div>
+			<div class="layui-form-item"  >
+					<label class="layui-form-label">邮筒</label>
+					<div class="layui-input-inline">
+						 <input   ng-model="search.box_id"  class="layui-input">
+					</div>
+					 <label class="layui-form-label">状态</label>
+					<div class="layui-input-inline">
+						<select lay-ignore  style="height:40px;"  
+							ng-model="search.status"  >
+							<option value="">请选择</option>
+							<option value="1">未完成</option>
+							<option value="2">已完成</option>
+						</select> 
+					</div> 
+					  <label class="layui-form-label"></label>
+			    		<button type="button"  
+								class="layui-btn"  ng-click="query()">查询</button>
+					    <button ng-click="reset()"  class="layui-btn layui-btn-primary">重置</button>
+			    </div>
+			    <div class="layui-form-item" >
+			      <label class="layui-form-label"></label>
+				  <button type="button"   class="layui-btn" ng-click="print()" >打印</button>		
+			      <table id="ordertable" lay-filter="ordertable"></table>
+			    </div>
+			    
+			    <div class="layui-form-item"   >
+			      <ul class="layui-timeline"  id="locationtable" >
+						  <li ng-repeat="item in locationlist" class="layui-timeline-item">
+						    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+						    <div class="layui-timeline-content layui-text">
+						      <div class="layui-timeline-title" >
+						       	 {{item.creationtime}}  {{item.site_name}}
+						      </div>
+						      <p >
+						          进度：{{item.status_desc}}
+						      </p>
+						    </div>
+						  </li>
+					</ul>
+			    </div>
+		    </div>
+		  </div>
+  </div>
+
+
+	<div   id="printeTemplate"   style="display:none">
+	<table  class="layui-table"  style="margin:50px  auto;width:700px;"  >
+			<tr>
+				<th>发件人</th>
+				<th>{{printitem.send_username}}</th>
+				<th>发件人电话</th>
+				<th>{{printitem.send_tel}}</th>
+			</tr>
+			<tr>
+				<th>发件人地址</th>
+				<th colspan="3">{{printitem.send_addr_detail}}</th>
+			</tr>
+			<tr>
+				<th>收件人</th>
+				<th>{{printitem.rec_username}}</th>
+				<th>收件人电话</th>
+				<th>{{printitem.rec_tel}}</th>
+			</tr>
+			<tr>
+				<th>收件人地址</th>
+				<th colspan="3">{{printitem.rec_addr_detail}}</th>
+			</tr>
+			<tr>
+				<th>订单号</th>
+				<th  >{{printitem.id}}</th>
+				<th colspan="2" rowspan="5" align="center" valign="middle">
+				    <div align="center" id="idcode"   ></div>
+				</th>
+			</tr>
+			<tr>
+				<th>下单时间</th>
+				<th>{{printitem.creationtime}}</th>
+			</tr>
+			<tr>
+				<th>重量</th>
+				<th>{{printitem.weight}}</th>
+			</tr>
+			<tr>
+				<th>体积</th>
+				<th>{{printitem.volume}}</th>
+			</tr>
+			<tr>
+				<th>运费</th>
+				<th>29.5</th>
+			</tr>
+		</table>
+	
+	</div>
+   <script type="text/html" id="barDemo2">
+   <a class="layui-btn layui-btn-xs" lay-event="detail">详情</a>
+ </script>
+</form> 
+</body>
+</html>

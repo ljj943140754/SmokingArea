@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smokeroom.mapper.TaskMapper">
+  <resultMap id="BaseResultMap" type="com.smokeroom.entity.Task">
+    <id column="tsk_id" jdbcType="INTEGER" property="tsk_id" />
+    <result column="tsk_name" jdbcType="VARCHAR" property="tsk_name" />
+    <result column="tsk_leader_id" jdbcType="INTEGER" property="tsk_leader_id" />
+    <result column="tsk_type" jdbcType="INTEGER" property="tsk_type" />
+    <result column="tsk_time" jdbcType="VARCHAR" property="tsk_time" />
+    <result column="tsk_creation" jdbcType="TIMESTAMP" property="tsk_creation" />
+    <result column="tsk_createdby" jdbcType="INTEGER" property="tsk_createdby" />
+    <result column="tsk_lastupdated" jdbcType="TIMESTAMP" property="tsk_lastupdated" />
+    <result column="tsk_lastupdatedby" jdbcType="INTEGER" property="tsk_lastupdatedby" />
+    <result column="tsk_isdel" jdbcType="INTEGER" property="tsk_isdel" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from task
+    where tsk_id = #{tsk_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.smokeroom.entity.Task">
+    insert into task (tsk_id, tsk_name, tsk_leader_id, 
+      tsk_type, tsk_time, tsk_creation, 
+      tsk_createdby, tsk_lastupdated, tsk_lastupdatedby, 
+      tsk_isdel)
+    values (#{tsk_id,jdbcType=INTEGER}, #{tsk_name,jdbcType=VARCHAR}, #{tsk_leader_id,jdbcType=INTEGER}, 
+      #{tsk_type,jdbcType=INTEGER}, #{tsk_time,jdbcType=VARCHAR}, #{tsk_creation,jdbcType=TIMESTAMP}, 
+      #{tsk_createdby,jdbcType=INTEGER}, #{tsk_lastupdated,jdbcType=TIMESTAMP}, #{tsk_lastupdatedby,jdbcType=INTEGER}, 
+      #{tsk_isdel,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.smokeroom.entity.Task">
+    update task
+    set tsk_name = #{tsk_name,jdbcType=VARCHAR},
+      tsk_leader_id = #{tsk_leader_id,jdbcType=INTEGER},
+      tsk_type = #{tsk_type,jdbcType=INTEGER},
+      tsk_time = #{tsk_time,jdbcType=VARCHAR},
+      tsk_creation = #{tsk_creation,jdbcType=TIMESTAMP},
+      tsk_createdby = #{tsk_createdby,jdbcType=INTEGER},
+      tsk_lastupdated = #{tsk_lastupdated,jdbcType=TIMESTAMP},
+      tsk_lastupdatedby = #{tsk_lastupdatedby,jdbcType=INTEGER},
+      tsk_isdel = #{tsk_isdel,jdbcType=INTEGER}
+    where tsk_id = #{tsk_id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select tsk_id, tsk_name, tsk_leader_id, tsk_type, tsk_time, tsk_creation, tsk_createdby, 
+    tsk_lastupdated, tsk_lastupdatedby, tsk_isdel
+    from task
+    where tsk_id = #{tsk_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select tsk_id, tsk_name, tsk_leader_id, tsk_type, tsk_time, tsk_creation, tsk_createdby, 
+    tsk_lastupdated, tsk_lastupdatedby, tsk_isdel
+    from task
+  </select>
+</mapper>

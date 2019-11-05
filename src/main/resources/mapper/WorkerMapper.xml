@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smokeroom.mapper.WorkerMapper">
+  <resultMap id="BaseResultMap" type="com.smokeroom.entity.Worker">
+    <id column="wk_id" jdbcType="INTEGER" property="wk_id" />
+    <result column="wk_num" jdbcType="INTEGER" property="wk_num" />
+    <result column="wk_type" jdbcType="VARCHAR" property="wk_type" />
+    <result column="wk_phone" jdbcType="VARCHAR" property="wk_phone" />
+    <result column="wk_password" jdbcType="VARCHAR" property="wk_password" />
+    <result column="wk_openid" jdbcType="VARCHAR" property="wk_openid" />
+    <result column="wk_name" jdbcType="VARCHAR" property="wk_name" />
+    <result column="wk_creation" jdbcType="TIMESTAMP" property="wk_creation" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from worker
+    where wk_id = #{wk_id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.smokeroom.entity.Worker">
+    insert into worker (wk_id, wk_num, wk_type, 
+      wk_phone, wk_password, wk_openid, 
+      wk_name, wk_creation)
+    values (null, #{wk_num,jdbcType=INTEGER}, #{wk_type,jdbcType=VARCHAR}, 
+      #{wk_phone,jdbcType=VARCHAR}, #{wk_password,jdbcType=VARCHAR}, #{wk_openid,jdbcType=VARCHAR}, 
+      #{wk_name,jdbcType=VARCHAR}, now())
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.smokeroom.entity.Worker">
+    update worker
+    set 
+	    <if test="wk_num!=null">
+	     wk_num = #{wk_num,jdbcType=INTEGER},
+	    </if>
+	    <if test="wk_type!=null">
+	      wk_type = #{wk_type,jdbcType=VARCHAR},
+	    </if>
+        <if test="wk_phone!=null">
+     	 wk_phone = #{wk_phone,jdbcType=VARCHAR},
+        </if>
+        <if test="wk_password!=null">
+    	  wk_password = #{wk_password,jdbcType=VARCHAR},
+        </if>
+        <if test="wk_name!=null">
+     	 wk_name = #{wk_name,jdbcType=VARCHAR},
+        </if>
+        <if test="wk_isdel!=null">
+     	 wk_isdel=#{wk_isdel}
+        </if>
+    	where wk_id = #{wk_id,jdbcType=INTEGER}
+  </update>
+  
+  <sql id="allfield">
+  	wk_id, wk_num, wk_type, wk_phone, wk_password, wk_openid, wk_name, wk_creation,wk_isdel
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+     <include refid="allfield" />
+    from worker
+    where wk_id = #{wk_id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+    select  
+     <include refid="allfield" />
+    from worker
+  </select>
+  
+  <select id="get" parameterType="Worker" resultMap="BaseResultMap">
+    select 
+     <include refid="allfield" />
+    from worker  where 1
+    <if test="wk_id!=null">
+   		and wk_id = #{wk_id}
+    </if>
+    <if test="wk_num!=null">
+   		and wk_num = #{wk_num}
+    </if>
+     <if test="wk_type!=null">
+   		and wk_type = #{wk_type}
+     </if>
+     <if test="wk_openid!=null">
+   		and wk_openid = #{wk_openid}
+    </if>
+     <if test="wk_phone!=null">
+   		and wk_phone = #{wk_phone}
+     </if>
+      <if test="wk_isdel!=null">
+   		and wk_isdel = #{wk_isdel}
+      </if>
+       <if test="wk_password!=null">
+    	 and wk_password = md5( #{wk_password,jdbcType=VARCHAR}),
+        </if>
+  </select>
+</mapper>
