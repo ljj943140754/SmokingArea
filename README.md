@@ -16,8 +16,9 @@ index是一大串钥匙，objects里是房间，拿着钥匙去开对应的房�
 【查看添加的远程仓库地址】git remote -v 
 【删除添加的远程仓库地址】git remote remove 添加的名字
 
-【从远程仓库拉取并合并】 git pull 如果对于新仓库，需要指定远程仓库的名字。
-	git pull remote_xxxname 
+【从远程仓库拉取并合并】 
+	克隆而来的仓库，直接git pull  
+	本地创建的仓库，要从远程仓库拉取需要指定名字。git pull remote_xxxname  
 
 
 
