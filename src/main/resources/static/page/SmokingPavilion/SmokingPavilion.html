@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" >
+</head>
+<body>
+<!--巡更人员管理-->
+<form class="layui-form"  lay-filter="workform"  ng-controller="PatrolCtrl" >
+		<div class="layui-form-item"  >
+				<label class="layui-form-label">位置名称</label>
+				<div class="layui-input-inline">
+					<input   name="name" class="layui-input">
+				</div>
+			   <label class="layui-form-label">创建时间</label>
+				<div class="layui-input-inline">
+					<!-- <select   class="layui-input" name="site_id"   >
+					<option  ng-repeat="site in sitelist" value="{{site.id}}"  ng-bind="site.name"></option>
+					</select> -->
+					<input type="text" class="layui-input" id="test1">
+				</div>
+	    </div>
+	    
+	    <div class="layui-form-item"  >
+				<label class="layui-form-label">位置详细</label>
+				<div class="layui-input-inline">
+					<input  name="tel" class="layui-input">
+				</div>
+			   <label class="layui-form-label">创建者</label>
+				<div class="layui-input-inline">
+					<div class="layui-input-inline">
+						<input  name="tel" class="layui-input">
+					</div>
+				</div>
+	    </div>
+	    
+	   <div class="layui-form-item" >
+	   		<label class="layui-form-label"></label>
+	   		<div class="layui-input-inline">				  
+	   			<button type="button" class="layui-btn"  
+	   			ng-click="insert()">添加</button>	
+	   			<button type="button" class="layui-btn 
+	   			layui-btn-danger" ng-click="deleteById()">删除</button>
+	   		</div>
+	   		<div class="layui-input-inline">		
+	   			<button type="button" class="layui-btn 
+	   			layui-btn-normal" ng-click="select()"style="margin-left: -40px;">查询</button>
+	   		</div>
+	   </div>
+		<table id="workerTable" lay-filter="workerlist"></table>
+	</form>
+</body>
+</html>
