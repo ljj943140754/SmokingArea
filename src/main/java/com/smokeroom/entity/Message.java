@@ -2,6 +2,7 @@ package com.smokeroom.entity;
 
 import java.util.Date;
 
+//消息表
 public class Message {
     private Integer msg_id;
 

@@ -2,6 +2,7 @@ package com.smokeroom.entity;
 
 import java.util.Date;
 
+//用户实体表
 public class User {
     private Integer ur_id;
 

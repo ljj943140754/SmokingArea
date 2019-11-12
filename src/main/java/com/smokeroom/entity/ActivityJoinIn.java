@@ -1,7 +1,8 @@
 package com.smokeroom.entity;
 
 import java.util.Date;
-
+/**
+ * 活动报名实体类*/
 public class ActivityJoinIn {
     private Integer ji_at_id;
 

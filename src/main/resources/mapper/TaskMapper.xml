@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smokeroom.mapper.TaskMapper">
+	<!-- 封装结果集 resultMap -->
   <resultMap id="BaseResultMap" type="com.smokeroom.entity.Task">
     <id column="tsk_id" jdbcType="INTEGER" property="tsk_id" />
     <result column="tsk_name" jdbcType="VARCHAR" property="tsk_name" />
@@ -13,42 +14,102 @@
     <result column="tsk_lastupdatedby" jdbcType="INTEGER" property="tsk_lastupdatedby" />
     <result column="tsk_isdel" jdbcType="INTEGER" property="tsk_isdel" />
   </resultMap>
+  
+ 	<!-- Sql 片段 -->
+   <sql id="taskField">
+  	tsk_id, tsk_name, tsk_leader_id, tsk_type, tsk_time, tsk_creation, tsk_createdby, 
+    tsk_lastupdated, tsk_lastupdatedby, tsk_isdel
+  </sql>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from task
     where tsk_id = #{tsk_id,jdbcType=INTEGER}
   </delete>
+  
+  <!-- 添加巡更任务操作 -->
   <insert id="insert" parameterType="com.smokeroom.entity.Task">
     insert into task (tsk_id, tsk_name, tsk_leader_id, 
       tsk_type, tsk_time, tsk_creation, 
-      tsk_createdby, tsk_lastupdated, tsk_lastupdatedby, 
-      tsk_isdel)
-    values (#{tsk_id,jdbcType=INTEGER}, #{tsk_name,jdbcType=VARCHAR}, #{tsk_leader_id,jdbcType=INTEGER}, 
-      #{tsk_type,jdbcType=INTEGER}, #{tsk_time,jdbcType=VARCHAR}, #{tsk_creation,jdbcType=TIMESTAMP}, 
-      #{tsk_createdby,jdbcType=INTEGER}, #{tsk_lastupdated,jdbcType=TIMESTAMP}, #{tsk_lastupdatedby,jdbcType=INTEGER}, 
-      #{tsk_isdel,jdbcType=INTEGER})
+      tsk_createdby, tsk_lastupdated, tsk_lastupdatedby)
+    values (null, #{tsk_name,jdbcType=VARCHAR}, #{tsk_leader_id,jdbcType=INTEGER}, 
+      #{tsk_type,jdbcType=INTEGER}, #{tsk_time,jdbcType=VARCHAR}, now(), 
+      #{tsk_createdby,jdbcType=INTEGER}, now(), #{tsk_lastupdatedby,jdbcType=INTEGER})
   </insert>
+  
+  <!-- 修改巡更任务操作 -->
   <update id="updateByPrimaryKey" parameterType="com.smokeroom.entity.Task">
     update task
-    set tsk_name = #{tsk_name,jdbcType=VARCHAR},
+    set
+    <if test="tsk_name!=null">    
+      tsk_name = #{tsk_name,jdbcType=VARCHAR},
+    </if> 
+    <if test="tsk_leader_id!=null">
       tsk_leader_id = #{tsk_leader_id,jdbcType=INTEGER},
+    </if>
+    <if test="tsk_type!=null">
       tsk_type = #{tsk_type,jdbcType=INTEGER},
+    </if>
+    <if test="tsk_time!=null">
       tsk_time = #{tsk_time,jdbcType=VARCHAR},
-      tsk_creation = #{tsk_creation,jdbcType=TIMESTAMP},
-      tsk_createdby = #{tsk_createdby,jdbcType=INTEGER},
-      tsk_lastupdated = #{tsk_lastupdated,jdbcType=TIMESTAMP},
+    </if>
+    <if test="tsk_isdel!=null">
+      tsk_isdel = #{tsk_isdel,jdbcType=INTEGER},
+    </if>
+    <if test="tsk_lastupdatedby!=null">
       tsk_lastupdatedby = #{tsk_lastupdatedby,jdbcType=INTEGER},
-      tsk_isdel = #{tsk_isdel,jdbcType=INTEGER}
+    </if>
+      tsk_lastupdated = now()
     where tsk_id = #{tsk_id,jdbcType=INTEGER}
   </update>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select tsk_id, tsk_name, tsk_leader_id, tsk_type, tsk_time, tsk_creation, tsk_createdby, 
     tsk_lastupdated, tsk_lastupdatedby, tsk_isdel
     from task
     where tsk_id = #{tsk_id,jdbcType=INTEGER}
   </select>
+ 
+  
   <select id="selectAll" resultMap="BaseResultMap">
     select tsk_id, tsk_name, tsk_leader_id, tsk_type, tsk_time, tsk_creation, tsk_createdby, 
     tsk_lastupdated, tsk_lastupdatedby, tsk_isdel
     from task
+  </select>
+  
+  <!-- 查询巡更任务操作 条件查询、详情查询、列表查询 -->
+  <select id="get" resultMap="BaseResultMap">
+  	select <include refid="taskField"></include>
+  	from task
+  	where 1
+  	<if test="tsk_id!=null">
+  		and tsk_id=#{tsk_id}
+  	</if>
+  	<if test="tsk_name!=null">
+  		and tsk_name=#{tsk_name}
+  	</if>
+  	<if test="tsk_leader_id!=null">
+  		and tsk_leader_id=#{tsk_leader_id}
+  	</if>
+  	<if test="tsk_type!=null">
+  		and tsk_type=#{tsk_type}
+  	</if>
+  	<if test="tsk_time!=null">
+  		and tsk_time=#{tsk_time}
+  	</if>
+  	<if test="tsk_creation!=null">
+  		and tsk_creation=#{tsk_creation}
+  	</if>
+  	<if test="tsk_createdby!=null">
+  		and tsk_createdby=#{tsk_createdby}
+  	</if>
+  	<if test="tsk_lastupdated!=null">
+  		and tsk_lastupdated=#{tsk_lastupdated}
+  	</if>
+  	<if test="tsk_lastupdatedby!=null">
+  		and tsk_lastupdatedby=#{tsk_lastupdatedby}
+  	</if>
+  	<if test="tsk_isdel!=null">
+  		and tsk_isdel=#{tsk_isdel}
+  	</if>
   </select>
 </mapper>

@@ -49,4 +49,44 @@
     ur_creation, ur_lastupdated
     from user
   </select>
+  
+  <sql id="userField">
+  	ur_id, ur_openid, ur_wechat_id, ur_phone, ur_nickname, ur_unionid, ur_scores, 
+    ur_creation, ur_lastupdated
+  </sql>
+  
+  <select id="get" parameterType="User" resultMap="BaseResultMap">
+  	 select 
+     <include refid="userField" />
+    from user  where 1
+    <if test="ur_id!=null">
+   		and ur_id = #{ur_id}
+    </if>
+    <if test="ur_openid!=null">
+   		and ur_openid = #{ur_openid}
+    </if>
+    <if test="ur_wechat_id!=null">
+   		and ur_wechat_id = #{ur_wechat_id}
+    </if>
+    <if test="ur_phone!=null">
+   		and ur_phone = #{ur_phone}
+    </if>
+    <if test="ur_nickname!=null">
+   		and ur_nickname = #{ur_nickname}
+    </if>
+    <if test="ur_unionid!=null">
+   		and ur_unionid = #{ur_unionid}
+    </if>
+    <if test="ur_scores!=null">
+    	and ur_scores = #{ur_scores}
+     </if>
+     <if test="ur_creation!=null">
+    	and ur_creation = #{ur_creation}
+     </if>
+     <if test="ur_lastupdated!=null">
+    	and ur_lastupdated = #{ur_lastupdated}
+     </if>
+  </select>
+  
+  
 </mapper>

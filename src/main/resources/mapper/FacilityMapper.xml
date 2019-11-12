@@ -22,7 +22,7 @@
   </delete>
   
   <insert id="insert" parameterType="com.smokeroom.entity.Facility">
-    insert into facility (<include refid="fy_part"></include>)
+    insert into facility (<include refid="facilityField"></include>)
     values ( null, #{fy_lat,jdbcType=VARCHAR}, #{fy_lng,jdbcType=VARCHAR}, 
       #{fy_type,jdbcType=INTEGER}, #{fy_name,jdbcType=VARCHAR}, #{fy_detail,jdbcType=VARCHAR}, 
       #{fy_res_link,jdbcType=VARCHAR}, now(), #{fy_createdby,jdbcType=INTEGER}, 
@@ -48,22 +48,22 @@
       <if test="fy_detail!=null">
       	fy_detail = #{fy_detail,jdbcType=VARCHAR},
       </if>
-	      <if test="fy_res_link!=null">
-	      fy_res_link = #{fy_res_link,jdbcType=VARCHAR},
-	      </if>
-	   <if test="fy_lastupdatedby!=null">
-      	fy_lastupdatedby = #{fy_lastupdatedby,jdbcType=INTEGER},
-	   </if>
-	   <if test="fy_isdel!=null">
-      	fy_isdel = #{fy_isdel,jdbcType=INTEGER}
-	   </if>
+      <if test="fy_res_link!=null">
+      fy_res_link = #{fy_res_link,jdbcType=VARCHAR},
+      </if>
+	  <if test="fy_lastupdatedby!=null">
+      fy_lastupdatedby = #{fy_lastupdatedby,jdbcType=INTEGER},
+	  </if>
+	  <if test="fy_isdel!=null">
+      fy_isdel = #{fy_isdel,jdbcType=INTEGER}
+	  </if>
       	fy_lastupdated = now()
     where fy_id = #{fy_id,jdbcType=INTEGER}
   </update>
   
   <select id="selectByPrimaryKey" parameterType="com.smokeroom.entity.Facility" resultMap="BaseResultMap">
     select 
-    	<include refid="fy_part"></include>
+    	<include refid="facilityField"></include>
     from facility
     where 1 
     <if test="fy_id">
@@ -86,13 +86,13 @@
    	</if>
   </select>
   
-  <sql id="fy_part">
+  <sql id="facilityField">
   fy_id, fy_lat, fy_lng, fy_type, fy_name, fy_detail, fy_res_link, fy_creation,fy_createdby,
    fy_lastupdated, fy_lastupdatedby, fy_isdel
   </sql>
   
   <select id="selectAll" resultMap="BaseResultMap">
-    select <include refid="fy_part"></include>
+    select <include refid="facilityField"></include>
     from facility
   </select>
 </mapper>

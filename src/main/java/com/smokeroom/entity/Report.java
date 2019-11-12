@@ -1,7 +1,7 @@
 package com.smokeroom.entity;
 
 import java.util.Date;
-
+//巡更报告实体类
 public class Report {
     private Integer rp_id;
 

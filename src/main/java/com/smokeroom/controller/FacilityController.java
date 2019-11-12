@@ -57,11 +57,11 @@ public class FacilityController extends BaseController {
 		return ResultData.success().setData((mapper.selectByPrimaryKey(fac)));
 	}
 	
-	@ApiOperation("管理员删除 VR / 修改 VR")
+	@ApiOperation("设施修改管理，管理员权限、适用于删除 VR / 修改 VR")
 	@Permission(role = Role.ADMIN )
 	@PostMapping("deleteVR.action")
 	public ResultData deleteVR(Facility fac) {
-		info("查找设施："+fac);
+		info("删除修改 VR 修改设施："+fac);
 		return ResultData.success().setData((mapper.updateByPrimaryKey(fac)));
 	}
 	

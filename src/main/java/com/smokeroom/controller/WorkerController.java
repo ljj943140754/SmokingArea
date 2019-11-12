@@ -20,8 +20,10 @@ import com.common.enu.HttpSessionKey;
 import com.common.enu.Role;
 import com.common.utils.MyStringUtils;
 import com.common.utils.SendSms;
+import com.smokeroom.entity.User;
 import com.smokeroom.entity.Worker;
 import com.smokeroom.entity.ext.WorkerLoginVO;
+import com.smokeroom.mapper.UserMapper;
 import com.smokeroom.mapper.WorkerMapper;
 
 import io.swagger.annotations.Api;
@@ -41,21 +43,22 @@ import io.swagger.annotations.ApiOperation;
 public class WorkerController extends BaseController {
 	@Autowired
 	private WorkerMapper mapper;
+	
+	@Autowired
+	private UserMapper map;
 
-	 
+
 	@ApiOperation("登陆检测")
 	@GetMapping("checklogin.action")
 	@Permission(role = { Role.ADMIN })
 	public ResultData checklogin(HttpSession ss) {
 		CommonUser cmu = (CommonUser) ss.getAttribute(HttpSessionKey.USER_SESSION_KEY.getCode());
-		if( cmu != null ) {
+		if (cmu != null) {
 			return ResultData.success().setData(cmu);
 		}
-		 return ResultData.fail();
+		return ResultData.fail();
 	}
-	
-	
-	
+
 	@ApiOperation("添加工作人员管理")
 	@PostMapping("insert.action")
 	@Permission(role = { Role.ADMIN })
@@ -63,7 +66,7 @@ public class WorkerController extends BaseController {
 		info("用户添加：" + wor);
 		return quickReturn(mapper.insert(wor));
 	}
-	
+
 	@ApiOperation("删除员工管理")
 	@PostMapping("deleteWorker.action")
 	@Permission(role = { Role.ADMIN })
@@ -90,113 +93,133 @@ public class WorkerController extends BaseController {
 
 	@ApiOperation("获取验证码")
 	@PostMapping("getPhoneCode.action")
-	public ResultData getPhoneCode(String phone,HttpSession ss) {
-		 Worker query = new Worker();
-		 query.setWk_phone( phone );
-		 List<Worker> list = mapper.get(query);
-		 if( list.size() ==0 ) {
-				return ResultData.fail("该员工手机号不存在！请联系管理员添加！");
-		 }
-		
+	public ResultData getPhoneCode(String phone, HttpSession ss) {
+		Worker query = new Worker();
+		query.setWk_phone(phone);
+		List<Worker> list = mapper.get(query);
+		if (list.size() == 0) {
+			return ResultData.fail("该员工手机号不存在！请联系管理员添加！");
+		}
+
 		WorkerLoginVO vo = (WorkerLoginVO) ss.getAttribute("logininfo");
-		if(vo == null ) { 
-			//第一次访问
+		if (vo == null) {
+			// 第一次访问
 			vo = new WorkerLoginVO();
-			String phoneCode = RandomStringUtils.random( 6, false, true);
-			System.err.println("验证码："+phoneCode);
+			String phoneCode = RandomStringUtils.random(6, false, true);
+			System.err.println("验证码：" + phoneCode);
 			SendSms.send(phone, phoneCode);
 			vo.setCode(phoneCode);
 			vo.setPhone(phone);
 			ss.setAttribute("logininfo", vo);
 			return ResultData.success("验证码发送成功！");
-		}else {
-			//判断时间有没有过期。
+		} else {
+			// 判断时间有没有过期。
 			long t2 = System.currentTimeMillis();
-			long offset = t2 - vo.getT1();//时间差值。
-			if( offset >= 5*60*1000 ) {
-				//可以发送。
-				String phoneCode = RandomStringUtils.random( 6, false, true);
+			long offset = t2 - vo.getT1();// 时间差值。
+			if (offset >= 5 * 60 * 1000) {
+				// 可以发送。
+				String phoneCode = RandomStringUtils.random(6, false, true);
 				SendSms.send(phone, phoneCode);
 				vo.setCode(phoneCode);
-				vo.setPhone(phone);//防止再次获取时，手机号已经改变。
-				vo.setT1(t2);//更新上次时间，重新计算。
+				vo.setPhone(phone);// 防止再次获取时，手机号已经改变。
+				vo.setT1(t2);// 更新上次时间，重新计算。
 				return ResultData.success("验证码发送成功！");
-			}else {
-				//还未超时。不能发送。
-				return ResultData.fail("请于"+(5*60*1000-offset)/1000+"s之后再重新获取");
+			} else {
+				// 还未超时。不能发送。
+				return ResultData.fail("请于" + (5 * 60 * 1000 - offset) / 1000 + "s之后再重新获取");
 			}
 		}
 	}
 
 	@ApiOperation("员工登陆，小程序端。")
 	@PostMapping("loginbyphone.action")
-	public ResultData wxLogin(String phone,String vcode, HttpSession ss) {
+	public ResultData wxLogin(String phone, String vcode, HttpSession ss) {
 		CommonUser cmu = (CommonUser) ss.getAttribute(HttpSessionKey.USER_SESSION_KEY.getCode());
-		if( cmu != null ) {
-			return ResultData.success("登陆成功！").setData( cmu );
+		System.err.println("cmu:"+cmu);
+		
+		if (cmu != null) {
+			return ResultData.success("登陆成功！").setData(cmu);
 		}
 		WorkerLoginVO vo = (WorkerLoginVO) ss.getAttribute("logininfo");
-		if( vo == null ) {
+		System.err.println("vo:"+vo);
+		
+		if (vo == null) {
 			return ResultData.fail("请先获取验证码！");
 		}
-		if ( MyStringUtils.isEmpty(phone) || MyStringUtils.isEmpty( vcode ) ) {
+		if (MyStringUtils.isEmpty(phone) || MyStringUtils.isEmpty(vcode)) {
 			return ResultData.fail("手机号/验证码不能为空");
 		}
-		if( ! vo.getCode().equals( vcode) ) {
+		if (!vo.getCode().equals(vcode)) {
 			return ResultData.fail("验证码错误！");
 		}
-		if( !vo.getPhone().equals( phone ) ) {
+		if (!vo.getPhone().equals(phone)) {
 			return ResultData.fail("您上次获取验证码的手机号与本次手机号不一致！");
 		}
 		long t1 = System.currentTimeMillis();
 		long offset = t1 - vo.getT1();
-		if(offset >=5*60*1000) {
+		if (offset >= 5 * 60 * 1000) {
 			return ResultData.fail("验证码已经过期，请重新获取！");
 		}
-		 Worker wk = new Worker();
-		 wk.setWk_phone( phone );
-		 List<Worker> list = mapper.get(wk);
-		 if( list.size() ==0 ) {
+		Worker wk = new Worker();
+		wk.setWk_phone(phone);
+		List<Worker> list = mapper.get(wk);
+		if (list.size() == 0) {
 			return ResultData.fail("该员工手机号不存在！请联系管理员添加！");
-		 } 
+		}
 		wk = list.get(0);
-	    cmu = new CommonUser();
+		cmu = new CommonUser();
 		cmu.setWorker(wk);
-		if( wk.getWk_type().equals("worker") ){
+		if (wk.getWk_type().equals("worker")) {
 			System.out.println("worker进入...");
-			cmu.setRole(Role.WORKER);
-			ss.setAttribute(HttpSessionKey.USER_SESSION_KEY.getCode(), cmu );
-		} 
-		wk.setWk_password(null);//清空密码字段。
-		ss.removeAttribute("logininfo");//清空Session中的登陆验证码信息。
-		return ResultData.success("登陆成功！").setData( cmu );
+			cmu.setRoles(new Role[]{Role.WORKER});
+			
+			//查询工作人员是否也是用户
+			User user = new User();
+			user.setUr_phone(phone);
+			List<User> list2 = map.get(user);
+			//用户表有纪录，则当前是工作人员 / 用户
+			if(list2.size() > 0){
+				User us = list2.get(0);
+				cmu.setRoles(new Role[]{Role.WORKER,Role.USER});
+				cmu.setUser(us);
+			}
+
+			ss.setAttribute(HttpSessionKey.USER_SESSION_KEY.getCode(), cmu);
+		}else{
+			return ResultData.fail("您不是工作人员不能登陆！"); 
+		}
+		wk.setWk_password(null);// 清空密码字段。
+		ss.removeAttribute("logininfo");// 清空Session中的登陆验证码信息。
+		return ResultData.success("登陆成功！").setData(cmu);
 	}
-	
-	
+
 	@ApiOperation("管理员登陆")
 	@PostMapping("loginPC.action")
-	public ResultData loginPC(Worker wk,HttpSession ss) {
+	public ResultData loginPC(Worker wk, HttpSession ss) {
 		CommonUser cmu = (CommonUser) ss.getAttribute(HttpSessionKey.USER_SESSION_KEY.getCode());
-		if( cmu != null ) {
-			return ResultData.success("登陆成功！").setData( cmu );
+		System.err.println("cmu:" + cmu);
+		if (cmu != null) {
+			return ResultData.success("登陆成功！").setData(cmu);
 		}
-		
+
 		Worker query = new Worker();
-		query.setWk_id( wk.getWk_id() );
-		query.setWk_password( wk.getWk_password() );
+		query.setWk_num(wk.getWk_num());
+		query.setWk_password(wk.getWk_password());
+		if (query.getWk_num() == null && query.getWk_password() == null) {
+			return ResultData.fail("账号 / 密码不能为空!");
+		}
 		List<Worker> listworkers = mapper.get(query);
-	    if(listworkers.size()> 0) {
-	    	cmu = new CommonUser();
-	    	cmu.setRole(Role.ADMIN);
-	    	listworkers.get(0).setWk_password(null);
-	    	cmu.setWorker( listworkers.get(0) );
-			ss.setAttribute(HttpSessionKey.USER_SESSION_KEY.getCode(), cmu );
-			return ResultData.success("登陆成功！").setData( cmu );
-	    }else {
-	    	
-	    }
-		
-		
-		return null;
+		if (listworkers.size() > 0) {
+			cmu = new CommonUser();
+			cmu.setRoles(new Role[]{Role.ADMIN});
+			listworkers.get(0).setWk_password(null);
+			cmu.setWorker(listworkers.get(0));
+			ss.setAttribute(HttpSessionKey.USER_SESSION_KEY.getCode(), cmu);
+			return ResultData.success("登陆成功！").setData(cmu);
+		} else {
+
+		}
+
+		return ResultData.fail("登陆失败!");
 	}
 }

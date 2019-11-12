@@ -51,11 +51,11 @@ public class UserController extends BaseController {
 	public ResultData login2(HttpServletRequest rq ,String  role) {
 		CommonUser cmu = new CommonUser();
 		if("admin".equals( role )) {
-			cmu.setRole(Role.ADMIN);
+			cmu.setRoles(new Role[]{Role.ADMIN});
 		}else if("user".equals( role )) {
-			cmu.setRole(Role.USER);
+			cmu.setRoles(new Role[]{Role.USER});
 		}else if("worker".equals( role )) {
-			cmu.setRole(Role.WORKER);
+			cmu.setRoles(new Role[]{Role.WORKER});
 		}
 		rq.getSession().setAttribute(HttpSessionKey.USER_SESSION_KEY.getCode(), cmu);
 		return ResultData.success("已经登陆");

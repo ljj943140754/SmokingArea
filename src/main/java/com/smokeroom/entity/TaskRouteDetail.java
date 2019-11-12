@@ -1,5 +1,6 @@
 package com.smokeroom.entity;
 
+//任务-路线明细表
 public class TaskRouteDetail {
     private Integer rdt_tsk_id;
 

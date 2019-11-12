@@ -2,6 +2,7 @@ package com.smokeroom.entity;
 
 import java.util.Date;
 
+//用户反馈表
 public class Feedback {
     private Integer fb_id;
 

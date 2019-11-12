@@ -2,6 +2,7 @@ package com.smokeroom.entity;
 
 import java.util.Date;
 
+//我的痕迹
 public class Trace {
     private Integer te_id;
 

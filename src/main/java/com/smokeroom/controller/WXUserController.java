@@ -68,7 +68,7 @@ public class WXUserController extends BaseController {
 			//2 有则更新。头像，昵称，微信号，性别，
 			//3 将用户信息。放入Session中。
 			CommonUser cmu = new CommonUser();
-			cmu.setRole(Role.USER);
+			//cmu.setRole(Role.USER);
 			rq.getSession().setAttribute(HttpSessionKey.USER_SESSION_KEY.getCode(), cmu);
 			return ResultData.success("已经登陆").setData(rs_openid);
 			

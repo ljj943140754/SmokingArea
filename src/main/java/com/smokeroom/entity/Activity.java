@@ -1,7 +1,8 @@
 package com.smokeroom.entity;
 
 import java.util.Date;
-
+/**
+ * 活动实体类*/
 public class Activity {
     private Integer at_id;
 

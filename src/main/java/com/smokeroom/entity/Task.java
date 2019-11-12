@@ -1,7 +1,7 @@
 package com.smokeroom.entity;
 
 import java.util.Date;
-
+//巡更任务表
 public class Task {
     private Integer tsk_id;
 

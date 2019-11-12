@@ -1,5 +1,6 @@
 package com.smokeroom.entity;
 
+//任务-人员明细表
 public class TaskWorkerDetail {
     private Integer wdt_tsk_id;
 

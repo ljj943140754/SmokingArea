@@ -1,7 +1,7 @@
 package com.smokeroom.entity;
 
 import java.util.Date;
-
+//巡更-签到表
 public class SignInRecord {
     private Integer sin_tsk_id;
 

@@ -2,6 +2,7 @@ package com.smokeroom.entity;
 
 import java.util.Date;
 
+//工作人员表
 public class Worker {
     private Integer wk_id;
 
