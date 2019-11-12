@@ -19,7 +19,7 @@
       fb_content, fb_status, fb_rly_content, 
       fb_creation)
     values (null, #{fb_uid,jdbcType=INTEGER}, #{fb_res,jdbcType=VARCHAR}, 
-      #{fb_content,jdbcType=VARCHAR}, #{fb_status,jdbcType=INTEGER}, #{fb_rly_content,jdbcType=VARCHAR}, 
+      #{fb_content,jdbcType=VARCHAR}, 0, #{fb_rly_content,jdbcType=VARCHAR}, 
       now())
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.smokeroom.entity.Feedback">
