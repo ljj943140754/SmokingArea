@@ -93,4 +93,12 @@ public class Worker {
     public void setWk_creation(Date wk_creation) {
         this.wk_creation = wk_creation;
     }
+
+	@Override
+	public String toString() {
+		return "Worker [wk_id=" + wk_id + ", wk_num=" + wk_num + ", wk_type=" + wk_type + ", wk_phone=" + wk_phone
+				+ ", wk_password=" + wk_password + ", wk_openid=" + wk_openid + ", wk_name=" + wk_name
+				+ ", wk_creation=" + wk_creation + ", wk_isdel=" + wk_isdel + "]";
+	}
+    
 }
