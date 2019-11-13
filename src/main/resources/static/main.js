@@ -6,17 +6,20 @@ const app = angular.module('Express_Sys',['ngRoute']);
 
 //3 页面配置。
 const pages={
+		//suffix:"page/",
+		//prefix:"",
 		config:[
-			["/home","page/home/home","homeCtrl"],
-			["/facility","page/facility/facility","facilityCtrl"],
-			["/facility_insert","page/facility_insert/facility_insert","facility_insertCtrl"],
-			["/facility_update","page/facility_update/facility_update","facility_updateCtrl"],
-			["/task","page/task/task","taskCtrl"],
-			["/task_insert","page/task_insert/task_insert","task_insertCtrl"],
-			["/task_update","page/task_update/task_update","task_updateCtrl"],
-			["/upload","page/upload/upload","uploadCtrl"],
-			["/worker","page/worker/worker","workerCtrl"],
-			["/worker_insert","page/worker_insert/worker_insert","worker_insertCtrl"]
+			 	["/home","page/home/home","homeCtrl"],
+				["/facility","page/facility/facility","facilityCtrl"],
+				["/facility_insert","page/facility_insert/facility_insert","facility_insertCtrl"],
+				["/facility_update","page/facility_update/facility_update","facility_updateCtrl"],
+				["/task","page/task/task","taskCtrl"],
+				["/task_insert","page/task_insert/task_insert","task_insertCtrl"],
+				["/task_update","page/task_update/task_update","task_updateCtrl"],
+				["/upload","page/upload/upload","uploadCtrl"],
+				["/worker","page/worker/worker","workerCtrl"],
+				["/worker_insert","page/worker_insert/worker_insert","worker_insertCtrl"]
+			]
 };
 
 

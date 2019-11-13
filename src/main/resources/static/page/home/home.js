@@ -9,22 +9,22 @@
 		}
 		 
 		$scope.loginsys=function(){
-			if(!this.login || !this.login.id){
+			if(!this.login || !this.login.wk_num){
 				layer.msg("请输入账号");
 				return;
 			}
-			if(!this.login.password ){
+			if(!this.login.wk_password ){
 				layer.msg("请输入密码");
 				return;
 			}
-			if(!/^\d{1,}$/.test(this.login.id)){
+			if(!/^\d{1,}$/.test(this.login.wk_num)){
 				layer.msg("账号格式为数字");
 				return;
 			}
 			console.info("this.login")
 			console.info(this.login)
-			$.get("worker/login.action",this.login,function(rs){
-				$scope.userinfo = rs.data;
+			$.post("worker/loginPC.action",this.login,function(rs){
+				$scope.userinfo = rs.data.worker;
 				$scope.$apply();
 			})
 		}
