@@ -1,6 +1,8 @@
 package com.smokeroom.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +35,7 @@ public class FeedbackController extends BaseController{
 	@Autowired
 	private FeedbackMapper mapper;
 	
+	//小程序端调用
 	@ApiOperation("用户反馈")
 	@PostMapping("userFeedback.action")
 	public ResultData userFeedback(Feedback fee) {
@@ -40,23 +43,25 @@ public class FeedbackController extends BaseController{
 		return quickReturn(mapper.insert(fee));
 	}
 	
-	@Permission(role = { Role.ADMIN })
+	//CMS 端调用
+	@Permission(role = {Role.ADMIN})
 	@ApiOperation("查看用户反馈")
 	@GetMapping("selectAll.action")
-	public ResultData selectAll() {
-		info("查看用户反馈：");
-		return ResultData.success().setData(mapper.selectAll());
+	public ResultData selectAll(Feedback fee){
+		info("查看用户反馈");
+		return ResultData.success().setData(mapper.get(fee));
 	}
 	
+	//CMS 端调用
 	@Permission(role = { Role.ADMIN })
 	@ApiOperation("处理用户意见反馈")
 	@PostMapping("userHandle.action")
 	public ResultData userHandle(Feedback fee) {
 		info("处理用户意见反馈：");
-		return ResultData.success().setData(mapper.updateByPrimaryKey(fee));
+		return quickReturn(mapper.updateByPrimaryKey(fee));
 	}
 	
-	
+	//小程序端调用
 	@Permission(role = { Role.USER })
 	@ApiOperation("用户查看自己反馈记录")
 	@GetMapping("userRecord.action")

@@ -21,8 +21,18 @@ public class User {
     private Date ur_creation;
 
     private Date ur_lastupdated;
+    
+    private String ur_avatarurl;
 
-    public Integer getUr_id() {
+    public String getUr_avatarurl() {
+		return ur_avatarurl;
+	}
+
+	public void setUr_avatarurl(String ur_avatarurl) {
+		this.ur_avatarurl = ur_avatarurl;
+	}
+
+	public Integer getUr_id() {
         return ur_id;
     }
 

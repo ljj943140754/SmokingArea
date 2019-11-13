@@ -33,6 +33,7 @@
     </if>
     where fb_id = #{fb_id,jdbcType=INTEGER}
   </update>
+  
   <select id="selectByPrimaryKey" parameterType="com.smokeroom.entity.Feedback" resultMap="BaseResultMap">
     select fb_id, fb_uid, fb_res, fb_content, fb_status, fb_rly_content, fb_creation
     from feedback
@@ -52,4 +53,25 @@
     select fb_id, fb_uid, fb_res, fb_content, fb_status, fb_rly_content, fb_creation
     from feedback
   </select>
+  
+  <select id="get" resultType="com.smokeroom.entity.ext.FeedbackVO">
+    SELECT f.*,u.ur_nickname,u.ur_avatarurl FROM feedback f
+	LEFT OUTER JOIN `user` u
+	ON f.fb_uid=u.ur_id 
+	where 1
+	<if test="fb_id!=null">
+   	 and fb_id = #{fb_id}
+    </if>
+    <if test="fb_uid!=null">
+   	 and fb_uid = #{fb_uid}
+    </if>
+    <if test="fb_status!=null">
+   	 and fb_status = #{fb_status}
+    </if>
+    <if test="fb_creation!=null">
+   	 and fb_creation like CONCAT(#{fb_creation},"%")
+    </if>
+	
+  </select>
+  
 </mapper>

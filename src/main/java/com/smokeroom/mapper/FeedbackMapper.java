@@ -14,4 +14,7 @@ public interface FeedbackMapper {
 
     int updateByPrimaryKey(Feedback record);
     
+    
+    List<Feedback> get(Feedback fee);
+    
 }
