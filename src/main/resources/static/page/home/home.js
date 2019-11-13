@@ -2,7 +2,7 @@
 	layui.use([ "element", "form","layer", "jquery", "table" ],function(){
 		let layer = layui.layer;
 		$scope.checklogin=function(){
-			$.$get("worker/checklogin.action",function(rs){
+			$.get("worker/checklogin.action",function(rs){
 				$scope.userinfo = rs.data;
 				$scope.$apply();
 			});
@@ -15,19 +15,19 @@
 		}
 		 
 		$scope.loginsys=function(){
-			if(!this.login || !this.login.wk_num){
-				layer.msg("管理员账号");
+			if(!this.login || !this.login.id){
+				layer.msg("请输入工号");
 				return;
 			}
-			if(!this.login.wk_password ){
+			if(!this.login.password ){
 				layer.msg("请输入密码");
 				return;
 			}
-			if(!/^\d{1,}$/.test(this.login.wk_num)){
+			if(!/^\d{1,}$/.test(this.login.id)){
 				layer.msg("工号格式为数字");
 				return;
 			}
-			$.$post("worker/login.action",this.login,function(rs){
+			$.get("worker/login.action",this.login,function(rs){
 				$scope.userinfo = rs.data;
 				$scope.$apply();
 			})
@@ -45,7 +45,5 @@
 		
 	});
  
-	
-
     
 })
