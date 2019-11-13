@@ -8,15 +8,15 @@ const app = angular.module('Express_Sys',['ngRoute']);
 const pages={
 		config:[
 			["/home","page/home/home","homeCtrl"],
-			["/SmokingPavilion","page/SmokingPavilion/SmokingPavilion","SmokingPavilionCtrl"],
-			["/SmokingColumn","page/SmokingColumn/SmokingColumn","SmokingColumnCtrl"],
-			["/SellSmokingIn","page/SellSmokingIn/SellSmokingIn","SellSmokingInCtrl"],
-			["/Patrol","page/Patrol/Patrol","PatrolCtrl"],
-			["/PatrollingReport","page/PatrollingReport/PatrollingReport","PatrollingReportCtrl"],
-			["/User","page/User/User","UserCtrl"],
-			["/UserFeedback","page/UserFeedback/UserFeedback","UserFeedbackCtrl"],
-			["/Activity","page/Activity/Activity","ActivityCtrl"] 
-			]
+			["/facility","page/facility/facility","facilityCtrl"],
+			["/facility_insert","page/facility_insert/facility_insert","facility_insertCtrl"],
+			["/facility_update","page/facility_update/facility_update","facility_updateCtrl"],
+			["/task","page/task/task","taskCtrl"],
+			["/task_insert","page/task_insert/task_insert","task_insertCtrl"],
+			["/task_update","page/task_update/task_update","task_updateCtrl"],
+			["/upload","page/upload/upload","uploadCtrl"],
+			["/worker","page/worker/worker","workerCtrl"],
+			["/worker_insert","page/worker_insert/worker_insert","worker_insertCtrl"]
 };
 
 
