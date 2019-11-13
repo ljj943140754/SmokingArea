@@ -7,16 +7,15 @@ const app = angular.module('Express_Sys',['ngRoute']);
 //3 页面配置。
 const pages={
 		config:[
-				["/address","page/address/address","addressCtrl"],
-			 	["/home","page/home/home","homeCtrl"],
-				["/site","page/site/site","siteCtrl"],
-				["/worker","page/worker/worker","workerCtrl"],
-				["/mailbox","page/mailbox/mailbox","mailboxCtrl"],
-				["/route","page/route/route","routeCtrl"],
-				["/driver","page/driver/driver","driverCtrl"],
-				["/truck","page/truck/truck","truckCtrl"],
-				["/order","page/order/order","orderCtrl"],
-				["/deliver","page/deliver/deliver","deliverCtrl"] 
+			["/home","page/home/home","homeCtrl"],
+			["/SmokingPavilion","page/SmokingPavilion/SmokingPavilion","SmokingPavilionCtrl"],
+			["/SmokingColumn","page/SmokingColumn/SmokingColumn","SmokingColumnCtrl"],
+			["/SellSmokingIn","page/SellSmokingIn/SellSmokingIn","SellSmokingInCtrl"],
+			["/Patrol","page/Patrol/Patrol","PatrolCtrl"],
+			["/PatrollingReport","page/PatrollingReport/PatrollingReport","PatrollingReportCtrl"],
+			["/User","page/User/User","UserCtrl"],
+			["/UserFeedback","page/UserFeedback/UserFeedback","UserFeedbackCtrl"],
+			["/Activity","page/Activity/Activity","ActivityCtrl"] 
 			]
 };
 
