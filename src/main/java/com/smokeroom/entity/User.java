@@ -103,4 +103,13 @@ public class User {
     public void setUr_lastupdated(Date ur_lastupdated) {
         this.ur_lastupdated = ur_lastupdated;
     }
+
+	@Override
+	public String toString() {
+		return "User [ur_id=" + ur_id + ", ur_openid=" + ur_openid + ", ur_wechat_id=" + ur_wechat_id + ", ur_phone="
+				+ ur_phone + ", ur_nickname=" + ur_nickname + ", ur_unionid=" + ur_unionid + ", ur_scores=" + ur_scores
+				+ ", ur_creation=" + ur_creation + ", ur_lastupdated=" + ur_lastupdated + ", ur_avatarurl="
+				+ ur_avatarurl + "]";
+	}
+ 
 }

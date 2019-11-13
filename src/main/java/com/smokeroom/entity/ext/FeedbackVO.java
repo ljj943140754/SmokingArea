@@ -3,6 +3,7 @@ package com.smokeroom.entity.ext;
 import com.smokeroom.entity.Feedback;
 
 public class FeedbackVO extends Feedback{
+	
 	private String ur_nickname;	
 	private String ur_avatarurl;
 	public String getUr_nickname() {

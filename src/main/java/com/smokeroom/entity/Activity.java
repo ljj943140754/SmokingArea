@@ -73,4 +73,12 @@ public class Activity {
     public void setAt_content(String at_content) {
         this.at_content = at_content;
     }
+
+	@Override
+	public String toString() {
+		return "Activity [at_id=" + at_id + ", at_uid=" + at_uid + ", at_title=" + at_title + ", at_status=" + at_status
+				+ ", at_max_count=" + at_max_count + ", at_creation=" + at_creation + ", at_content=" + at_content
+				+ "]";
+	}
+    
 }

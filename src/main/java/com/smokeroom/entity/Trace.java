@@ -53,4 +53,12 @@ public class Trace {
     public void setTe_last_second(Long te_last_second) {
         this.te_last_second = te_last_second;
     }
+
+	@Override
+	public String toString() {
+		return "Trace [te_id=" + te_id + ", te_fy_id=" + te_fy_id + ", te_u_id=" + te_u_id + ", te_fy_creationtime="
+				+ te_fy_creationtime + ", te_last_second=" + te_last_second + "]";
+	}
+    
+    
 }

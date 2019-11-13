@@ -23,7 +23,15 @@ public class Task {
 
     private Integer tsk_isdel;
 
-    public Integer getTsk_id() {
+    @Override
+	public String toString() {
+		return "Task [tsk_id=" + tsk_id + ", tsk_name=" + tsk_name + ", tsk_leader_id=" + tsk_leader_id + ", tsk_type="
+				+ tsk_type + ", tsk_time=" + tsk_time + ", tsk_creation=" + tsk_creation + ", tsk_createdby="
+				+ tsk_createdby + ", tsk_lastupdated=" + tsk_lastupdated + ", tsk_lastupdatedby=" + tsk_lastupdatedby
+				+ ", tsk_isdel=" + tsk_isdel + "]";
+	}
+
+	public Integer getTsk_id() {
         return tsk_id;
     }
 

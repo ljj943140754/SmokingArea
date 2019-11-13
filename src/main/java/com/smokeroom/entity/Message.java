@@ -53,4 +53,12 @@ public class Message {
     public void setMsg_expire(Long msg_expire) {
         this.msg_expire = msg_expire;
     }
+
+	@Override
+	public String toString() {
+		return "Message [msg_id=" + msg_id + ", msg_content=" + msg_content + ", msg_creation=" + msg_creation
+				+ ", msg_status=" + msg_status + ", msg_expire=" + msg_expire + "]";
+	}
+    
+    
 }

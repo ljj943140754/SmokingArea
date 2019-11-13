@@ -31,4 +31,12 @@ public class TaskRouteDetail {
     public void setRdt_tsk_seq(Integer rdt_tsk_seq) {
         this.rdt_tsk_seq = rdt_tsk_seq;
     }
+
+	@Override
+	public String toString() {
+		return "TaskRouteDetail [rdt_tsk_id=" + rdt_tsk_id + ", rdt_fac_id=" + rdt_fac_id + ", rdt_tsk_seq="
+				+ rdt_tsk_seq + "]";
+	}
+    
+    
 }

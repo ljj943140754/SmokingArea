@@ -62,4 +62,12 @@ public class Report {
     public void setRp_content(String rp_content) {
         this.rp_content = rp_content;
     }
+
+	@Override
+	public String toString() {
+		return "Report [rp_id=" + rp_id + ", rp_vedio=" + rp_vedio + ", rp_audio=" + rp_audio + ", rp_worker_id="
+				+ rp_worker_id + ", rp_creation=" + rp_creation + ", rp_content=" + rp_content + "]";
+	}
+    
+    
 }

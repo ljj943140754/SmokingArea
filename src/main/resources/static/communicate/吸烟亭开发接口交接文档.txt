@@ -1,6 +1,7 @@
 设施接口：
-	设施添加：管理员权限：（第一次添加时 创建者id 与 更新者ID 都是同一个）
+	设施添加：管理员权限：（第一次添加时 创建者id 与 更新者ID 都是同一个）（CMS端）
 	管理员添加设施时，第一次经纬度可填可不填。
+		路由：http://localhost/facility/insert.action
 	fy_createdby 	创建者id   	例"951207"在session中取出当前管理员wk_num（必填）
 	fy_detail	位置详细		例"金融城Max-C座"（必填）
 	fy_isdel	是否启动		1 启动 0 不启动（必填）
@@ -10,11 +11,13 @@
 	fy_name		设施名称		例"会展城1号吸烟亭"（必填）
 	fy_type		设施类型		1 吸烟亭  2吸烟柱  3售烟处（必填）
 
-	删除设施： 管理员权限
+	删除设施： 管理员权限	（CMS端）
 	fy_id		任务id		前端根据设施ID 对指定设施的删除（必填）
+		路由：http://localhost/facility/delete.action
 
-	修改设施： 管理员权限（适用于删除 VR / 修改 VR）
+	修改设施： 管理员权限（适用于删除 VR / 修改 VR）（CMS端）（小程序端）
 	修改设施，主要更新设施 经纬度。 其他数据根据需求修改。
+		路由：http://localhost/facility/deleteVR.action
 	fy_lastupdated	最后修改时间	前端不需要传入数据，后台操作
 	fy_lastupdatedby最后更新人	前端传入当前 session 管理员 wk_num（必填）例"951207"
 	fy_id		任务id		前端传入根据 设施ID 进行修改操作（必填）
@@ -25,14 +28,16 @@
 	fy_name		设施名称		例"会展城1号吸烟亭"（非必填）
 	fy_type		设施类型		1 吸烟亭  2吸烟柱  3售烟处（非必填）
 
-	查找设施： 管理员权限
+	查找设施： 所有权限	（CMS端）（小程序端）
+		路由：http://localhost/facility/findFacility.action
 	管理员可以条件查询、也可是全库查询，适用于查看详情
 	findFacility() 适用、条件查看（字段按照需求传） 列表查看（前端不传数据） 详情查看（前端传设施ID）
 
 
 
 巡更任务接口：
-	添加巡更任务： 管理员权限（第一次添加时 创建者id 与 更新者ID 都是同一个）
+	添加巡更任务： 管理员权限（第一次添加时 创建者id 与 更新者ID 都是同一个） （CMS端）
+		路由：http://localhost/task/insert.action
 	tsk_createdby	创建者ID		例"951207"在session中取出当前管理员wk_num（必填）
 	tsk_lastupdatedby最后更新人	例"951207"在session中取出当前管理员wk_num（必填）
 	tsk_leader_id	任务领队人员id	派发任务时指定的工作员工 wk_num （必填）
@@ -41,11 +46,13 @@
 	tsk_time	做展示用		type = 1 时：start:"2019-11-12 09:30:00",end:"2019-11-12 18:30:00"
 					type = 2 时：start:"2019-11-12 09:30:00",end:"2019-11-18 18:30:00"
 
-	删除巡更任务： 管理员权限
+	删除巡更任务： 管理员权限	（CMS端）
 	tsk_id		任务id		前端根据任务ID 对任务的删除（必填）
+		路由：http://localhost/task/delete.action
 
-	修改巡更任务： 管理员权限
+	修改巡更任务： 管理员权限	（CMS端）
 	管理员修改任务，可修改 tsk_name  tsk_type tsk_time tsk_leader_id 
+		路由：http://localhost/task/update.action
 	tsk_lastupdated tsk_lastupdatedby 最后更新人和最后更新时间纪录下来。
 	tsk_id		任务ID		前端需要修改指定任务（必填）
 	tsk_lastupdated	最后更新时间	前端可以不用传数据 后台操作
@@ -57,9 +64,91 @@
 					type = 2 时：start:"2019-11-12 09:30:00",end:"2019-11-18 18:30:00"
 
 
-	查找巡更任务： 管理员权限
+	查找巡更任务： 管理员权限 （CMS端）
+		路由：http://localhost/task/getTask.action
 	管理员可以条件查看、也可以是全库查找，特定查找（适用与查看详情）
 	findTask() 适用、条件查看（字段按照需求传） 列表查看（前端不传数据） 详情查看（前端传设施ID）
+
+用户反馈管理
+
+	用户反馈： 无权限（游客，用户都可以反馈，游客反馈没有fb_uid 字段）（小程序端调用）
+		路由：http://localhost/feedback/userFeedback.action
+	fb_uid		用户id			用户没有登陆反馈就没有（非必填）
+	fb_content	用户反馈内容		反馈内容必须有否则没有意义前端做非空判断（必填）
+	fb_res		用户包含的图片链接	此字段可以有可以没有根据用户定义（非必填）
+	fb_status	反馈信息处理状态		新建反馈信息，默认未处理前端不需传参数后台自动处理
+	后台返回数据：（ "success": "OK"）
+
+	查看用户反馈：	管理员权限（CMS端调用）
+		路由：http://localhost/feedback/selectAll.action
+	CMS 后台可以查看全部用户反馈信息，可条件查询 （fb_id，fb_uid，fb_status，fb_creation）
+	后台返回数据：（ FeedbackVO 对象 ）
+
+	
+	处理意见反馈： 管理员权限 （CMS端调用）
+		路由：http://localhost/feedback/userHandle.action
+	fb_id		反馈信息ID		反馈信息ID 前端需要给处理的反馈信息id （必填）
+	fb_rly_content	反馈信息回复		此字段当管理员处理回复反馈信息时添加（必填）
+	fb_status	反馈信息状态		前端无需参数，当管理员点击 button 按钮处理完成按钮后台自动更新
+	后台返回数据：（ "success": "OK"）
+	
+
+	用户查看反馈回复	： 用户权限（小程序端调用）
+		路由：http://localhost/feedback/userRecord.action
+	fb_id		反馈信息ID	用于点击查看详情反馈信息（必填）
+	fb_uid		用户id		用户登陆下查找自己对应的反馈信息（必填）
+	fb_status	反馈状态		用户可以根据处理状态查询处理结果（非必填）条件查询
+	后台返回数据：（ Feedback 对象 ）
+
+	11-12 添加了微信头像字段 user 表	
+	
+	添加工作人员管理 管理员权限（CMS端调用）
+		路由：http://localhost/worker/insert.action
+	wk_num		工号唯一		(必填)
+	wk_type		工作人员类型	admin worker (必填)
+	wk_phone	工作人员手机	（必填）
+	wk_password	密码		（非必填） 不写 默认123456
+	wk_name		工作人员名字	（必填）
+
+	删除工作人员管理 管理员权限（CMS端调用）
+		路由：http://localhost/worker/deleteWorker.action
+	wk_id		工作人员 id 	（必填）
+
+	冻结工作人员/修改人员管理 管理员权限 （CMS端调用）
+		路由：http://localhost/worker/Frozen.action
+	冻结：
+	wk_id		工作人员 id 	（必填）
+	wk_isdel	工作人员是否禁用 	1启用 0 禁用（必填）
+
+	修改：
+	wk_type		员工角色		（非必填）
+	wk_phone	手机号码		（非必填）
+	wk_name		人员名称。	（非必填）
+
+	员工/修改信息管理 员工权限 （小程序端调用）
+		路由：http://localhost/worker/updateinfo.action
+	wk_phone	手机号码		（非必填）
+	wk_password	员工密码		（非必填）
+	wk_name		人员名称。	（非必填）
+	wk_openid	OpenId		（非必填）使用场景 员工有俩种身份时调用修改，系统修改非员工修改
+
+
+ 	管理员登陆  管理眼权限 （CMS端调用）
+		路由：http://localhost/worker/loginPC.action
+		管理员只需要使用工号 / 密码登陆即可
+	wk_num		工号，唯一	（必）
+	wk_password	密码		（必）
+
+	活动管理修改活动 管理员、用户 权限 （CMS端调用） （小程序端调用）
+		路由：http://localhost/activity/updataAct.action
+ 	
+ 	活动管理删除活动 管理员权限 （CMS端调用） 根据 id 删除
+		路由：http://localhost/activity/deleteAct.action
+	
+
+	
+
+
 
 
 
