@@ -3,49 +3,60 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>智慧吸烟亭</title>
+  <title>雾隐云亭</title>
   <link rel="stylesheet" href="layui/css/layui.css">
 </head>
 <body>
- 
 <!-- 你的HTML代码 -->
 <div class="layui-layout">
 		<div class="layui-side layui-bg-black">
 			<div class="layui-side-scroll">
+				<h2 style="padding:15px;">
+						<img src="img/logo.png" width="60px" height="60px" style="border-radius: 60px;">
+						<label>雾隐云亭</label>
+				</h2>
 				<ul class="layui-nav layui-nav-tree" lay-filter="test">
 					<li class="layui-nav-item layui-nav-itemed layui-this">
 					<a href="#!/home">首页</a>
 					</li>
 				    <li class="layui-nav-item ">
-				        <a href="javascript:;">设施管理</a>
+				        <a href="javascript:;">员工管理
+						<span class="layui-icon layui-icon-user"></span>
+						</a>
 				        <dl class="layui-nav-child">
-				          <dd><a href="#!/SmokingPavilion">吸烟亭管理</a></dd>
-				          <dd><a href="#!/SmokingColumn">吸烟柱管理</a></dd>
-				          <dd><a href="#!/SellSmokingIn">售烟处管理</a></dd>
+				          <dd><a href="#!/worker" 
+						  class="layui-nav-item layui-nav-itemed "
+						  >查询</a></dd>
+				          <dd><a href="#!/worker_insert"
+						  class="layui-nav-item layui-nav-itemed "
+						  >添加</a></dd>
 				        </dl>
 				    </li>
 				    <li class="layui-nav-item ">
-				        <a href="javascript:;">巡更</a>
+				        <a href="javascript:;">位置管理
+						<span class="layui-icon layui-icon-location"></span>
+						</a>
 				        <dl class="layui-nav-child">
-				          <dd><a href="#!/Patrol">巡更人员管理</a></dd>
-				          <dd><a href="#!/PatrollingReport">巡更报告管理</a></dd>
+				          <dd><a href="#!/facility"class="layui-nav-item layui-nav-itemed ">查询</a></dd>
+				          <dd><a href="#!/facility_insert"class="layui-nav-item layui-nav-itemed ">添加</a></dd>
+						  <dd><a href="#!/facility_update"class="layui-nav-item layui-nav-itemed ">修改</a></dd>
 				        </dl>
 				    </li>
+					<li class="layui-nav-item layui-nav-itemed ">
+						<a class="" href="#!/upload">上传管理 
+						<span class="layui-icon layui-icon-upload-drag"></span></a>
+					</li> 
 					<li class="layui-nav-item ">
-					    <a href="javascript:;">用户</a>
+					    <a href="javascript:;">巡更管理
+						<span class="layui-icon layui-icon-set"></span>
+						</a>
 					    <dl class="layui-nav-child">
-					      <dd><a href="#!/User">用户管理</a></dd>
-					      <dd><a href="#!/UserFeedback">用户意见反馈管理</a></dd>
+					      <dd><a href="#!/task" class="layui-nav-item layui-nav-itemed ">查询巡更任务</a></dd>
+					      <dd><a href="#!/task_insert" class="layui-nav-item layui-nav-itemed ">添加巡更任务</a></dd>
+						  <dd><a href="#!/task_update" class="layui-nav-item layui-nav-itemed ">编辑巡更任务</a></dd>
+						  <dd><a href="#!/facility" class="layui-nav-item layui-nav-itemed ">查询巡更进度</a></dd>
+						  <dd><a href="#!/facility" class="layui-nav-item layui-nav-itemed ">查询巡更报告</a></dd>
 					    </dl>
-					</li>
-				    <li class="layui-nav-item layui-nav-itemed">
-						<a href="#!/News">消息管理</a>
-					</li>
-				    <li class="layui-nav-item layui-nav-itemed">
-						<a href="#!/Activity">活动管理</a>
-					</li>
-					<li class="layui-nav-item layui-nav-itemed">
-						<a href="#!/Activity">搜索管理</a>
 					</li>
 				    </ul>
 			</div>
