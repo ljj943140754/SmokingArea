@@ -42,4 +42,12 @@ public class SignInRecord {
     public void setSin_creation(Date sin_creation) {
         this.sin_creation = sin_creation;
     }
+
+	@Override
+	public String toString() {
+		return "SignInRecord [sin_tsk_id=" + sin_tsk_id + ", sin_fac_id=" + sin_fac_id + ", sin_worker_id="
+				+ sin_worker_id + ", sin_creation=" + sin_creation + "]";
+	}
+    
+    
 }

@@ -50,7 +50,7 @@ public class FacilityController extends BaseController {
 	}
 	
 	@ApiOperation("设施查找管理，管理员权限")
-	@Permission(role = Role.ADMIN )
+//	@Permission(role = Role.ADMIN )
 	@GetMapping("findFacility.action")
 	public ResultData findFacility(Facility fac) {
 		info("查找设施："+fac);

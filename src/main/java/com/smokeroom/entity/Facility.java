@@ -123,4 +123,14 @@ public class Facility {
     public void setFy_isdel(Integer fy_isdel) {
         this.fy_isdel = fy_isdel;
     }
+
+	@Override
+	public String toString() {
+		return "Facility [fy_id=" + fy_id + ", fy_lat=" + fy_lat + ", fy_lng=" + fy_lng + ", fy_type=" + fy_type
+				+ ", fy_name=" + fy_name + ", fy_detail=" + fy_detail + ", fy_res_link=" + fy_res_link
+				+ ", fy_creation=" + fy_creation + ", fy_createdby=" + fy_createdby + ", fy_lastupdated="
+				+ fy_lastupdated + ", fy_lastupdatedby=" + fy_lastupdatedby + ", fy_isdel=" + fy_isdel + "]";
+	}
+    
+    
 }

@@ -17,11 +17,14 @@
   </delete>
   
   <insert id="insert" parameterType="com.smokeroom.entity.Worker">
-    insert into worker (wk_id, wk_num, wk_type, 
+    insert ignore into worker (wk_id, wk_num, wk_type, 
       wk_phone, wk_password, wk_openid, 
       wk_name, wk_creation)
     values (null, #{wk_num,jdbcType=INTEGER}, #{wk_type,jdbcType=VARCHAR}, 
-      #{wk_phone,jdbcType=VARCHAR}, #{wk_password,jdbcType=VARCHAR}, #{wk_openid,jdbcType=VARCHAR}, 
+      #{wk_phone,jdbcType=VARCHAR},
+      <if test="wk_password!=null">md5(#{wk_password})</if>
+      <if test="wk_password==null">MD5(123456)</if>, 
+      #{wk_openid,jdbcType=VARCHAR}, 
       #{wk_name,jdbcType=VARCHAR}, now())
   </insert>
   
@@ -38,7 +41,7 @@
      	 wk_phone = #{wk_phone,jdbcType=VARCHAR},
         </if>
         <if test="wk_password!=null">
-    	  wk_password = #{wk_password,jdbcType=VARCHAR},
+    	  wk_password = MD5(#{wk_password,jdbcType=VARCHAR}),
         </if>
         <if test="wk_name!=null">
      	 wk_name = #{wk_name,jdbcType=VARCHAR},

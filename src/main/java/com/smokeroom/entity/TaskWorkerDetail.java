@@ -21,4 +21,10 @@ public class TaskWorkerDetail {
     public void setWdt_worker_id(Integer wdt_worker_id) {
         this.wdt_worker_id = wdt_worker_id;
     }
+
+	@Override
+	public String toString() {
+		return "TaskWorkerDetail [wdt_tsk_id=" + wdt_tsk_id + ", wdt_worker_id=" + wdt_worker_id + "]";
+	}
+    
 }

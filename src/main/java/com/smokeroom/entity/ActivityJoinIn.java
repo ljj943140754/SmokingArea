@@ -33,4 +33,10 @@ public class ActivityJoinIn {
     public void setJi_creation(Date ji_creation) {
         this.ji_creation = ji_creation;
     }
+
+	@Override
+	public String toString() {
+		return "ActivityJoinIn [ji_at_id=" + ji_at_id + ", ji_uid=" + ji_uid + ", ji_creation=" + ji_creation + "]";
+	}
+    
 }

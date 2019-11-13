@@ -73,4 +73,11 @@ public class Feedback {
     public void setFb_creation(Date fb_creation) {
         this.fb_creation = fb_creation;
     }
+
+	@Override
+	public String toString() {
+		return "Feedback [fb_id=" + fb_id + ", fb_uid=" + fb_uid + ", fb_res=" + fb_res + ", fb_content=" + fb_content
+				+ ", fb_status=" + fb_status + ", fb_rly_content=" + fb_rly_content + ", fb_creation=" + fb_creation
+				+ "]";
+	}
 }
