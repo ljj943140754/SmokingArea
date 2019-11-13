@@ -11,20 +11,25 @@
     <result column="at_content" jdbcType="VARCHAR" property="at_content" />
   </resultMap>
   <sql id="ActivityField">
-  	at_id, at_uid, at_title, at_status, at_max_count, at_creation, at_content
+  	at_id, at_uid, at_title, at_status, at_max_count, at_creation, at_content,at_sign_count
   </sql>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from activity
     where at_id = #{at_id,jdbcType=INTEGER}
   </delete>
+  
   <insert id="insert" parameterType="com.smokeroom.entity.Activity">
-    insert into activity (at_id, at_uid, at_title, 
-      at_status, at_max_count, at_creation, 
-      at_content)
-    values (#{at_id,jdbcType=INTEGER}, #{at_uid,jdbcType=INTEGER}, #{at_title,jdbcType=VARCHAR}, 
-      #{at_status,jdbcType=INTEGER}, #{at_max_count,jdbcType=INTEGER}, #{at_creation,jdbcType=TIMESTAMP}, 
-      #{at_content,jdbcType=VARCHAR})
+    insert into activity (<include refid="ActivityField"/>)
+    values (null, #{at_uid,jdbcType=INTEGER}, #{at_title,jdbcType=VARCHAR}, 
+      #{at_status,jdbcType=INTEGER}, #{at_max_count,jdbcType=INTEGER}, now(), 
+      #{at_content,jdbcType=VARCHAR},
+      <if test="at_sign_count!=null">
+      	#{at_sign_count,jdbcType=INTEGER}
+      </if>
+      <if test="at_sign_count==null">
+      	0
+      </if>)
   </insert>
   
   <update id="updateByPrimaryKey" parameterType="com.smokeroom.entity.Activity">
@@ -48,13 +53,45 @@
       at_creation = now()
     where at_id = #{at_id,jdbcType=INTEGER}
   </update>
+  
+  <update id="updateSignCount">
+  	 update activity
+   	 set
+   	 <if test="at_sign_count!=null">
+  	   at_sign_count=#{at_sign_count}
+  	</if>
+  	 where at_id = #{at_id}
+  </update>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select at_id, at_uid, at_title, at_status, at_max_count, at_creation, at_content
-    from activity
+    select <include refid="ActivityField"/>
     where at_id = #{at_id,jdbcType=INTEGER}
   </select>
+  
   <select id="selectAll" resultMap="BaseResultMap">
-    select at_id, at_uid, at_title, at_status, at_max_count, at_creation, at_content
-    from activity
+    select <include refid="ActivityField"/>
+    from activity where at_status=1 order by at_creation DESC
+  </select>
+  
+  <select id="getActivity" resultMap="BaseResultMap">
+  	select <include refid="ActivityField"/>
+  	from activity
+  	where 1
+  	<if test="at_id!=null">
+  		and at_id=#{at_id}
+  	</if>
+  	<if test="at_uid!=null">
+  		and at_uid=#{at_uid}
+  	</if>
+  	<if test="at_status!=null">
+  		and at_status=#{at_status}
+  	</if>
+  	<if test="at_max_count!=null">
+  		and at_max_count=#{at_max_count}
+  	</if>
+  	<if test="at_sign_count!=null">
+  		and at_sign_count=#{at_sign_count}
+  	</if>
+  	order by at_creation desc
   </select>
 </mapper>

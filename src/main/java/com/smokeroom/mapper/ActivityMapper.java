@@ -13,4 +13,8 @@ public interface ActivityMapper {
     List<Activity> selectAll();
 
     int updateByPrimaryKey(Activity record);
+    
+    List<Activity> getActivity(Activity record);
+    
+    int updateSignCount(Activity act);
 }

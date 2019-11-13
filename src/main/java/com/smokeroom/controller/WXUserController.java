@@ -24,8 +24,12 @@ import com.common.controller.BaseController;
 import com.common.enu.HttpSessionKey;
 import com.common.enu.Role;
 import com.common.utils.HttpUtils;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
  
  
+
 @RestController
 @RequestMapping("wxuc")
 public class WXUserController extends BaseController {
@@ -35,6 +39,7 @@ public class WXUserController extends BaseController {
 	private String secret;
 	
 	  
+	/* CMS 小程序调用此接口完成注销*/
 	@PostMapping("logout.action")
 	public ResultData logout(HttpServletRequest rq ) {
 		HttpSession ss = rq.getSession(false);

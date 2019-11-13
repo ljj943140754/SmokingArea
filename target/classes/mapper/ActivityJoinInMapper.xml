@@ -2,18 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smokeroom.mapper.ActivityJoinInMapper">
   <resultMap id="BaseResultMap" type="com.smokeroom.entity.ActivityJoinIn">
+  	<id column="ji_id" jdbcType="INTEGER" property="ji_id" />
     <result column="ji_at_id" jdbcType="INTEGER" property="ji_at_id" />
     <result column="ji_uid" jdbcType="INTEGER" property="ji_uid" />
     <result column="ji_creation" jdbcType="TIMESTAMP" property="ji_creation" />
   </resultMap>
+  <sql id="ActivityJoinInField">
+  	ji_id,ji_at_id, ji_uid, ji_creation
+  </sql>
   <insert id="insert" parameterType="com.smokeroom.entity.ActivityJoinIn">
-    insert into activity_join_in (ji_at_id, ji_uid, ji_creation
-      )
-    values (#{ji_at_id,jdbcType=INTEGER}, #{ji_uid,jdbcType=INTEGER}, #{ji_creation,jdbcType=TIMESTAMP}
-      )
+    insert into activity_join_in (<include refid="ActivityJoinInField"/>)
+    values (null,#{ji_at_id,jdbcType=INTEGER}, #{ji_uid,jdbcType=INTEGER}, now())
   </insert>
+  
+  <select id="checkSign" resultMap="BaseResultMap">
+  	select <include refid="ActivityJoinInField"/>
+  	from activity_join_in where ji_uid=#{ji_uid} and  ji_at_id=#{ji_at_id}
+  </select>
+  
   <select id="selectAll" resultMap="BaseResultMap">
-    select ji_at_id, ji_uid, ji_creation
+    select <include refid="ActivityJoinInField"/>
     from activity_join_in
+  </select>
+  
+  <select id="getSignActivity" resultType="com.smokeroom.entity.ext.MyActivityVo">
+  		SELECT jo.ji_id,jo.ji_uid,jo.ji_creation,act.* FROM activity_join_in jo
+		INNER JOIN activity act 
+		ON jo.ji_at_id=act.at_id
+		WHERE jo.ji_uid=#{ji_uid}
+		ORDER BY jo.ji_creation DESC
   </select>
 </mapper>

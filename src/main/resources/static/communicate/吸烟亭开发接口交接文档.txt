@@ -144,7 +144,42 @@
  	
  	活动管理删除活动 管理员权限 （CMS端调用） 根据 id 删除
 		路由：http://localhost/activity/deleteAct.action
-	
+		
+	用户查看活动  用户权限 （小程序端调用）
+		路由：http://localhost/activity/getAct.action
+		用户可以通过 
+		  at_id 查看活动详情  
+		  at_uid 查看自己发布的全部活动 
+		  at_status 活动是否启动
+		     其他字段条件查询。
+		     
+	查看活动列表 管理员 用户权限 （小程序 CMS 端调用）
+		路由：http://localhost/activity/getAllAct.action
+		显示时间按照时间倒序的方式显示
+		
+	用户发起活动  用户权限 （小程序端调用）
+		路由：http://localhost/activity/releaseAct.action
+		at_uid		（必）
+		at_title	（必）
+		at_status	（必） 发布任务时关闭没有意义
+		at_max_count （必） 设置活动上限人数
+		at_content	（必） 活动详情 
+		
+		添加了activity_join_in 活动报名表中 ji_id 作为主键id
+		添加了activity 活动表中 at_sign_count 作为已报名人数
+		添加了 IActivityJoinInServiceImpl 服务层实现 方便控制层处理页面，服务层处理业务逻辑 
+			完成活动报名功能
+		添加了 MyActivityVo 实体类 继承于 Activity 类，封装属性添加自定义属性，完成 查看我的活动 功能
+		
+	用户报名活动 （小程序端调用）
+		路由：http://localhost/activity-join-in/signActivity.action
+		ji_at_id	 活动id（必）
+		ji_uid		 用户id（必）
+		
+	查看我的报名 （小程序端调用）
+		路由：http://localhost/activity-join-in/getMyActivity.action
+		ji_uid		 用户id（必）
+		封装了 实体类 MyActivityVO 继承于Activity 定义链接查询需要的字段
 
 	
 

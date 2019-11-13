@@ -4,13 +4,25 @@ import java.util.Date;
 /**
  * 活动报名实体类*/
 public class ActivityJoinIn {
-    private Integer ji_at_id;
+	private Integer ji_id;
+    
+	private Integer ji_at_id;
 
     private Integer ji_uid;
 
     private Date ji_creation;
+    
+    
 
-    public Integer getJi_at_id() {
+    public Integer getJi_id() {
+		return ji_id;
+	}
+
+	public void setJi_id(Integer ji_id) {
+		this.ji_id = ji_id;
+	}
+
+	public Integer getJi_at_id() {
         return ji_at_id;
     }
 
@@ -36,7 +48,10 @@ public class ActivityJoinIn {
 
 	@Override
 	public String toString() {
-		return "ActivityJoinIn [ji_at_id=" + ji_at_id + ", ji_uid=" + ji_uid + ", ji_creation=" + ji_creation + "]";
+		return "ActivityJoinIn [ji_id=" + ji_id + ", ji_at_id=" + ji_at_id + ", ji_uid=" + ji_uid + ", ji_creation="
+				+ ji_creation + "]";
 	}
+
+	
     
 }

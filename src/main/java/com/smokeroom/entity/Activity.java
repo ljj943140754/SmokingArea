@@ -17,8 +17,20 @@ public class Activity {
     private Date at_creation;
 
     private String at_content;
+    
+    private Integer at_sign_count;
 
-    public Integer getAt_id() {
+    
+    
+    public Integer getAt_sign_count() {
+		return at_sign_count;
+	}
+
+	public void setAt_sign_count(Integer at_sign_count) {
+		this.at_sign_count = at_sign_count;
+	}
+
+	public Integer getAt_id() {
         return at_id;
     }
 
@@ -78,7 +90,7 @@ public class Activity {
 	public String toString() {
 		return "Activity [at_id=" + at_id + ", at_uid=" + at_uid + ", at_title=" + at_title + ", at_status=" + at_status
 				+ ", at_max_count=" + at_max_count + ", at_creation=" + at_creation + ", at_content=" + at_content
-				+ "]";
+				+ ", at_sign_count=" + at_sign_count + "]";
 	}
     
 }
