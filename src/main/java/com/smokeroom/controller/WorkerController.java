@@ -197,6 +197,7 @@ public class WorkerController extends BaseController {
 	@PostMapping("loginPC.action")
 	public ResultData loginPC(Worker wk, HttpSession ss) {
 		CommonUser cmu = (CommonUser) ss.getAttribute(HttpSessionKey.USER_SESSION_KEY.getCode());
+		System.err.println("wk:" + wk);
 		System.err.println("cmu:" + cmu);
 		if (cmu != null) {
 			return ResultData.success("登陆成功！").setData(cmu);
@@ -205,10 +206,12 @@ public class WorkerController extends BaseController {
 		Worker query = new Worker();
 		query.setWk_num(wk.getWk_num());
 		query.setWk_password(wk.getWk_password());
+		System.out.println("query:"+query);
 		if (query.getWk_num() == null && query.getWk_password() == null) {
 			return ResultData.fail("账号 / 密码不能为空!");
 		}
 		List<Worker> listworkers = mapper.get(query);
+		System.out.println("listworkers:"+listworkers);
 		if (listworkers.size() > 0) {
 			cmu = new CommonUser();
 			cmu.setRoles(new Role[]{Role.ADMIN});

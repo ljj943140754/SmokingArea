@@ -10,30 +10,31 @@
          	<div class="layui-form-item"  >
 				<label class="layui-form-label">姓名</label>
 			    <label   class="layui-input-inline" style="line-height:40px;" >
-			     {{userinfo.name}} 
+			     {{userinfo.wk_name}} 
 			    </label>
 			</div>
 			<div class="layui-form-item"  >
 				<label  class="layui-form-label">岗位</label>
 			    <label   class="layui-input-inline" style="line-height:40px;">
-			     {{formateWorkerType(userinfo.type)}} 
+			     {{userinfo.wk_type}} 
 			    </label>
 			</div>
 			<div class="layui-form-item"  >
 				<label class="layui-form-label">  工号</label>
-			     <label  class="layui-input-inline" style="line-height:40px;">  {{userinfo.id}} </label>
+			     <label  class="layui-input-inline" style="line-height:40px;">  {{userinfo.wk_id}} </label>
 			</div>
 			<div class="layui-form-item"  >
 				<label  class="layui-form-label">电话</label>
 			    <label   class="layui-input-inline" style="line-height:40px;">
-			     {{userinfo.tel}} 
+			     {{userinfo.wk_phone}} 
 			    </label>
 			</div>
 			
-        	<div class="layui-form-item"  >
+			<div class="layui-form-item">
 				<label class="layui-form-label"> </label>
-			    <button type="button"  
-							class="layui-btn"  ng-click="loginout()">注销</button>
+			    <button type="button" class="layui-btn " ng-click="loginout()">注销
+			   	 <span class="layui-icon layui-icon-face-cry"></span>
+			    </button>
 			</div>
         </div>
        <div  ng-show="!userinfo">
@@ -44,14 +45,14 @@
 			            <div class="layui-input-inline">
 			                <input type="text" name="account" class="layui-input" 
 							lay-verify="account" placeholder="管理员账号" autocomplete="on"
-							 maxlength="20" ng-model="login.id"/>
+							 maxlength="20" ng-model="login.wk_num"/>
 			            </div>
 			        </div>
 			        <div class="layui-form-item">
 			            <label class="layui-form-label">密码：</label>
 			            <div class="layui-input-inline">
 			                <input type="password" name="password" class="layui-input"
-							 lay-verify="password" ng-model="login.password"
+							 lay-verify="password" ng-model="login.wk_password"
 							 placeholder="管理员密码" maxlength="20"/>
 			            </div>
 			        </div>
