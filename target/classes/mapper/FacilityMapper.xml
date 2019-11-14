@@ -61,12 +61,12 @@
     where fy_id = #{fy_id,jdbcType=INTEGER}
   </update>
   
-  <select id="selectByPrimaryKey" parameterType="com.smokeroom.entity.Facility" resultMap="BaseResultMap">
+  <select id="getFacility" parameterType="com.smokeroom.entity.Facility" resultMap="BaseResultMap">
     select 
     	<include refid="facilityField"></include>
     from facility
     where 1 
-    <if test="fy_id">
+    <if test="fy_id!=null">
     	and fy_id =#{fy_id}
     </if>
     <if test="fy_type!=null">

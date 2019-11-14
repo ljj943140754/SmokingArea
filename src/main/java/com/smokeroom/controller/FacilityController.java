@@ -54,7 +54,7 @@ public class FacilityController extends BaseController {
 	@GetMapping("findFacility.action")
 	public ResultData findFacility(Facility fac) {
 		info("查找设施："+fac);
-		return ResultData.success().setData((mapper.selectByPrimaryKey(fac)));
+		return ResultData.success().setData((mapper.getFacility(fac)));
 	}
 	
 	@ApiOperation("设施修改管理，管理员权限、适用于删除 VR / 修改 VR")
