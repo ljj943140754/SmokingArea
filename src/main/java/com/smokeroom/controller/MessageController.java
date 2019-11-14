@@ -13,6 +13,7 @@ import com.common.controller.BaseController;
 import com.common.enu.Role;
 import com.smokeroom.entity.Message;
 import com.smokeroom.mapper.MessageMapper;
+import com.smokeroom.service.impl.timerCloseMessage;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,6 +33,9 @@ public class MessageController extends BaseController {
     @Autowired
 	private MessageMapper mapper;
     
+    @Autowired
+    private timerCloseMessage m;
+    
 	@ApiOperation("管理员发布消息。需要管理员权限才能发布。")
 	@PostMapping("insert.action")
 	@Permission(role = {Role.ADMIN })
@@ -49,7 +53,15 @@ public class MessageController extends BaseController {
 	}
 	
 	
-	@ApiOperation("按条件查询消息。")
+	@ApiOperation("测试使用")
+	@GetMapping("test.action")
+	public ResultData Test(){
+		m.execute();
+		return ResultData.success();
+	}
+	
+	
+	@ApiOperation("按条件查询消息。适用列表查询、条件查询")
 	@GetMapping("get.action")
 	public ResultData get( Message query ) {
 		info("查询消息：" + query);

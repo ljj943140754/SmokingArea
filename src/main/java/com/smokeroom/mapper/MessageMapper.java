@@ -15,4 +15,9 @@ public interface MessageMapper {
     List<Message> get(Message query);
 
     int updateByPrimaryKey(Message record);
+    
+    //定时修改任务状态 / 删除消息
+    int closeMessage(Message mes);
+    
+    
 }

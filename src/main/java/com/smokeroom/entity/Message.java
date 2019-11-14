@@ -13,8 +13,19 @@ public class Message {
     private Integer msg_status;
 
     private Long msg_expire;
+    
+    private String msg_title;
 
-    public Integer getMsg_id() {
+    
+    public String getMsg_title() {
+		return msg_title;
+	}
+
+	public void setMsg_title(String msg_title) {
+		this.msg_title = msg_title;
+	}
+
+	public Integer getMsg_id() {
         return msg_id;
     }
 
@@ -57,7 +68,7 @@ public class Message {
 	@Override
 	public String toString() {
 		return "Message [msg_id=" + msg_id + ", msg_content=" + msg_content + ", msg_creation=" + msg_creation
-				+ ", msg_status=" + msg_status + ", msg_expire=" + msg_expire + "]";
+				+ ", msg_status=" + msg_status + ", msg_expire=" + msg_expire + ", msg_title=" + msg_title + "]";
 	}
     
     

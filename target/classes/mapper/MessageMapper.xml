@@ -7,20 +7,34 @@
     <result column="msg_creation" jdbcType="TIMESTAMP" property="msg_creation" />
     <result column="msg_status" jdbcType="INTEGER" property="msg_status" />
     <result column="msg_expire" jdbcType="BIGINT" property="msg_expire" />
+    <result column="msg_title" jdbcType="VARCHAR" property="msg_title" />
   </resultMap>
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from message
     where msg_id = #{msg_id,jdbcType=INTEGER}
   </delete>
+  
   <insert id="insert" parameterType="com.smokeroom.entity.Message">
-    insert into message (msg_id, msg_content, msg_creation,  msg_expire)
-    values (null, #{msg_content,jdbcType=VARCHAR}, now(),  #{msg_expire,jdbcType=BIGINT})
+    insert into message (msg_id, msg_content, msg_creation, msg_expire,msg_title)
+    values (null, #{msg_content,jdbcType=VARCHAR}, now(),  #{msg_expire,jdbcType=BIGINT},
+    #{msg_title})
   </insert>
+  
   <update id="updateByPrimaryKey" parameterType="com.smokeroom.entity.Message">
     update message
     set   msg_status = #{msg_status,jdbcType=INTEGER}
          where msg_id = #{msg_id,jdbcType=INTEGER}
   </update>
+  
+    <update id="closeMessage" parameterType="com.smokeroom.entity.Message">
+    update message
+    set   msg_status = #{msg_status,jdbcType=INTEGER}
+        WHERE DATEDIFF(#{msg_creation},msg_creation)=0;
+  </update>
+  
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select msg_id, msg_content, msg_creation, msg_status, msg_expire
     from message
@@ -29,7 +43,7 @@
   
   
   <select id="get" resultMap="BaseResultMap">
-    select msg_id, msg_content, msg_creation, msg_status, msg_expire
+    select msg_id, msg_content, msg_creation, msg_status, msg_expire,msg_title
     from message
     where 1
     <if test="msg_id!=null">
@@ -41,7 +55,10 @@
     <if test="msg_status!=null">
       and msg_status=#{msg_status}
     </if>
-    order by msg_creation desc;
+    <if test="msg_title!=null">
+   	 and msg_title=#{msg_title}
+    </if>
+    order by msg_creation desc
   </select>
    
   
