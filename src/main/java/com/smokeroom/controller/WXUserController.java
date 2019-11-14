@@ -6,11 +6,13 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,12 +26,14 @@ import com.common.controller.BaseController;
 import com.common.enu.HttpSessionKey;
 import com.common.enu.Role;
 import com.common.utils.HttpUtils;
+import com.smokeroom.entity.User;
+import com.smokeroom.mapper.UserMapper;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
  
  
-
+@Api("微信端登陆")
 @RestController
 @RequestMapping("wxuc")
 public class WXUserController extends BaseController {
@@ -37,6 +41,9 @@ public class WXUserController extends BaseController {
 	private String appid;
 	@Value("${wx.secret}")
 	private String secret;
+	
+	@Autowired
+	private UserMapper mapper; 
 	
 	  
 	/* CMS 小程序调用此接口完成注销*/
@@ -57,25 +64,53 @@ public class WXUserController extends BaseController {
 	 * @param code
 	 * @return
 	 */
+	@ApiOperation("用户微信登陆")
 	@GetMapping("getuserinfo.action")
-	public ResultData getUserInfo1( String code ,HttpServletRequest rq ) {
+	public ResultData getUserInfo1( String code ,User userInfo, HttpServletRequest rq ) {
+		//CommonUser cmu = (CommonUser) ss.getAttribute(HttpSessionKey.USER_SESSION_KEY.getCode());
 		String js_code = code;
+		System.err.println("code+"+code);
 		String grant_type = "authorization_code";
 		String url = getRequestURL(appid, secret, js_code, grant_type);
 		String response = sendRequestAndGetResponse(url);
 		Result1 result1 = JSONObject.parseObject(response, Result1.class);
 		int rs_code  = result1.getErrcode();
 		String rs_openid = result1.getOpenid();
+//		int rs_code  = 0;
+//		String rs_openid = code;
+		System.err.println("rs_openid+"+rs_openid);
 		if( rs_code ==0 ) {
 			HttpSession ss = rq.getSession();
 			//逻辑
 			//1 先查询用户，没有则添加。
-			//2 有则更新。头像，昵称，微信号，性别，
-			//3 将用户信息。放入Session中。
+			User user = new User();
+			user.setUr_openid(rs_openid);
+			List<User> list = mapper.get(user);
 			CommonUser cmu = new CommonUser();
-			//cmu.setRole(Role.USER);
+			//2 有则更新。头像，昵称，微信号，性别，
+			//2.1如果过查询有则更新用户
+			if(list.size()>0){
+				User userDate = list.get(0);
+				userDate.setUr_avatarurl(userInfo.getUr_avatarurl());
+				userDate.setUr_nickname(userInfo.getUr_nickname());
+				mapper.updateUser(userDate);
+				System.err.println("有该用户 ... "+userDate);
+			}else{
+			//2.2如果数据库没有用户则添加
+				User userInsert =new User();
+				userInsert.setUr_openid(rs_openid);
+				userInsert.setUr_avatarurl(userInfo.getUr_avatarurl());
+				userInsert.setUr_nickname(userInfo.getUr_nickname());
+				mapper.insert(userInsert);
+				System.err.println("无该用户 ... "+userInsert);
+
+			}
+			//3 将用户信息。放入Session中。
+			List<User> list2 = mapper.get(user);
+			cmu.setUser(list2.get(0));
+			cmu.setRoles(new Role[]{Role.USER});
 			rq.getSession().setAttribute(HttpSessionKey.USER_SESSION_KEY.getCode(), cmu);
-			return ResultData.success("已经登陆").setData(rs_openid);
+			return ResultData.success("已经登陆").setData(list2.get(0));
 			
 		}else {
 			return ResultData.fail(result1.getErrmsg());

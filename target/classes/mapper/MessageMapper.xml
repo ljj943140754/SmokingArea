@@ -28,7 +28,8 @@
          where msg_id = #{msg_id,jdbcType=INTEGER}
   </update>
   
-    <update id="closeMessage" parameterType="com.smokeroom.entity.Message">
+  <!-- 定时关闭消息 -->
+   <update id="closeMessage" parameterType="com.smokeroom.entity.Message">
     update message
     set   msg_status = #{msg_status,jdbcType=INTEGER}
         WHERE DATEDIFF(#{msg_creation},msg_creation)=0;
