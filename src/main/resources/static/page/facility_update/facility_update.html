@@ -5,9 +5,78 @@
 </head>
 <body>
 <!--消息管理-->
-<div ng-controller="facility_updateCtrl">
-      位置管理更新
-</div>
+<form class="layui-form ng-pristine ng-valid ng-scope" lay-filter="formform" ng-controller="facility_updateCtrl">
+		<div class="layui-form-item">
+				<label class="layui-form-label">类型</label>
+				<div class="layui-input-inline">
+					<input class="layui-input" disabled="disabled" readonly="readonly" value="吸烟亭" name="">
+				</div>
 
+				<label class="layui-form-label">名称</label>
+				<div class="layui-input-inline">
+					<input name="fy_name" class="layui-input" lay-verify="required">
+				</div>
+			
+	    </div>
+	    <div class="layui-form-item">
+				 <label class="layui-form-label">精度</label>
+				<div class="layui-input-inline">
+					<input name="fy_lng" class="layui-input" placeholder="选填">
+				</div>
+				
+				<label class="layui-form-label">维度</label>
+				<div class="layui-input-inline">
+					<input name="fy_lat" class="layui-input" placeholder="选填">
+				</div>
+			
+	    </div>
+		
+		<div class="layui-form-item">
+				<label class="layui-form-label">是否启用</label>
+				<div class="layui-input-inline">
+					<select lay-filter="fy_type" class="layui-input" name="fy_type">
+						<option value="">请选择</option>
+						<option value="1">启用</option>
+						<option value="2">未启用</option>
+					</select>
+					<div class="layui-unselect layui-form-select">
+					<div class="layui-select-title">
+					<input type="text" placeholder="请选择" value="" 
+					readonly="" class="layui-input layui-unselect">
+					<i class="layui-edge"></i>
+					</div>
+					<dl class="layui-anim layui-anim-upbit">
+					<dd lay-value="" class="layui-select-tips">请选择</dd>
+					<dd lay-value="1" class="">启用</dd>
+					<dd lay-value="2" class="">未启用</dd>
+					</dl>
+					</div>  
+				</div>
+		</div>
+		
+	    <div class="layui-form-item">
+	    		<label class="layui-form-label">详细描述</label>
+				<div class="layui-input-block">
+					<input name="fy_detail" class="layui-input" placeholder="选填">  
+				</div>
+	    </div>
+	     <!-- ngIf: updatemodel.fy_type == 1  --><div class="layui-form-item ng-scope" ng-if="updatemodel.fy_type == 1 ">
+	    		<label class="layui-form-label">VR链接</label>
+				<div class="layui-input-block">
+					<input name="fy_res_link" class="layui-input" placeholder="选填">  
+				</div>
+	    </div><!-- end ngIf: updatemodel.fy_type == 1  -->
+	    <!-- ngIf: updatemodel.fy_type != 1  -->
+	    <div class="layui-form-item">
+	    		<label class="layui-form-label"></label>
+	    		<div class="layui-input-block">
+					<!-- ngIf: updatemodel -->
+					<button lay-submit="" lay-filter="go" class="layui-btn ng-scope" ng-if=true />
+				     更新
+					<span class="layui-icon layui-icon-form"></span>
+					</button><!-- end ngIf: updatemodel -->
+				</div>
+	    </div>
+	</form>
 </body>
 </html>
