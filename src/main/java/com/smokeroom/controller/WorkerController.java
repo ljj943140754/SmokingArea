@@ -90,6 +90,14 @@ public class WorkerController extends BaseController {
 		info("用户修改手机号...：" + wor);
 		return quickReturn(mapper.updateByPrimaryKey(wor));
 	}
+	
+	
+	@Permission(role={Role.ADMIN})
+	@ApiOperation("查询员工列表/条件查询")
+	@PostMapping("getList.action")
+	public ResultData getWorkerList(Worker wor){
+		return ResultData.success().setData(mapper.get(wor));
+	}
 
 	@ApiOperation("获取验证码")
 	@PostMapping("getPhoneCode.action")

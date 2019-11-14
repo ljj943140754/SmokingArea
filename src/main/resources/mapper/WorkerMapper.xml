@@ -91,8 +91,8 @@
       <if test="wk_isdel!=null">
    		and wk_isdel = #{wk_isdel}
       </if>
-       <if test="wk_password!=null">
+      <if test="wk_password!=null">
     	 and wk_password = MD5(#{wk_password})
-        </if>
+      </if>
   </select>
 </mapper>

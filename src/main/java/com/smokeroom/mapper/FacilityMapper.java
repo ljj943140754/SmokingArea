@@ -8,7 +8,7 @@ public interface FacilityMapper {
 
     int insert(Facility record);
 
-    Facility selectByPrimaryKey(Facility record);
+    List<Facility> getFacility(Facility record);
 
     List<Facility> selectAll();
 
