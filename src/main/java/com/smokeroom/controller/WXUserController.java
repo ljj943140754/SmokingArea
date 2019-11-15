@@ -77,12 +77,8 @@ public class WXUserController extends BaseController {
 		Result1 result1 = JSONObject.parseObject(response, Result1.class);
 		int rs_code  = result1.getErrcode();
 		String rs_openid = result1.getOpenid();
-//		int rs_code  = 0;
-//		String rs_openid = code;
 		System.err.println("rs_openid+"+rs_openid);
 		if( rs_code ==0 ) {
-//			HttpSession ss = rq.getSession();
-//			//逻辑
 //			//1 先查询用户，没有则添加。
 			User user = new User();
 			user.setUr_openid(rs_openid);
