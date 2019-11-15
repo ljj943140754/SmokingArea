@@ -10,7 +10,7 @@ public interface ReportMapper {
 
     Report selectByPrimaryKey(Integer rp_id);
 
-    List<Report> selectAll();
+    List<Report> get(Report record);
 
     int updateByPrimaryKey(Report record);
 }

@@ -5,6 +5,10 @@ import java.util.Date;
 public class Report {
     private Integer rp_id;
 
+    private String rp_title;
+    
+    private Integer rp_state;
+    
     private String rp_vedio;
 
     private String rp_audio;
@@ -15,7 +19,24 @@ public class Report {
 
     private String rp_content;
 
-    public Integer getRp_id() {
+    
+    public String getRp_title() {
+		return rp_title;
+	}
+
+	public void setRp_title(String rp_title) {
+		this.rp_title = rp_title;
+	}
+
+	public Integer getRp_state() {
+		return rp_state;
+	}
+
+	public void setRp_state(Integer rp_state) {
+		this.rp_state = rp_state;
+	}
+
+	public Integer getRp_id() {
         return rp_id;
     }
 
@@ -65,8 +86,9 @@ public class Report {
 
 	@Override
 	public String toString() {
-		return "Report [rp_id=" + rp_id + ", rp_vedio=" + rp_vedio + ", rp_audio=" + rp_audio + ", rp_worker_id="
-				+ rp_worker_id + ", rp_creation=" + rp_creation + ", rp_content=" + rp_content + "]";
+		return "Report [rp_id=" + rp_id + ", rp_title=" + rp_title + ", rp_state=" + rp_state + ", rp_vedio=" + rp_vedio
+				+ ", rp_audio=" + rp_audio + ", rp_worker_id=" + rp_worker_id + ", rp_creation=" + rp_creation
+				+ ", rp_content=" + rp_content + "]";
 	}
     
     

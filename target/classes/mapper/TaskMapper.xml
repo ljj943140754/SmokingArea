@@ -97,13 +97,13 @@
   		and tsk_time=#{tsk_time}
   	</if>
   	<if test="tsk_creation!=null">
-  		and tsk_creation=#{tsk_creation}
+  		and datediff(#{tsk_creation}，tsk_creation)=0
   	</if>
   	<if test="tsk_createdby!=null">
   		and tsk_createdby=#{tsk_createdby}
   	</if>
   	<if test="tsk_lastupdated!=null">
-  		and tsk_lastupdated=#{tsk_lastupdated}
+  		and datediff(#{tsk_lastupdated},tsk_lastupdated)=0
   	</if>
   	<if test="tsk_lastupdatedby!=null">
   		and tsk_lastupdatedby=#{tsk_lastupdatedby}

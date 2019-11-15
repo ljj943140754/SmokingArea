@@ -3,40 +3,61 @@
 <mapper namespace="com.smokeroom.mapper.ReportMapper">
   <resultMap id="BaseResultMap" type="com.smokeroom.entity.Report">
     <id column="rp_id" jdbcType="INTEGER" property="rp_id" />
+    <result column="rp_title" jdbcType="VARCHAR" property="rp_title" />
+    <result column="rp_state" jdbcType="INTEGER" property="rp_state" />
     <result column="rp_vedio" jdbcType="VARCHAR" property="rp_vedio" />
     <result column="rp_audio" jdbcType="VARCHAR" property="rp_audio" />
     <result column="rp_worker_id" jdbcType="INTEGER" property="rp_worker_id" />
     <result column="rp_creation" jdbcType="TIMESTAMP" property="rp_creation" />
     <result column="rp_content" jdbcType="VARCHAR" property="rp_content" />
   </resultMap>
+  <sql id="reportField">
+  	rp_id,rp_title, rp_state,rp_vedio, rp_audio,rp_worker_id, rp_creation, rp_content
+  </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from report
     where rp_id = #{rp_id,jdbcType=INTEGER}
   </delete>
+  
   <insert id="insert" parameterType="com.smokeroom.entity.Report">
-    insert into report (rp_id, rp_vedio, rp_audio, 
-      rp_worker_id, rp_creation, rp_content
-      )
-    values (#{rp_id,jdbcType=INTEGER}, #{rp_vedio,jdbcType=VARCHAR}, #{rp_audio,jdbcType=VARCHAR}, 
-      #{rp_worker_id,jdbcType=INTEGER}, #{rp_creation,jdbcType=TIMESTAMP}, #{rp_content,jdbcType=VARCHAR}
-      )
+    insert into report (<include refid="reportField"/>)
+    values (null, #{rp_title},#{rp_state},#{rp_vedio,jdbcType=VARCHAR}, #{rp_audio,jdbcType=VARCHAR}, 
+      #{rp_worker_id,jdbcType=INTEGER}, now(), #{rp_content,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.smokeroom.entity.Report">
     update report
-    set rp_vedio = #{rp_vedio,jdbcType=VARCHAR},
-      rp_audio = #{rp_audio,jdbcType=VARCHAR},
-      rp_worker_id = #{rp_worker_id,jdbcType=INTEGER},
-      rp_creation = #{rp_creation,jdbcType=TIMESTAMP},
-      rp_content = #{rp_content,jdbcType=VARCHAR}
+    set 
+    <if test="rp_state!=null">
+    	rp_state=#{rp_state}
+    </if>
     where rp_id = #{rp_id,jdbcType=INTEGER}
   </update>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select rp_id, rp_vedio, rp_audio, rp_worker_id, rp_creation, rp_content
+    select <include refid="reportField"/>c
     from report
     where rp_id = #{rp_id,jdbcType=INTEGER}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select rp_id, rp_vedio, rp_audio, rp_worker_id, rp_creation, rp_content
+  
+  <select id="get" resultMap="BaseResultMap">
+    select <include refid="reportField"/>c
     from report
+    where 1
+    <if test="rp_id!=null">
+    	and rp_id=#{rp_id}
+    </if>
+    <if test="rp_title!=null">
+    	and rp_title=#{rp_title}
+    </if>
+    <if test="rp_state!=null">
+    	and rp_state=#{rp_state}
+    </if>
+    <if test="rp_worker_id!=null">
+    	and rp_worker_id=#{rp_worker_id}
+    </if>
+    <if test="rp_creation!=null">
+    	and datediff(#{rp_creation},rp_creation)=0
+    </if>
+    
   </select>
 </mapper>

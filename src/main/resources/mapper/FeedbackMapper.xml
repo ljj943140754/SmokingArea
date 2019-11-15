@@ -69,7 +69,7 @@
    	 and fb_status = #{fb_status}
     </if>
     <if test="fb_creation!=null">
-   	 and fb_creation like CONCAT(#{fb_creation},"%")
+   	 and datediff(#{fb_creation},fb_creation)=0
     </if>
 	
   </select>

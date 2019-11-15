@@ -10,6 +10,7 @@
     <result column="at_creation" jdbcType="TIMESTAMP" property="at_creation" />
     <result column="at_content" jdbcType="VARCHAR" property="at_content" />
   </resultMap>
+  
   <sql id="ActivityField">
   	at_id, at_uid, at_title, at_status, at_max_count, at_creation, at_content,at_sign_count
   </sql>
