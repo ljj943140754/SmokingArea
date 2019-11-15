@@ -176,11 +176,11 @@ public class WorkerController extends BaseController {
 		}
 		wk = list.get(0);
 		cmu = new CommonUser();
-		cmu.setWorker(wk);
 		if (wk.getWk_type().equals("worker")) {
 			System.out.println("worker进入...");
 			cmu.setRoles(new Role[]{Role.WORKER});
-			
+			cmu.setWorker(wk);
+
 			//查询工作人员是否也是用户
 			User user = new User();
 			user.setUr_phone(phone);
