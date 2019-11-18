@@ -68,7 +68,7 @@ public class WXUserController extends BaseController {
 	 */
 	@ApiOperation("用户微信登陆")
 	@GetMapping("getuserinfo.action")
-	public ResultData getUserInfo1( String code ,User use, HttpSession ss) {
+	public ResultData getUserInfo1( String code ,User userInfo, HttpSession ss) {
 		String js_code = code;
 		System.err.println("code+"+code);
 		String grant_type = "authorization_code";
@@ -88,16 +88,24 @@ public class WXUserController extends BaseController {
 //			//2.1如果过查询有则更新用户
 			if(list.size()>0){
 				User userDate = list.get(0);
-				userDate.setUr_avatarurl(use.getUr_avatarurl());
-				userDate.setUr_nickname(use.getUr_nickname());
+				//工作人员点击授权时user表有数据同时也更新手机号
+				if(userInfo.getUr_phone()!=null||userInfo.getUr_phone()!=""){
+					userDate.setUr_phone(userInfo.getUr_openid());
+				}
+				userDate.setUr_avatarurl(userInfo.getUr_avatarurl());
+				userDate.setUr_nickname(userInfo.getUr_nickname());
 				mapper.updateUser(userDate);
 				System.err.println("有该用户 ... "+userDate);
 			}else{
 //			//2.2如果数据库没有用户则添加
 				User userInsert =new User();
+				//工作人员点击授权时user表没有数据则插入工作人员手机号
+				if(userInfo.getUr_phone()!=null||userInfo.getUr_phone()!=""){
+					userInsert.setUr_phone(userInfo.getUr_openid());
+				}
 				userInsert.setUr_openid(rs_openid);
-				userInsert.setUr_avatarurl(use.getUr_avatarurl());
-				userInsert.setUr_nickname(use.getUr_nickname());
+				userInsert.setUr_avatarurl(userInfo.getUr_avatarurl());
+				userInsert.setUr_nickname(userInfo.getUr_nickname());
 				mapper.insert(userInsert);
 				System.err.println("无该用户 ... "+userInsert);
 

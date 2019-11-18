@@ -99,10 +99,10 @@
     	and ur_scores = #{ur_scores}
      </if>
      <if test="ur_creation!=null">
-    	and ur_creation = #{ur_creation}
+    	and datediff(#{ur_creation},ur_creation)=0
      </if>
      <if test="ur_lastupdated!=null">
-    	and ur_lastupdated = #{ur_lastupdated}
+    	and datediff(#{ur_lastupdated},ur_lastupdated)=0
      </if>
   </select>
   

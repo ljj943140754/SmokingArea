@@ -9,6 +9,7 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,6 +42,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/worker")
 public class WorkerController extends BaseController {
+	
 	@Autowired
 	private WorkerMapper mapper;
 	
@@ -101,7 +103,7 @@ public class WorkerController extends BaseController {
 
 	@ApiOperation("获取验证码")
 	@PostMapping("getPhoneCode.action")
-	public ResultData getPhoneCode(String phone, HttpSession ss) {
+	public ResultData getPhoneCode(@RequestBody String phone, HttpSession ss) {
 		Worker query = new Worker();
 		query.setWk_phone(phone);
 		List<Worker> list = mapper.get(query);
@@ -124,7 +126,7 @@ public class WorkerController extends BaseController {
 			// 判断时间有没有过期。
 			long t2 = System.currentTimeMillis();
 			long offset = t2 - vo.getT1();// 时间差值。
-			if (offset >= 5 * 60 * 1000) {
+			if (offset >= 2 * 60 * 1000) {
 				// 可以发送。
 				String phoneCode = RandomStringUtils.random(6, false, true);
 				SendSms.send(phone, phoneCode);
@@ -134,7 +136,7 @@ public class WorkerController extends BaseController {
 				return ResultData.success("验证码发送成功！");
 			} else {
 				// 还未超时。不能发送。
-				return ResultData.fail("请于" + (5 * 60 * 1000 - offset) / 1000 + "s之后再重新获取");
+				return ResultData.fail("请于" + (2 * 60 * 1000 - offset) / 1000 + "s之后再重新获取");
 			}
 		}
 	}
@@ -144,6 +146,8 @@ public class WorkerController extends BaseController {
 	public ResultData wxLogin(String phone, String vcode, HttpSession ss) {
 		CommonUser cmu = (CommonUser) ss.getAttribute(HttpSessionKey.USER_SESSION_KEY.getCode());
 		System.err.println("cmu:"+cmu);
+		System.err.println("phone:"+phone);
+		System.err.println("vcode:"+vcode);
 		
 		if (cmu != null) {
 			return ResultData.success("登陆成功！").setData(cmu);
@@ -165,7 +169,7 @@ public class WorkerController extends BaseController {
 		}
 		long t1 = System.currentTimeMillis();
 		long offset = t1 - vo.getT1();
-		if (offset >= 5 * 60 * 1000) {
+		if (offset >= 2 * 60 * 1000) {
 			return ResultData.fail("验证码已经过期，请重新获取！");
 		}
 		Worker wk = new Worker();
