@@ -23,9 +23,11 @@
 			}
 
 		})
-	/*	
-		$scope.insert=function(){
-			 var model = form.val("workform");
+		
+	/*	$scope.query=function(){
+			 var model = form.val("facilityform");
+			 console.info("model");
+			 console.info(model);
 			 if(!model.name){
 				 layer.msg("请填写员工姓名");
 				 return;
@@ -34,22 +36,36 @@
 				 layer.msg("请填写联系方式");
 				 return;
 			 }
-			 $.post("worker/insert.action",model,function(){
+			 $.get("facility/findFacility.action",model,function(){
 				layui.layer.msg("添加成功");
 				//表格重载。
-				tb_instance.reload();
+				//tb_instance.reload();
 			}); 
 			  
-		}
-		*/ 
+		}*/
+	 $scope.query=()=>{
+		 let model = form.val("facilityform");
+			 tb_instance.reload({
+				 url: 'facility/findFacility.action',
+				 where: { 
+					 fy_isdel: model.fy_isdel,
+					 fy_name: model.fy_name,
+					 fy_type: model.fy_type
+				 } 
+			 });
+	 }
 		 
 		//删除表格。
-	/*	$scope.deleteById=function(){
+	    $scope.deleteById=function(){
 			var checkStatus = table.checkStatus('workerTable'); //idTest 即为基础参数 id 对应的值
 			if( checkStatus.data.length > 0){
 				var da =  checkStatus.data[0];
+				console.info("da");
+				 console.info(da);
 				 layer.confirm('确认删除吗', function(index){
-					 $.post("worker/deletebyid.action",{id:da.id},function(){
+					 console.info("index");
+					 console.info(index);
+					 $.get("facility/delete.action",da,function(){
 							layui.layer.msg("删除成功");
 							//表格重载。
 							 tb_instance.reload();
@@ -57,7 +73,7 @@
 				}); 
 			}
 		}
-		*/
+		
 		//商品表格。
 		 tb_instance = table.render({
 			elem : '#workerTable',
