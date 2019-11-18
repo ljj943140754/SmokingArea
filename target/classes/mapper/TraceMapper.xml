@@ -8,16 +8,21 @@
     <result column="te_fy_creationtime" jdbcType="TIMESTAMP" property="te_fy_creationtime" />
     <result column="te_last_second" jdbcType="BIGINT" property="te_last_second" />
   </resultMap>
+  <sql id="traceField">
+  te_id, te_fy_id, te_u_id,te_fy_creationtime, te_last_second
+  </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from trace
     where te_id = #{te_id,jdbcType=INTEGER}
   </delete>
+  
   <insert id="insert" parameterType="com.smokeroom.entity.Trace">
     insert into trace (te_id, te_fy_id, te_u_id, 
       te_fy_creationtime, te_last_second)
     values (#{te_id,jdbcType=INTEGER}, #{te_fy_id,jdbcType=INTEGER}, #{te_u_id,jdbcType=INTEGER}, 
       #{te_fy_creationtime,jdbcType=TIMESTAMP}, #{te_last_second,jdbcType=BIGINT})
   </insert>
+  
   <update id="updateByPrimaryKey" parameterType="com.smokeroom.entity.Trace">
     update trace
     set te_fy_id = #{te_fy_id,jdbcType=INTEGER},
@@ -26,13 +31,16 @@
       te_last_second = #{te_last_second,jdbcType=BIGINT}
     where te_id = #{te_id,jdbcType=INTEGER}
   </update>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select te_id, te_fy_id, te_u_id, te_fy_creationtime, te_last_second
     from trace
     where te_id = #{te_id,jdbcType=INTEGER}
   </select>
+  
   <select id="selectAll" resultMap="BaseResultMap">
     select te_id, te_fy_id, te_u_id, te_fy_creationtime, te_last_second
     from trace
   </select>
+  
 </mapper>
