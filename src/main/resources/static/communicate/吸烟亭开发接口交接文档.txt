@@ -218,6 +218,7 @@
 		路由：http://localhost/trace/selectMyTrace.action
 		te_u_id		用户id（必）
 
+添加了 ITraceServiceImpl 实现类，用户处理用户
 	
 
 
