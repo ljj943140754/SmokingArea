@@ -13,7 +13,7 @@
 		  });
 		
 		$scope.sitelist = [];
-		$.get("facility/findFacility.action",function(res){
+	   $.get("facility/findFacility.action",function(res){
 			if(res.code == 0){
 				$scope.sitelist = res.data;
 				//angular重渲染
@@ -22,7 +22,7 @@
 				form.render('select');
 			}
 
-		})
+		}) 
 		
 	/*	$scope.query=function(){
 			 var model = form.val("facilityform");
@@ -57,7 +57,7 @@
 		 
 		//删除表格。
 	    $scope.deleteById=function(){
-			var checkStatus = table.checkStatus('workerTable'); //idTest 即为基础参数 id 对应的值
+			var checkStatus = table.checkStatus('facilityTable'); //idTest 即为基础参数 id 对应的值
 			if( checkStatus.data.length > 0){
 				var da =  checkStatus.data[0];
 				console.info("da");
@@ -65,7 +65,7 @@
 				 layer.confirm('确认删除吗', function(index){
 					 console.info("index");
 					 console.info(index);
-					 $.get("facility/delete.action",da,function(){
+					 $.get("facility/delete.action",da,function(res){
 							layui.layer.msg("删除成功");
 							//表格重载。
 							 tb_instance.reload();
@@ -76,7 +76,7 @@
 		
 		//商品表格。
 		 tb_instance = table.render({
-			elem : '#workerTable',
+			elem : '#facilityTable',
 			page: {
 				limits: [5,10,15] , 
 	            limit: 10 ,

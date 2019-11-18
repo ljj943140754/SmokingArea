@@ -1,49 +1,90 @@
-(function($scope,$http ){ 
-	layui.use([ "element", "form","layer", "jquery", "table" ],function(){
-		let layer = layui.layer;
-		$scope.checklogin=function(){
-			$.get("worker/checklogin.action",function(rs){
-				$scope.userinfo = rs.data;
-				$scope.$apply();
-			});
-		}
+(function($scope,$http ){
+	layui.use([ "element", "form", "jquery", "table","laydate" ],function() {
+		var form = layui.form;
+		var $ = layui.jquery;
+		var layer = layui.layer;
+		var table = layui.table;
+		let tb_instance = null;
+		var laydate = layui.laydate;
+		  
+		  //执行一个laydate实例
+		  laydate.render({
+		    elem: '#test1' //指定元素
+		  });
 		
-		$scope.formateWorkerType=function(type){
-			if(type ==1)return "快递员";
-			else if(type == 2)return "仓库管理员";
-			else if( type ==3 )return "调度员";
-		}
+	 /* $scope.sitelist = [];
+	   $.get("worker/getList.action",function(res){
+			if(res.code == 0){
+				$scope.sitelist = res.data;
+				//angular重渲染
+				$scope.$apply();
+				//下拉框重载。
+				form.render('select');
+			}
+
+		}) */
+		
+	 $scope.query=()=>{
+		 let model = form.val("workerform");
+		 console.info("worker中的model");
+		 console.info(model);
+			 tb_instance.reload({
+				 url: 'worker/getList.action',
+				 where: { 
+					
+				 } 
+			 });
+	 }
 		 
-		$scope.loginsys=function(){
-			if(!this.login || !this.login.id){
-				layer.msg("请输入工号");
-				return;
+		//删除表格。
+	    $scope.deleteById=function(){
+			var checkStatus = table.checkStatus('workerTable'); //idTest 即为基础参数 id 对应的值
+			if( checkStatus.data.length > 0){
+				var da =  checkStatus.data[0];
+				console.info("da");
+				 console.info(da);
+				 layer.confirm('确认删除吗', function(index){
+					 console.info("index");
+					 console.info(index);
+					 $.get("worker/deleteWorker.action",da,function(res){
+							layui.layer.msg("删除成功");
+							//表格重载。
+							 tb_instance.reload();
+						});
+				}); 
 			}
-			if(!this.login.password ){
-				layer.msg("请输入密码");
-				return;
-			}
-			if(!/^\d{1,}$/.test(this.login.id)){
-				layer.msg("工号格式为数字");
-				return;
-			}
-			$.get("worker/login.action",this.login,function(rs){
-				$scope.userinfo = rs.data;
-				$scope.$apply();
-			})
 		}
 		
-		$scope.loginout=function(){
-			$.get("worker/logout.action",function(rs){
-				$scope.userinfo = null;
-				$scope.$apply();
-			})
-		}
-		
-		$scope.checklogin();
-	 
-		
+		//商品表格。
+		 tb_instance = table.render({
+			elem : '#workerTable',
+			method:"post",
+			page: {
+				limits: [5,10,15] , 
+	            limit: 10 ,
+			}, 
+          
+			url : 'worker/getList.action', //数据接口
+			cols : [ [ //表头
+			{
+				 type:"radio",
+				 width:40
+			}, 
+			{
+				field : 'wk_num',
+				title : '工号',
+			},
+			{
+				field : 'wk_name',
+				title : '姓名',
+			}, {
+				field : 'wk_phone',
+				title : "手机号" ,
+			}, {
+				field : 'wk_creation',
+				title : "创建时间",	
+			}] ]
+		});
+
 	});
- 
-    
 })
