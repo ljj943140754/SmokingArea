@@ -7,12 +7,12 @@ public interface UserMapper {
     int deleteByPrimaryKey(Integer ur_id);
 
     int insert(User record);
-
+    
     User selectByPrimaryKey(Integer ur_id);
 
     List<User> selectAll();
 
-    int updateByPrimaryKey(User record);
+    int updateUser(User user);
     
     List<User> get( User user );
 }
