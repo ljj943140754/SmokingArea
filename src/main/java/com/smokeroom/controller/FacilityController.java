@@ -1,6 +1,10 @@
 package com.smokeroom.controller;
 
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,9 +46,11 @@ public class FacilityController extends BaseController {
 	}
 	
 	@ApiOperation("设施删除管理，管理员权限")
-	@Permission(role = Role.ADMIN )
-	@PostMapping("delete.action")
-	public ResultData delFacility(Facility fac) {
+	//@Permission(role = Role.ADMIN )
+	@GetMapping("delete.action")
+	public ResultData delFacility(Facility fac,HttpSession ss) {
+		System.err.println("delete.action = "+ fac);
+		System.err.println("delete.action = "+ fac.getFy_id());
 		info("删除设施："+fac);
 		return quickReturn(mapper.deleteByPrimaryKey(fac.getFy_id()));
 	}
@@ -54,6 +60,9 @@ public class FacilityController extends BaseController {
 	@GetMapping("findFacility.action")
 	public ResultData findFacility(Facility fac) {
 		info("查找设施："+fac);
+		System.err.println(fac);
+		List<Facility> flt= mapper.getFacility(fac);
+		System.err.println(flt.size());
 		return ResultData.success().setData((mapper.getFacility(fac)));
 	}
 	

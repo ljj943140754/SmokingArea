@@ -72,7 +72,7 @@
     <if test="fy_type!=null">
     	and fy_type=#{fy_type}
     </if>
-    <if test="fy_name!=null">
+    <if test="fy_name!=null and fy_name!=''">
     	and fy_name=#{fy_name}
     </if>
     <if test="fy_creation!=null">
