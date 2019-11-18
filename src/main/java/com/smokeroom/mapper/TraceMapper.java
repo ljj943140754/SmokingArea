@@ -12,5 +12,7 @@ public interface TraceMapper {
 
     List<Trace> selectAll();
 
+    List<Trace> get(Trace trace);
+    
     int updateByPrimaryKey(Trace record);
 }

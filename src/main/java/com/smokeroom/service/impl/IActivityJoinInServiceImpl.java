@@ -18,7 +18,14 @@ import com.smokeroom.entity.ActivityJoinIn;
 import com.smokeroom.mapper.ActivityJoinInMapper;
 import com.smokeroom.mapper.ActivityMapper;
 import com.smokeroom.service.IActivityJoinInService;
-
+/**
+ * <p>
+ *  活动报名实现类
+ * </p>
+ *
+ * @author haiger412
+ * @since 2019-10-30
+ */
 @Service
 public class IActivityJoinInServiceImpl implements IActivityJoinInService{
 	

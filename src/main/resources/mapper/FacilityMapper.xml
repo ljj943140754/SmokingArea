@@ -15,6 +15,11 @@
     <result column="fy_lastupdatedby" jdbcType="INTEGER" property="fy_lastupdatedby" />
     <result column="fy_isdel" jdbcType="INTEGER" property="fy_isdel" />
   </resultMap>
+  <!-- Sql 语句 -->
+   <sql id="facilityField">
+  	fy_id, fy_lat, fy_lng, fy_type, fy_name, fy_detail, fy_res_link, fy_creation,fy_createdby,
+    fy_lastupdated, fy_lastupdatedby, fy_isdel
+  </sql>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from facility
@@ -85,11 +90,6 @@
    		and fy_isdel=#{fy_isdel}
    	</if>
   </select>
-  
-  <sql id="facilityField">
-  fy_id, fy_lat, fy_lng, fy_type, fy_name, fy_detail, fy_res_link, fy_creation,fy_createdby,
-   fy_lastupdated, fy_lastupdatedby, fy_isdel
-  </sql>
   
   <select id="selectAll" resultMap="BaseResultMap">
     select <include refid="facilityField"></include>

@@ -69,6 +69,7 @@
     from worker
   </select>
   
+  <!-- 条件查询工作人员 -->
   <select id="get" parameterType="Worker" resultMap="BaseResultMap">
     select 
      <include refid="workerField" />
@@ -79,13 +80,16 @@
     <if test="wk_num!=null">
    		and wk_num = #{wk_num}
     </if>
-     <if test="wk_type!=null">
+     <if test="wk_type!=null and wk_type!=''">
    		and wk_type = #{wk_type}
      </if>
-     <if test="wk_openid!=null">
+     <if test="wk_openid!=null and wk_openid!=''">
    		and wk_openid = #{wk_openid}
     </if>
-     <if test="wk_phone!=null">
+    <if test="wk_name!=null and wk_name!=''">
+   		and wk_name = #{wk_name}
+    </if>
+     <if test="wk_phone!=null and wk_phone!=''">
    		and wk_phone = #{wk_phone}
      </if>
       <if test="wk_isdel!=null">

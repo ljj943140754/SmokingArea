@@ -95,7 +95,6 @@
 
 	用户查看反馈回复	： 用户权限（小程序端调用）
 		路由：http://localhost/feedback/userRecord.action
-	fb_id		反馈信息ID	用于点击查看详情反馈信息（必填）
 	fb_uid		用户id		用户登陆下查找自己对应的反馈信息（必填）
 	fb_status	反馈状态		用户可以根据处理状态查询处理结果（非必填）条件查询
 	后台返回数据：（ Feedback 对象 ）
@@ -171,15 +170,53 @@
 			完成活动报名功能
 		添加了 MyActivityVo 实体类 继承于 Activity 类，封装属性添加自定义属性，完成 查看我的活动 功能
 		
-	用户报名活动 （小程序端调用）
+	用户报名活动  用户权限（小程序端调用）
 		路由：http://localhost/activity-join-in/signActivity.action
 		ji_at_id	 活动id（必）
 		ji_uid		 用户id（必）
 		
-	查看我的报名 （小程序端调用）
+	查看我的报名  用户权限（小程序端调用）
 		路由：http://localhost/activity-join-in/getMyActivity.action
 		ji_uid		 用户id（必）
 		封装了 实体类 MyActivityVO 继承于Activity 定义链接查询需要的字段
+
+	
+添加了：巡更报表report， rp_title rp_state（报告标题，处理状态）
+
+	提交巡更报表 工作人员权限（小程序端调用）
+		路由：http://localhost/report/referReport.action
+		rp_worker_id	巡更人员id。 	（必）
+		rp_state	处理状态		  0（必）
+		rp_vedio 	视频链接		（非）
+		rp_audio	图片链接		（非）
+		rp_content	报告文字内容	（必）
+		rp_title	报告标题		（必）
+
+	查看巡更任务 工作人员权限（小程序调用）
+		路由：http://localhost/report/getTask.action
+		tsk_leader_id	领队工作人员id	(必) 不传的换查看全部人员的任务
+
+	查看巡更报表 管理员权限（CMS端调用）
+		路由：http://localhost/report/getReport.action
+		可以条件查询/ 全部查询 
+
+	修改巡更报表 管理员权限（CMS端调用）
+		路由：http://localhost/report/updateReport.action
+		rp_id		报告id主键 （必） 根据报表ID 修改
+		rp_state	主要修改状态	1已处理 0未处理
+
+	删除巡更报表 管理员权限（CMS端调用）
+		路由：http://localhost/report/deleteReport.action
+		rp_id		报告id主键 （必） 根据报表ID 删除
+		
+	手动扫码插入我的痕迹  用户权限（小程序调用）
+		路由：http://localhost/trace/insertTrace.action
+		te_fy_id	设施id（必）
+		te_u_id		用户id（必）
+		
+	用户查看我的痕迹   用户权限（小程序调用）
+		路由：http://localhost/trace/selectMyTrace.action
+		te_u_id		用户id（必）
 
 	
 
