@@ -76,10 +76,10 @@
     	and fy_name=#{fy_name}
     </if>
     <if test="fy_creation!=null">
-    	and fy_creation=#{fy_creation}
+    	and datediff(#{fy_creation},fy_creation)=0
     </if>
-    <if test="fy_createdby!=null">
-    	and fy_createdby=#{fy_createdby}
+    <if test="fy_lastupdated!=null">
+    	and datediff(#{fy_lastupdated},fy_lastupdated)=0
     </if>
     <if test="fy_isdel!=null">
    		and fy_isdel=#{fy_isdel}
