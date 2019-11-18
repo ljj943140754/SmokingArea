@@ -208,6 +208,15 @@
 	删除巡更报表 管理员权限（CMS端调用）
 		路由：http://localhost/report/deleteReport.action
 		rp_id		报告id主键 （必） 根据报表ID 删除
+		
+	手动扫码插入我的痕迹  用户权限（小程序调用）
+		路由：http://localhost/trace/insertTrace.action
+		te_fy_id	设施id（必）
+		te_u_id		用户id（必）
+		
+	用户查看我的痕迹   用户权限（小程序调用）
+		路由：http://localhost/trace/selectMyTrace.action
+		te_u_id		用户id（必）
 
 	
 

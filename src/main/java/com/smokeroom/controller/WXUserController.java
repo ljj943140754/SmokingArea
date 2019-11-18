@@ -93,7 +93,7 @@ public class WXUserController extends BaseController {
 				User userDate = list.get(0);
 				// 工作人员点击授权时user表有数据同时也更新手机号
 				if (userInfo.getUr_phone() != null || userInfo.getUr_phone() != "") {
-					userDate.setUr_phone(userInfo.getUr_openid());
+					userDate.setUr_phone(userInfo.getUr_phone());
 				}
 				userDate.setUr_avatarurl(userInfo.getUr_avatarurl());
 				userDate.setUr_nickname(userInfo.getUr_nickname());
@@ -104,9 +104,10 @@ public class WXUserController extends BaseController {
 				User userInsert = new User();
 				// 工作人员点击授权时user表没有数据则插入工作人员手机号
 				if (userInfo.getUr_phone() != null || userInfo.getUr_phone() != "") {
-					userInsert.setUr_phone(userInfo.getUr_openid());
+					userInsert.setUr_phone(userInfo.getUr_phone());
 				}
 				userInsert.setUr_openid(rs_openid);
+				userInsert.setUr_scores(0);
 				userInsert.setUr_avatarurl(userInfo.getUr_avatarurl());
 				userInsert.setUr_nickname(userInfo.getUr_nickname());
 				mapper.insert(userInsert);
@@ -115,12 +116,17 @@ public class WXUserController extends BaseController {
 			}
 			// //3 将用户信息。放入Session中。
 			List<User> list2 = mapper.get(user);
+			//用户第一次登陆 Session 取出的值为空 cmu对象是空的
+			if(cmu==null){
+				cmu = new CommonUser();
+			}
 			cmu.setUser(list2.get(0));
 			cmu.setRoles(new Role[] { Role.USER });
+			//工作人员点击授权 取出 cmu 工作人员信息保存
 			if(cmu!=null){
 				if(cmu.getWorker()!=null){
 					cmu.setWorker(cmu.getWorker());
-					cmu.setRoles(new Role[] {Role.USER ,Role.WORKER});
+					cmu.setRoles(new Role[] {Role.WORKER,Role.USER });
 				}
 			}
 				ss.setAttribute(HttpSessionKey.USER_SESSION_KEY.getCode(), cmu);

@@ -6,7 +6,7 @@ import com.common.bean.ResultData;
 
 /**
  * <p>
- *  服务类
+ *  活动报名服务类
  * </p>
  *
  * @author haiger412
