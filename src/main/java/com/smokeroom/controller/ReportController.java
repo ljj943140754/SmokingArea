@@ -56,9 +56,9 @@ public class ReportController extends BaseController{
 	}
 	
 	/*
-	 * 查看全部/条件查询巡更报表 管理员权限 CMS端调用
+	 * 查看全部/条件查询巡更报表纪录 管理员权限 CMS端调用
 	 * */
-	@Permission(role={Role.ADMIN})
+	@Permission(role={Role.ADMIN ,Role.WORKER})
 	@ApiOperation("查看巡更报表 条件查询/列表查询")
 	@GetMapping("getReport.action")
 	public ResultData getReport(Report rep){

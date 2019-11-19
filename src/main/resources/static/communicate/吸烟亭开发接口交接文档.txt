@@ -101,6 +101,7 @@
 
 	11-12 添加了微信头像字段 user 表	
 	
+工作人员管理：
 	添加工作人员管理 管理员权限（CMS端调用）
 		路由：http://localhost/worker/insert.action
 	wk_num		工号唯一		(必填)
@@ -138,6 +139,7 @@
 	wk_num		工号，唯一	（必）
 	wk_password	密码		（必）
 
+活动管理：
 	活动管理修改活动 管理员、用户 权限 （CMS端调用） （小程序端调用）
 		路由：http://localhost/activity/updataAct.action
  	
@@ -183,6 +185,7 @@
 	
 添加了：巡更报表report， rp_title rp_state（报告标题，处理状态）
 
+巡更报表管理：
 	提交巡更报表 工作人员权限（小程序端调用）
 		路由：http://localhost/report/referReport.action
 		rp_worker_id	巡更人员id。 	（必）
@@ -209,17 +212,48 @@
 		路由：http://localhost/report/deleteReport.action
 		rp_id		报告id主键 （必） 根据报表ID 删除
 		
+用户我的痕迹管理：
 	手动扫码插入我的痕迹  用户权限（小程序调用）
 		路由：http://localhost/trace/insertTrace.action
 		te_fy_id	设施id（必）
 		te_u_id		用户id（必）
 		
+	自动插入我的痕迹  用户权限（小程序调用）每次打开小程序自动更新痕迹
+		路由：http://localhost/trace/updateTrace.action
+		te_u_id		用户id（必）
+		fy_lng		经度	（必）
+		fy_lat		维度	（必）
+		
 	用户查看我的痕迹   用户权限（小程序调用）
 		路由：http://localhost/trace/selectMyTrace.action
-		te_u_id		用户id（必）
+		te_u_id		用户id（必）	返回封装新的对象 userTraceVO 
 
 添加了 ITraceServiceImpl 实现类，用户处理用户痕迹业务
 封装了 userTraceVO 类用于控制层接收参数对象 经纬度后台查询操作更新
+
+消息接口:
+	管理员发布消息(需要管理员权限才能发布) CMS 端调用
+		路由：http://localhost/message/insert.action
+		msg_title		消息头	（必）
+		msg_content		消息内容	（必）
+		msg_status		消息状态	（发布消息默认参数 1 开启）
+	
+	管理员更新消息(需要管理员权限才能更新)CMS 端调用
+		路由：http://localhost/message/update.action
+		msg_id			消息主键id	（必）
+		msg_status		消息状态	（更新消息默认参数 0 关闭）
+		
+	查询消息(列表查询、条件查询) CMS 端调用 小程序端调用
+		路由：http://localhost/message/get.action
+		CMS 端调用可以条件查询，列表查询
+		msg_title		消息头（可选）
+		msg_creation	发布的消息时间（可选）
+		msg_status		消息状态（可选）
+		
+	 	 小程序端调用 参数 msg_status = 1 查看开启的消息
+	 	 msg_status		消息状态（必）
+	 
+	 消息删除（定时器 timerCloseMessage） 自动每天23:59删除当前已发布的消息（修改消息状态）
 	
 
 

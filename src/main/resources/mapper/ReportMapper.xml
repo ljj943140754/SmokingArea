@@ -43,19 +43,19 @@
     select <include refid="reportField"/>c
     from report
     where 1
-    <if test="rp_id!=null">
+    <if test="rp_id!=null and rp_id!=''">
     	and rp_id=#{rp_id}
     </if>
-    <if test="rp_title!=null">
+    <if test="rp_title!=null and rp_title!=''">
     	and rp_title=#{rp_title}
     </if>
-    <if test="rp_state!=null">
+    <if test="rp_state!=null and rp_state!=''">
     	and rp_state=#{rp_state}
     </if>
-    <if test="rp_worker_id!=null">
+    <if test="rp_worker_id!=null and rp_worker_id!=''">
     	and rp_worker_id=#{rp_worker_id}
     </if>
-    <if test="rp_creation!=null">
+    <if test="rp_creation!=null and rp_creation!=''">
     	and datediff(#{rp_creation},rp_creation)=0
     </if>
     order by rp_creation desc

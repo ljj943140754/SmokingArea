@@ -33,7 +33,7 @@ public class ActivityController extends BaseController{
 	@Autowired
 	private ActivityMapper mapper;
 	
-	//CMS 调用
+	//CMS 调用 小程序端调用
 	@ApiOperation("修改活动  启动 关闭")
 	@Permission(role={Role.ADMIN,Role.USER})
 	@PostMapping("updataAct.action")

@@ -17,9 +17,9 @@
   </delete>
   
   <insert id="insert" parameterType="com.smokeroom.entity.Message">
-    insert into message (msg_id, msg_content, msg_creation, msg_expire,msg_title)
+    insert into message (msg_id, msg_content, msg_creation, msg_expire,msg_title,msg_status)
     values (null, #{msg_content,jdbcType=VARCHAR}, now(),  #{msg_expire,jdbcType=BIGINT},
-    #{msg_title})
+    #{msg_title},1)
   </insert>
   
   <update id="updateByPrimaryKey" parameterType="com.smokeroom.entity.Message">
@@ -47,16 +47,16 @@
     select msg_id, msg_content, msg_creation, msg_status, msg_expire,msg_title
     from message
     where 1
-    <if test="msg_id!=null">
+    <if test="msg_id!=null and msg_id!=null">
       and msg_id=#{msg_id}
     </if>
-    <if test="msg_creation!=null">
+    <if test="msg_creation!=null and msg_creation!=null">
       and  datediff(msg_creation,#{msg_creation}) = 0
     </if>
-    <if test="msg_status!=null">
+    <if test="msg_status!=null and msg_status!=null">
       and msg_status=#{msg_status}
     </if>
-    <if test="msg_title!=null">
+    <if test="msg_title!=null and msg_title!=null">
    	 and msg_title=#{msg_title}
     </if>
     order by msg_creation desc

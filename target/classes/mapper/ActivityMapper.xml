@@ -15,6 +15,7 @@
   	at_id, at_uid, at_title, at_status, at_max_count, at_creation, at_content,at_sign_count
   </sql>
   
+  <!-- 管理员删除活动 -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from activity
     where at_id = #{at_id,jdbcType=INTEGER}
@@ -33,6 +34,7 @@
       </if>)
   </insert>
   
+  <!-- 修改活动  用户权限、管理员权限-->
   <update id="updateByPrimaryKey" parameterType="com.smokeroom.entity.Activity">
     update activity
     set
@@ -74,6 +76,7 @@
     from activity where at_status=1 order by at_creation DESC
   </select>
   
+  <!-- 用户查看自己发布活动  -->
   <select id="getActivity" resultMap="BaseResultMap">
   	select <include refid="ActivityField"/>
   	from activity

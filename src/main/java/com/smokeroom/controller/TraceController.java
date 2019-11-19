@@ -48,6 +48,7 @@ public class TraceController extends BaseController {
 	@PostMapping("insertTrace.action")
 	public ResultData insertTrace(Trace trace) {
 		info("手动插入我的痕迹"+trace);
+		//更新积分这里有个小 bug 只要扫码就更新积分 
 		userMapper.updateScores(trace.getTe_u_id());
 		return quickReturn(mapper.insert(trace));
 	}

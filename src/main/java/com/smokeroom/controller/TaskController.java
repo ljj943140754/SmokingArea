@@ -14,6 +14,7 @@ import com.common.enu.Role;
 import com.smokeroom.entity.Task;
 import com.smokeroom.mapper.TaskMapper;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 /**
@@ -24,6 +25,7 @@ import io.swagger.annotations.ApiOperation;
  * @author haiger412
  * @since 2019-10-30
  */
+@Api("巡更管理")
 @RestController
 @RequestMapping("/task")
 public class TaskController extends BaseController{
