@@ -9,10 +9,16 @@
     <result column="at_max_count" jdbcType="INTEGER" property="at_max_count" />
     <result column="at_creation" jdbcType="TIMESTAMP" property="at_creation" />
     <result column="at_content" jdbcType="VARCHAR" property="at_content" />
+    <result column="at_sign_count" jdbcType="INTEGER" property="at_sign_count" />
+    <result column="at_start_date" jdbcType="TIMESTAMP" property="at_start_date" />
+    <result column="at_end_date" jdbcType="TIMESTAMP" property="at_end_date" />
+    <result column="at_issuer" jdbcType="VARCHAR" property="at_issuer" />
+    <result column="at_address" jdbcType="VARCHAR" property="at_address" />
   </resultMap>
   
   <sql id="ActivityField">
   	at_id, at_uid, at_title, at_status, at_max_count, at_creation, at_content,at_sign_count
+  	,at_start_date,at_end_date,at_issuer,at_address
   </sql>
   
   <!-- 管理员删除活动 -->
@@ -27,11 +33,13 @@
       #{at_status,jdbcType=INTEGER}, #{at_max_count,jdbcType=INTEGER}, now(), 
       #{at_content,jdbcType=VARCHAR},
       <if test="at_sign_count!=null">
-      	#{at_sign_count,jdbcType=INTEGER}
+      	#{at_sign_count,jdbcType=INTEGER},
       </if>
       <if test="at_sign_count==null">
-      	0
-      </if>)
+      	0,
+      </if>
+      #{at_start_date},#{at_end_date},#{at_issuer},#{at_address}
+      )
   </insert>
   
   <!-- 修改活动  用户权限、管理员权限-->
@@ -77,25 +85,21 @@
   </select>
   
   <!-- 用户查看自己发布活动  -->
-  <select id="getActivity" resultMap="BaseResultMap">
-  	select <include refid="ActivityField"/>
-  	from activity
-  	where 1
-  	<if test="at_id!=null">
-  		and at_id=#{at_id}
-  	</if>
-  	<if test="at_uid!=null">
-  		and at_uid=#{at_uid}
-  	</if>
-  	<if test="at_status!=null">
-  		and at_status=#{at_status}
-  	</if>
-  	<if test="at_max_count!=null">
-  		and at_max_count=#{at_max_count}
-  	</if>
-  	<if test="at_sign_count!=null">
-  		and at_sign_count=#{at_sign_count}
-  	</if>
-  	order by at_creation desc
+  <select id="getActivity" resultType="com.smokeroom.entity.ext.activityVO">
+	SELECT <include refid="ActivityField"/>,GROUP_CONCAT(s.ur_nickname,s.ur_avatarurl,s.ji_creation) userData FROM 
+	(SELECT <include refid="ActivityField"/>,ur_nickname,ur_avatarurl,ji_creation FROM activity
+	LEFT JOIN activity_join_in ON at_id = ji_at_id  LEFT JOIN USER ON ji_uid=ur_id) s
+	WHERE 1
+	<if test="at_uid!=null and at_uid!=''">
+		and s.at_uid = #{at_uid} 
+	</if>
+	<if test="at_id!=null and at_id!=''">
+		and s.at_id = #{at_id} 
+	</if>
+	<if test="at_status!=null">
+		and s.at_status = #{at_status} 
+	</if>
+	GROUP BY at_id
+	ORDER BY at_creation DESC
   </select>
 </mapper>

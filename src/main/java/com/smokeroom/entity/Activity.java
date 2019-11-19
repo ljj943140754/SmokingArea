@@ -19,10 +19,49 @@ public class Activity {
     private String at_content;
     
     private Integer at_sign_count;
+    
+    private Date at_start_date;
+    
+    private Date at_end_date;
+    
+    private String at_issuer;
+    
+    private String at_address;
+    
+    public Date getAt_start_date() {
+		return at_start_date;
+	}
 
-    
-    
-    public Integer getAt_sign_count() {
+	public void setAt_start_date(Date at_start_date) {
+		this.at_start_date = at_start_date;
+	}
+
+	public Date getAt_end_date() {
+		return at_end_date;
+	}
+
+	public void setAt_end_date(Date at_end_date) {
+		this.at_end_date = at_end_date;
+	}
+
+
+	public String getAt_issuer() {
+		return at_issuer;
+	}
+
+	public void setAt_issuer(String at_issuer) {
+		this.at_issuer = at_issuer;
+	}
+	
+	public String getAt_address() {
+		return at_address;
+	}
+
+	public void setAt_address(String at_address) {
+		this.at_address = at_address;
+	}
+
+	public Integer getAt_sign_count() {
 		return at_sign_count;
 	}
 
@@ -90,7 +129,8 @@ public class Activity {
 	public String toString() {
 		return "Activity [at_id=" + at_id + ", at_uid=" + at_uid + ", at_title=" + at_title + ", at_status=" + at_status
 				+ ", at_max_count=" + at_max_count + ", at_creation=" + at_creation + ", at_content=" + at_content
-				+ ", at_sign_count=" + at_sign_count + "]";
+				+ ", at_sign_count=" + at_sign_count + ", at_start_date=" + at_start_date + ", at_end_date="
+				+ at_end_date + ", at_issuer=" + at_issuer + ", at_address=" + at_address + "]";
 	}
     
 }
