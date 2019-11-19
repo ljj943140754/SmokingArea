@@ -107,7 +107,11 @@ public class WXUserController extends BaseController {
 					userInsert.setUr_phone(userInfo.getUr_phone());
 				}
 				userInsert.setUr_openid(rs_openid);
+<<<<<<< HEAD
 				userInsert.setUr_scores(userInfo.getUr_scores());
+=======
+				userInsert.setUr_scores(0);
+>>>>>>> branch 'master' of https://github.com/ljj943140754/SmokingArea.git
 				userInsert.setUr_avatarurl(userInfo.getUr_avatarurl());
 				userInsert.setUr_nickname(userInfo.getUr_nickname());
 				mapper.insert(userInsert);
@@ -116,13 +120,21 @@ public class WXUserController extends BaseController {
 			}
 			// //3 将用户信息。放入Session中。
 			List<User> list2 = mapper.get(user);
+<<<<<<< HEAD
 			System.err.println("list2==="+list2);
+=======
+			//用户第一次登陆 Session 取出的值为空 cmu对象是空的
+>>>>>>> branch 'master' of https://github.com/ljj943140754/SmokingArea.git
 			if(cmu==null){
 				cmu = new CommonUser();
 			}
 			cmu.setUser(list2.get(0));
 			cmu.setRoles(new Role[] { Role.USER });
+<<<<<<< HEAD
 
+=======
+			//工作人员点击授权 取出 cmu 工作人员信息保存
+>>>>>>> branch 'master' of https://github.com/ljj943140754/SmokingArea.git
 			if(cmu!=null){
 				if(cmu.getWorker() != null){
 					cmu.setWorker(cmu.getWorker());

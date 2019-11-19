@@ -8,19 +8,22 @@
     <result column="te_fy_creationtime" jdbcType="TIMESTAMP" property="te_fy_creationtime" />
     <result column="te_last_second" jdbcType="BIGINT" property="te_last_second" />
   </resultMap>
+  
   <sql id="traceField">
-  te_id, te_fy_id, te_u_id,te_fy_creationtime, te_last_second
+ 	 te_id, te_fy_id, te_u_id,te_fy_creationtime, te_last_second
   </sql>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from trace
     where te_id = #{te_id,jdbcType=INTEGER}
   </delete>
   
+  <!-- 插入用户痕迹 -->
   <insert id="insert" parameterType="com.smokeroom.entity.Trace">
-    insert into trace (te_id, te_fy_id, te_u_id, 
-      te_fy_creationtime, te_last_second)
-    values (#{te_id,jdbcType=INTEGER}, #{te_fy_id,jdbcType=INTEGER}, #{te_u_id,jdbcType=INTEGER}, 
-      #{te_fy_creationtime,jdbcType=TIMESTAMP}, #{te_last_second,jdbcType=BIGINT})
+    INSERT INTO trace(<include refid="traceField"/>)
+	SELECT NULL,#{te_fy_id},#{te_u_id},NOW(),UNIX_TIMESTAMP(NOW()) FROM trace 
+	WHERE (SELECT te_last_second + 600 FROM trace ORDER BY te_last_second DESC LIMIT 1) 
+	&lt; UNIX_TIMESTAMP(NOW()) ORDER BY te_last_second DESC LIMIT 1
   </insert>
   
   <update id="updateByPrimaryKey" parameterType="com.smokeroom.entity.Trace">
@@ -33,14 +36,31 @@
   </update>
   
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select te_id, te_fy_id, te_u_id, te_fy_creationtime, te_last_second
+    select <include refid="traceField"/>
     from trace
     where te_id = #{te_id,jdbcType=INTEGER}
   </select>
   
   <select id="selectAll" resultMap="BaseResultMap">
-    select te_id, te_fy_id, te_u_id, te_fy_creationtime, te_last_second
+    select <include refid="traceField"/>
     from trace
+  </select>
+  
+  <!-- 根据用户id 获取用户所有痕迹 -->
+  <!-- <select id="get" resultMap="BaseResultMap">
+    select <include refid="traceField"/>
+    from trace
+    where 1 
+    <if test="te_u_id!=null and te_u_id!=''">
+    	and te_u_id=#{te_u_id}
+    </if>
+  </select> -->
+   <!-- 根据用户id 获取用户所有痕迹时间倒序 -->
+  <select id="get" resultType="com.smokeroom.entity.ext.userTraceVO">
+  	SELECT te_fy_creationtime,fy_detail,fy_name FROM trace t
+	INNER JOIN facility f
+	ON te_fy_id = fy_id
+	WHERE te_u_id = #{te_u_id} ORDER BY te_fy_creationtime DESC 
   </select>
   
 </mapper>

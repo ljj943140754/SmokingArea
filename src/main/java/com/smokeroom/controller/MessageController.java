@@ -60,7 +60,10 @@ public class MessageController extends BaseController {
 		return ResultData.success();
 	}
 	
-	
+	/*
+	 * CMS 端调用可以条件查询，列表查询
+	 * 小程序端调用 参数 msg_status = 1 查看开启的消息
+	 * */
 	@ApiOperation("按条件查询消息。适用列表查询、条件查询")
 	@GetMapping("get.action")
 	public ResultData get( Message query ) {

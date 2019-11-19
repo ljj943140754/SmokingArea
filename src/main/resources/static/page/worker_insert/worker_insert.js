@@ -1,49 +1,40 @@
-(function($scope,$http ){ 
-	layui.use([ "element", "form","layer", "jquery", "table" ],function(){
-		let layer = layui.layer;
-		$scope.checklogin=function(){
-			$.get("worker/checklogin.action",function(rs){
-				$scope.userinfo = rs.data;
-				$scope.$apply();
+(function($scope,$http ){
+	layui.use([ "element", "form", "jquery", "table","laydate" ],function() {
+		var form = layui.form;
+		var $ = layui.jquery;
+		var layer = layui.layer;
+		var table = layui.table;
+		let tb_instance = null;
+		var laydate = layui.laydate;
+
+		 laydate.render({
+				elem: '#test1' //指定元素
+				,type: 'datetime'
 			});
-		}
+		// var formlist = {};
+		 //fy_createdby , fy_creation , fy_detail ,fy_isdel ,fy_name
+		 //fy_lat , fy_lng , fy_res_link , fy_type
 		
-		$scope.formateWorkerType=function(type){
-			if(type ==1)return "快递员";
-			else if(type == 2)return "仓库管理员";
-			else if( type ==3 )return "调度员";
-		}
-		 
-		$scope.loginsys=function(){
-			if(!this.login || !this.login.id){
-				layer.msg("请输入工号");
-				return;
+			$scope.init=function(){
+				form.render('select');
 			}
-			if(!this.login.password ){
-				layer.msg("请输入密码");
-				return;
-			}
-			if(!/^\d{1,}$/.test(this.login.id)){
-				layer.msg("工号格式为数字");
-				return;
-			}
-			$.get("worker/login.action",this.login,function(rs){
-				$scope.userinfo = rs.data;
-				$scope.$apply();
-			})
-		}
-		
-		$scope.loginout=function(){
-			$.get("worker/logout.action",function(rs){
-				$scope.userinfo = null;
-				$scope.$apply();
-			})
-		}
-		
-		$scope.checklogin();
-	 
-		
+			
+			 $scope.insert=()=>{
+					let model = form.val("workerInsertform");
+					console.info( "model" );
+					console.info( model );
+					$.post("facility/insert.action",model,function(res){
+						if(res.code == -1){
+							layui.layer.msg(res.error);
+						}else{
+							layui.layer.msg(res.success);
+						}
+					});
+				}
+			
+			$scope.init();
+
 	});
- 
-    
 })
+
+   

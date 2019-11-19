@@ -14,6 +14,7 @@ import com.common.enu.Role;
 import com.smokeroom.entity.Task;
 import com.smokeroom.mapper.TaskMapper;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 /**
@@ -24,6 +25,7 @@ import io.swagger.annotations.ApiOperation;
  * @author haiger412
  * @since 2019-10-30
  */
+@Api("巡更管理")
 @RestController
 @RequestMapping("/task")
 public class TaskController extends BaseController{
@@ -57,9 +59,10 @@ public class TaskController extends BaseController{
 		return quickReturn(mapper.updateByPrimaryKey(task));
 	}
 	
-	//管理员查询巡更任务可根据条件查询 管理员权限
-	@ApiOperation("查询巡更任务")
-	@Permission(role={Role.ADMIN})
+	//管理员查询巡更任务可根据条件查询 管理员、工作人员 权限 CMS
+	//查看巡更任务 小程序端调用 小程序调用
+	@ApiOperation("查看巡更任务 条件查询/列表查询")
+	@Permission(role={Role.ADMIN , Role.WORKER})
 	@PostMapping("getTask.action")
 	public ResultData findTask(Task task){
 		info("条件查询巡更任务"+task);

@@ -152,26 +152,26 @@ public class WorkerController extends BaseController {
 		if (cmu != null) {
 			return ResultData.success("登陆成功！").setData(cmu);
 		}
-//		WorkerLoginVO vo = (WorkerLoginVO) ss.getAttribute("logininfo");
-//		System.err.println("vo:"+vo);
-//		
-//		if (vo == null) {
-//			return ResultData.fail("请先获取验证码！");
-//		}
-//		if (MyStringUtils.isEmpty(phone) || MyStringUtils.isEmpty(vcode)) {
-//			return ResultData.fail("手机号/验证码不能为空");
-//		}
-//		if (!vo.getCode().equals(vcode)) {
-//			return ResultData.fail("验证码错误！");
-//		}
-//		if (!vo.getPhone().equals(phone)) {
-//			return ResultData.fail("您上次获取验证码的手机号与本次手机号不一致！");
-//		}
-//		long t1 = System.currentTimeMillis();
-//		long offset = t1 - vo.getT1();
-//		if (offset >= 2 * 60 * 1000) {
-//			return ResultData.fail("验证码已经过期，请重新获取！");
-//		}
+		WorkerLoginVO vo = (WorkerLoginVO) ss.getAttribute("logininfo");
+		System.err.println("vo:"+vo);
+		
+		if (vo == null) {
+			return ResultData.fail("请先获取验证码！");
+		}
+		if (MyStringUtils.isEmpty(phone) || MyStringUtils.isEmpty(vcode)) {
+			return ResultData.fail("手机号/验证码不能为空");
+		}
+		if (!vo.getCode().equals(vcode)) {
+			return ResultData.fail("验证码错误！");
+		}
+		if (!vo.getPhone().equals(phone)) {
+			return ResultData.fail("您上次获取验证码的手机号与本次手机号不一致！");
+		}
+		long t1 = System.currentTimeMillis();
+		long offset = t1 - vo.getT1();
+		if (offset >= 2 * 60 * 1000) {
+			return ResultData.fail("验证码已经过期，请重新获取！");
+		}
 		Worker wk = new Worker();
 		wk.setWk_phone(phone);
 		List<Worker> list = mapper.get(wk);

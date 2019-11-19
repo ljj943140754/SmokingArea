@@ -15,6 +15,11 @@
     <result column="fy_lastupdatedby" jdbcType="INTEGER" property="fy_lastupdatedby" />
     <result column="fy_isdel" jdbcType="INTEGER" property="fy_isdel" />
   </resultMap>
+  <!-- Sql 语句 -->
+   <sql id="facilityField">
+  	fy_id, fy_lat, fy_lng, fy_type, fy_name, fy_detail, fy_res_link, fy_creation,fy_createdby,
+    fy_lastupdated, fy_lastupdatedby, fy_isdel
+  </sql>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from facility
@@ -72,7 +77,7 @@
     <if test="fy_type!=null">
     	and fy_type=#{fy_type}
     </if>
-    <if test="fy_name!=null">
+    <if test="fy_name!=null and fy_name!=''">
     	and fy_name=#{fy_name}
     </if>
     <if test="fy_creation!=null">
@@ -86,10 +91,22 @@
    	</if>
   </select>
   
-  <sql id="facilityField">
-  fy_id, fy_lat, fy_lng, fy_type, fy_name, fy_detail, fy_res_link, fy_creation,fy_createdby,
-   fy_lastupdated, fy_lastupdatedby, fy_isdel
-  </sql>
+  <!-- 使用经纬度查找最近的设施  -->
+  <select id="calcNearFacility" parameterType="com.smokeroom.entity.Facility" resultMap="BaseResultMap">
+	 	SELECT * FROM facility WHERE SQRT(  
+	    (  
+	     ((#{fy_lng}-fy_lng)*PI()*12656*COS(((#{fy_lat}+fy_lat)/2)*PI()/180)/180)  
+	     *  
+	     ((#{fy_lng}-fy_lng)*PI()*12656*COS (((#{fy_lat}+fy_lat)/2)*PI()/180)/180)  
+	    )  
+	    +  
+	    (  
+	     ((#{fy_lat}-fy_lat)*PI()*12656/180)  
+	     *  
+	     ((#{fy_lat}-fy_lat)*PI()*12656/180)  
+	    )  
+	)&lt;0.1 LIMIT 1
+  </select>
   
   <select id="selectAll" resultMap="BaseResultMap">
     select <include refid="facilityField"></include>

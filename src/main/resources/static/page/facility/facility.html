@@ -5,9 +5,87 @@
 </head>
 <body>
 <!--查询管理-->
-<div ng-controller="facilityCtrl">
-      查询管理
-</div>
+<form class="layui-form ng-pristine ng-valid ng-scope" lay-filter="facilityform" 
+ng-controller="facilityCtrl">
+		<div class="layui-form-item">
+				<label class="layui-form-label">类型</label>
+				<div class="layui-input-inline">
+					<select lay-filter="fy_type" class="layui-input" name="fy_type">
+						<option value="">请选择</option>
+					    <option value="1">吸烟亭</option>
+					    <option value="2">吸烟柱</option>
+					    <option value="3">售烟点</option>
+					</select>
+					<div class="layui-unselect layui-form-select">
+					<div class="layui-select-title">
+					<input type="text" placeholder="请选择" value="" 
+					readonly="" class="layui-input layui-unselect">
+					<i class="layui-edge"></i>
+					</div>
+					<dl class="layui-anim layui-anim-upbit">
+					<dd lay-value="" class="layui-select-tips">请选择</dd>
+					<dd lay-value="1" class="">吸烟亭</dd>
+					<dd lay-value="2" class="">吸烟柱</dd>
+					<dd lay-value="3" class="">售烟点</dd>
+					</dl>
+					</div>  
+				</div>
+				<label class="layui-form-label">位置点名称</label>
+				<div class="layui-input-inline">
+					<input name="fy_name" class="layui-input">
+				</div>
+			  <label class="layui-form-label">是否启用</label>
+				<div class="layui-input-inline">
+					<select lay-filter="fy_type" class="layui-input" name="fy_isdel">
+						<option value="">请选择</option>
+						<option value="1">启用</option>
+						<option value="2">未启用</option>
+					</select>
+					<div class="layui-unselect layui-form-select">
+					<div class="layui-select-title">
+					<input type="text" placeholder="请选择" value="" 
+					readonly="" class="layui-input layui-unselect">
+					<i class="layui-edge"></i>
+					</div>
+					<dl class="layui-anim layui-anim-upbit">
+					<dd lay-value="" class="layui-select-tips">请选择</dd>
+					<dd lay-value="1" class="">启用</dd>
+					<dd lay-value="2" class="">未启用</dd>
+					</dl>
+					</div>  
+				</div>
+	    </div>
+		<div class="layui-form-item"  >
+			<label class="layui-form-label">创建时间</label>
+			<div class="layui-input-inline">
+			<input type="text" class="layui-input" id="test1" >
+			</div>
+		</div>
+	    <div class="layui-form-item">
+				<label class="layui-form-label"></label>
+	    		<div class="layui-input-block">
+					<button lay-submit="" lay-filter="go"
+					 class="layui-btn" ng-click="query()">
+					查询
+					<span class="layui-icon layui-icon-search"></span>
+					</button>
+					<button lay-submit="" lay-filter="go" 
+					class="layui-btn" ng-click="redact()">
+					<i class="layui-icon">&#xe642;</i>
+					编辑
+					</button>
+					<button type="reset" class="layui-btn layui-btn-primary">重置
+					<span class="layui-icon layui-icon-refresh"></span>
+					</button>
+					<button lay-submit="" lay-filter="go" 
+					class="layui-btn layui-btn-danger" ng-click="deleteById()">
+					<i class="layui-icon">&#xe640;</i>
+					删除
+					</button>
+				</div>
+	    </div>
+		<table id="facilityTable" lay-filter="workerlist"></table>
+	</form>
 
 </body>
 </html>

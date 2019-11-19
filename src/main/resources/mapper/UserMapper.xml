@@ -31,6 +31,7 @@
       #{ur_scores,jdbcType=INTEGER}, now(),now(), #{ur_avatarurl,jdbcType=VARCHAR})
   </insert>
   
+  <!-- 根据条件更新 -->
   <update id="updateUser" parameterType="com.smokeroom.entity.User">
     update user
     set
@@ -57,6 +58,14 @@
     </if>
       ur_lastupdated = now()
     where ur_id = #{ur_id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 更新环保值 -->
+  <update id="updateScores" parameterType="java.lang.Integer">
+  	UPDATE USER SET ur_scores=(
+    SELECT u.ur_scores FROM
+    (SELECT ur_scores FROM USER WHERE ur_id=#{ur_id} ) u ) + 1
+    WHERE ur_id=#{ur_id}
   </update>
   
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
