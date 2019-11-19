@@ -218,7 +218,8 @@
 		路由：http://localhost/trace/selectMyTrace.action
 		te_u_id		用户id（必）
 
-添加了 ITraceServiceImpl 实现类，用户处理用户
+添加了 ITraceServiceImpl 实现类，用户处理用户痕迹业务
+封装了 userTraceVO 类用于控制层接收参数对象 经纬度后台查询操作更新
 	
 
 

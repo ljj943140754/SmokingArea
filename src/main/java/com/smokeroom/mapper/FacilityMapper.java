@@ -13,4 +13,7 @@ public interface FacilityMapper {
     List<Facility> selectAll();
 
     int updateByPrimaryKey(Facility record);
+    
+    //获取经纬度计算最近设施更新用户痕迹
+    List<Facility> calcNearFacility(Facility fac);
 }

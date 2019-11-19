@@ -10,9 +10,10 @@ import com.common.ano.Permission;
 import com.common.bean.ResultData;
 import com.common.controller.BaseController;
 import com.common.enu.Role;
-import com.smokeroom.entity.Facility;
 import com.smokeroom.entity.Trace;
+import com.smokeroom.entity.ext.userTraceVO;
 import com.smokeroom.mapper.TraceMapper;
+import com.smokeroom.mapper.UserMapper;
 import com.smokeroom.service.ITraceService;
 
 import io.swagger.annotations.Api;
@@ -33,7 +34,11 @@ public class TraceController extends BaseController {
 	@Autowired
 	private TraceMapper mapper;
 	
+	@Autowired
 	private ITraceService service;
+	
+	@Autowired
+	private UserMapper userMapper;
 	
 	/*
 	 * 用户扫码添加痕迹纪录
@@ -43,6 +48,7 @@ public class TraceController extends BaseController {
 	@PostMapping("insertTrace.action")
 	public ResultData insertTrace(Trace trace) {
 		info("手动插入我的痕迹"+trace);
+		userMapper.updateScores(trace.getTe_u_id());
 		return quickReturn(mapper.insert(trace));
 	}
 	
@@ -52,8 +58,8 @@ public class TraceController extends BaseController {
 	@ApiOperation("用户打开小程序更新痕迹位置")
 	@Permission(role = {Role.USER})
 	@PostMapping("updateTrace.action")
-	public ResultData updateTrace( Facility fac ){
-		return service.updateUserTrace(fac);
+	public ResultData updateTrace( userTraceVO utVO ){
+		return service.updateUserTrace(utVO);
 	}
 	
 	/*

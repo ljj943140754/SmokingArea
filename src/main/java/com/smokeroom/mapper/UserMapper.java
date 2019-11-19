@@ -15,4 +15,7 @@ public interface UserMapper {
     int updateUser(User user);
     
     List<User> get( User user );
+    
+    //根据用户id 更新环保值
+    int updateScores(Integer ur_id);
 }

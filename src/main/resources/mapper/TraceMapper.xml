@@ -46,6 +46,7 @@
     from trace
   </select>
   
+  <!-- 根据用户id 获取用户所有痕迹 -->
   <select id="get" resultMap="BaseResultMap">
     select <include refid="traceField"/>
     from trace

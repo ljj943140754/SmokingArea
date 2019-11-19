@@ -2,6 +2,7 @@ package com.smokeroom.service;
 
 import com.common.bean.ResultData;
 import com.smokeroom.entity.Facility;
+import com.smokeroom.entity.ext.userTraceVO;
 
 /**
  * <p>
@@ -12,5 +13,5 @@ import com.smokeroom.entity.Facility;
  * @since 2019-10-30
  */
 public interface ITraceService{
-	ResultData updateUserTrace(Facility fac);
+	ResultData updateUserTrace(userTraceVO utVO);
 }

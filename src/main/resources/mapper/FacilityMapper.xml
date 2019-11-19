@@ -91,6 +91,23 @@
    	</if>
   </select>
   
+  <!-- 使用经纬度查找最近的设施  -->
+  <select id="calcNearFacility" parameterType="com.smokeroom.entity.Facility" resultMap="BaseResultMap">
+	 	SELECT * FROM facility WHERE SQRT(  
+	    (  
+	     ((#{fy_lng}-fy_lng)*PI()*12656*COS(((#{fy_lat}+fy_lat)/2)*PI()/180)/180)  
+	     *  
+	     ((#{fy_lng}-fy_lng)*PI()*12656*COS (((#{fy_lat}+fy_lat)/2)*PI()/180)/180)  
+	    )  
+	    +  
+	    (  
+	     ((#{fy_lat}-fy_lat)*PI()*12656/180)  
+	     *  
+	     ((#{fy_lat}-fy_lat)*PI()*12656/180)  
+	    )  
+	)&lt;0.1 LIMIT 1
+  </select>
+  
   <select id="selectAll" resultMap="BaseResultMap">
     select <include refid="facilityField"></include>
     from facility
