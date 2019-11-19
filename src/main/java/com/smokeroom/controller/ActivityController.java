@@ -70,7 +70,7 @@ public class ActivityController extends BaseController{
 	 * 已时间倒序的方式查看
 	 * */
 	@ApiOperation("查看活动列表")
-	@Permission(role={Role.ADMIN,Role.USER})
+	@Permission(role={Role.ADMIN})
 	@GetMapping("getAllAct.action")
 	public ResultData getAllActivity(){
 		info("查看活动列表 ");

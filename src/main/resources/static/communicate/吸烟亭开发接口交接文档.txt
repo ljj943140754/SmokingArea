@@ -149,22 +149,26 @@
 	用户查看活动  用户权限 （小程序端调用）
 		路由：http://localhost/activity/getAct.action
 		用户可以通过 
-		  at_id 查看活动详情  
-		  at_uid 查看自己发布的全部活动 
+		  at_id 	查看活动详情  
+		  at_uid 	查看自己发布的全部活动 "列表查询" (必)
 		  at_status 活动是否启动
 		     其他字段条件查询。
 		     
-	查看活动列表 管理员 用户权限 （小程序 CMS 端调用）
+	查看活动列表 管理员 （ CMS 端调用）
 		路由：http://localhost/activity/getAllAct.action
 		显示时间按照时间倒序的方式显示
 		
 	用户发起活动  用户权限 （小程序端调用）
 		路由：http://localhost/activity/releaseAct.action
-		at_uid		（必）
-		at_title	（必）
-		at_status	（必） 发布任务时关闭没有意义
-		at_max_count （必） 设置活动上限人数
-		at_content	（必） 活动详情 
+		at_uid			（必）
+		at_title		（必）
+		at_status		（必） 发布活动时关闭没有意义
+		at_max_count 	（必） 设置活动上限人数
+		at_content		（必） 活动详情 
+		at_start_date	（必）活动开始时间
+		at_end_date		（必）活动结束时间
+		at_issuer		（必）活动发布人，从全局中取出传参
+		at_address		（必）活动地点
 		
 		添加了activity_join_in 活动报名表中 ji_id 作为主键id
 		添加了activity 活动表中 at_sign_count 作为已报名人数
@@ -254,6 +258,12 @@
 	 	 msg_status		消息状态（必）
 	 
 	 消息删除（定时器 timerCloseMessage） 自动每天23:59删除当前已发布的消息（修改消息状态）
+	 
+2019-11-19 17：50 activity 表添加了
+	at_start_date		活动开始时间
+	at_end_date			活动结束时间
+	at_end_Issuer		活动发布者
+	at_address			活动地址
 	
 
 
