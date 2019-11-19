@@ -69,7 +69,7 @@ public class WXUserController extends BaseController {
 	@ApiOperation("用户微信登陆")
 	@GetMapping("getuserinfo.action")
 	public ResultData getUserInfo1(String code, User userInfo, HttpSession ss) {
-		System.err.println("userInfo==="+userInfo);
+
 		CommonUser cmu = (CommonUser) ss.getAttribute(HttpSessionKey.USER_SESSION_KEY.getCode());
 		System.err.println("cmu的值" + cmu);
 		String js_code = code;
@@ -98,7 +98,7 @@ public class WXUserController extends BaseController {
 				userDate.setUr_avatarurl(userInfo.getUr_avatarurl());
 				userDate.setUr_nickname(userInfo.getUr_nickname());
 				mapper.updateUser(userDate);
-				System.err.println("有该用户 ...userDate " + userDate);
+				System.err.println("有该用户 ... " + userDate);
 			} else {
 				// //2.2如果数据库没有用户则添加
 				User userInsert = new User();
@@ -107,42 +107,30 @@ public class WXUserController extends BaseController {
 					userInsert.setUr_phone(userInfo.getUr_phone());
 				}
 				userInsert.setUr_openid(rs_openid);
-<<<<<<< HEAD
-				userInsert.setUr_scores(userInfo.getUr_scores());
-=======
 				userInsert.setUr_scores(0);
->>>>>>> branch 'master' of https://github.com/ljj943140754/SmokingArea.git
 				userInsert.setUr_avatarurl(userInfo.getUr_avatarurl());
 				userInsert.setUr_nickname(userInfo.getUr_nickname());
 				mapper.insert(userInsert);
-				System.err.println("无该用户 ...userInsert " + userInsert);
+				System.err.println("无该用户 ... " + userInsert);
 
 			}
 			// //3 将用户信息。放入Session中。
 			List<User> list2 = mapper.get(user);
-<<<<<<< HEAD
-			System.err.println("list2==="+list2);
-=======
 			//用户第一次登陆 Session 取出的值为空 cmu对象是空的
->>>>>>> branch 'master' of https://github.com/ljj943140754/SmokingArea.git
 			if(cmu==null){
 				cmu = new CommonUser();
 			}
 			cmu.setUser(list2.get(0));
 			cmu.setRoles(new Role[] { Role.USER });
-<<<<<<< HEAD
-
-=======
 			//工作人员点击授权 取出 cmu 工作人员信息保存
->>>>>>> branch 'master' of https://github.com/ljj943140754/SmokingArea.git
 			if(cmu!=null){
-				if(cmu.getWorker() != null){
+				if(cmu.getWorker()!=null){
 					cmu.setWorker(cmu.getWorker());
 					cmu.setRoles(new Role[] {Role.WORKER,Role.USER });
 				}
 			}
+				ss.setAttribute(HttpSessionKey.USER_SESSION_KEY.getCode(), cmu);
 			
-			ss.setAttribute(HttpSessionKey.USER_SESSION_KEY.getCode(), cmu);
 			return ResultData.success("已经登陆").setData(cmu);
 
 		} else {

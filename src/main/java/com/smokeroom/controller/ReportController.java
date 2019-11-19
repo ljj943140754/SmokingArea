@@ -47,17 +47,9 @@ public class ReportController extends BaseController{
 	}
 	
 	/*
-<<<<<<< HEAD
-	 * 查看全部/条件查询巡更报表 管理员权限 CMS端调用 小程序调用
-=======
 	 * 查看全部/条件查询巡更报表纪录 管理员权限 CMS端调用 小程序端调用
->>>>>>> branch 'master' of https://github.com/ljj943140754/SmokingArea.git
 	 * */
-<<<<<<< HEAD
-	@Permission(role={Role.ADMIN,Role.WORKER})
-=======
 	@Permission(role={Role.ADMIN ,Role.WORKER})
->>>>>>> branch 'master' of https://github.com/ljj943140754/SmokingArea.git
 	@ApiOperation("查看巡更报表 条件查询/列表查询")
 	@GetMapping("getReport.action")
 	public ResultData getReport(Report rep){
