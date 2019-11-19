@@ -36,18 +36,18 @@ public class TraceController extends BaseController {
 	@Permission(role={Role.USER})
 	@PostMapping("insertTrace.action")
 	public ResultData insertTrace(Trace trace) {
-		info("查看我的痕迹"+trace);
+		info("手动插入我的痕迹"+trace);
 		return quickReturn(mapper.insert(trace));
 	}
 	
 	/*
 	 * 用户查看我的痕迹 小程序端调用 用户权限
 	 * */
-	@ApiOperation("扫码插入我的痕迹")
+	@ApiOperation("用户查看我的痕迹")
 	@Permission(role={Role.USER})
 	@GetMapping("selectMyTrace.action")
 	public ResultData selectMyTrace(Trace trace) {
-		info("查看我的痕迹"+trace);
+		info("用户查看我的痕迹"+trace);
 		return quickReturn(mapper.insert(trace));
 	}
 
