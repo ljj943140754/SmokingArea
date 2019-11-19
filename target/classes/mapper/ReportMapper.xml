@@ -40,7 +40,7 @@
   </select>
   
   <select id="get" resultMap="BaseResultMap">
-    select <include refid="reportField"/>c
+    select <include refid="reportField"/>
     from report
     where 1
     <if test="rp_id!=null and rp_id!=''">
