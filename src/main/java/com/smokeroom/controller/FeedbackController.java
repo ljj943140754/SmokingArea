@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
 
 import com.common.ano.Permission;
@@ -38,7 +38,7 @@ public class FeedbackController extends BaseController{
 	//小程序端调用
 	@ApiOperation("用户反馈")
 	@PostMapping("userFeedback.action")
-	public ResultData userFeedback(Feedback fee) {
+	public ResultData userFeedback(@RequestBody Feedback fee) {
 		info("用户反馈："+fee);
 		return quickReturn(mapper.insert(fee));
 	}
