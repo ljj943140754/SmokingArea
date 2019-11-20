@@ -21,10 +21,12 @@
   	,at_start_date,at_end_date,at_issuer,at_address
   </sql>
   
-  <!-- 管理员删除活动 -->
+  <!-- 管理员删除活动连表删除活动报名 -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from activity
-    where at_id = #{at_id,jdbcType=INTEGER}
+    DELETE a,ac FROM  activity a
+	INNER JOIN activity_join_in ac
+	ON a.at_id = ac.ji_at_id
+	WHERE ac.ji_at_id=#{at_id,jdbcType=INTEGER}
   </delete>
   
   <insert id="insert" parameterType="com.smokeroom.entity.Activity">
@@ -79,6 +81,7 @@
     where at_id = #{at_id,jdbcType=INTEGER}
   </select>
   
+  <!-- 查看全部  -->
   <select id="selectAll" resultMap="BaseResultMap">
     select <include refid="ActivityField"/>
     from activity where at_status=1 order by at_creation DESC
@@ -87,7 +90,7 @@
   <!-- 用户查看自己发布活动  -->
   <select id="getActivity" resultType="com.smokeroom.entity.ext.activityVO">
 	SELECT <include refid="ActivityField"/>,GROUP_CONCAT(s.ur_nickname,s.ur_avatarurl,s.ji_creation) userData FROM 
-	(SELECT <include refid="ActivityField"/>,ur_nickname,ur_avatarurl,ji_creation FROM activity
+	(SELECT <include refid="ActivityField"/>,ji_creation,ur_avatarurl,ur_nickname FROM activity
 	LEFT JOIN activity_join_in ON at_id = ji_at_id  LEFT JOIN USER ON ji_uid=ur_id) s
 	WHERE 1
 	<if test="at_uid!=null and at_uid!=''">

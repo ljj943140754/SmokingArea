@@ -4,6 +4,8 @@ import java.util.Date;
 
 import com.smokeroom.entity.Activity;
 
+/*
+ * 我的活动封装对象VO*/
 public class MyActivityVo extends Activity{
 	private Integer ji_id;
 

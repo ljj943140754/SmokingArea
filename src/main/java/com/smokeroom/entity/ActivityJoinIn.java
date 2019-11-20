@@ -12,9 +12,29 @@ public class ActivityJoinIn {
 
     private Date ji_creation;
     
+    //报名名字
+    private String ji_enroll_name;
     
+    //报名电话
+    private  String ji_enroll_phone;
 
-    public Integer getJi_id() {
+    public String getJi_enroll_name() {
+		return ji_enroll_name;
+	}
+
+	public void setJi_enroll_name(String ji_enroll_name) {
+		this.ji_enroll_name = ji_enroll_name;
+	}
+
+	public String getJi_enroll_phone() {
+		return ji_enroll_phone;
+	}
+
+	public void setJi_enroll_phone(String ji_enroll_phone) {
+		this.ji_enroll_phone = ji_enroll_phone;
+	}
+
+	public Integer getJi_id() {
 		return ji_id;
 	}
 
@@ -49,7 +69,7 @@ public class ActivityJoinIn {
 	@Override
 	public String toString() {
 		return "ActivityJoinIn [ji_id=" + ji_id + ", ji_at_id=" + ji_at_id + ", ji_uid=" + ji_uid + ", ji_creation="
-				+ ji_creation + "]";
+				+ ji_creation + ", ji_enroll_name=" + ji_enroll_name + ", ji_enroll_phone=" + ji_enroll_phone + "]";
 	}
 
 	

@@ -6,15 +6,17 @@
     <result column="ji_at_id" jdbcType="INTEGER" property="ji_at_id" />
     <result column="ji_uid" jdbcType="INTEGER" property="ji_uid" />
     <result column="ji_creation" jdbcType="TIMESTAMP" property="ji_creation" />
+    <result column="ji_enroll_name" jdbcType="VARCHAR" property="ji_enroll_name"/>
+    <result column="ji_enroll_phone" jdbcType="VARCHAR" property="ji_enroll_phone" />
   </resultMap>
   
   <sql id="ActivityJoinInField">
-  	ji_id,ji_at_id, ji_uid, ji_creation
+  	ji_id,ji_at_id, ji_uid, ji_creation,ji_enroll_name,ji_enroll_phone
   </sql>
   
   <insert id="insert" parameterType="com.smokeroom.entity.ActivityJoinIn">
     insert into activity_join_in (<include refid="ActivityJoinInField"/>)
-    values (null,#{ji_at_id,jdbcType=INTEGER}, #{ji_uid,jdbcType=INTEGER}, now())
+    values (null,#{ji_at_id}, #{ji_uid}, now(),#{ji_enroll_name},#{ji_enroll_phone})
   </insert>
   
   <select id="checkSign" resultMap="BaseResultMap">

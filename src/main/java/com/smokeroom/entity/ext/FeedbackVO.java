@@ -1,7 +1,8 @@
 package com.smokeroom.entity.ext;
 
 import com.smokeroom.entity.Feedback;
-
+/*
+ * 用户反馈封装对象VO*/
 public class FeedbackVO extends Feedback{
 	
 	private String ur_nickname;	

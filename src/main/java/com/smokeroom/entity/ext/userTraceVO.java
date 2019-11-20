@@ -2,6 +2,9 @@ package com.smokeroom.entity.ext;
 
 import java.util.Date;
 
+/*
+ * 用户痕迹封装对象VO 
+ * 用于获取用户经纬度*/
 public class userTraceVO {
 	private Integer te_u_id;
 	
