@@ -39,7 +39,7 @@ ng-controller="facilityCtrl">
 					<select lay-filter="fy_type" class="layui-input" name="fy_isdel">
 						<option value="">请选择</option>
 						<option value="1">启用</option>
-						<option value="2">未启用</option>
+						<option value="0">未启用</option>
 					</select>
 					<div class="layui-unselect layui-form-select">
 					<div class="layui-select-title">
@@ -50,7 +50,7 @@ ng-controller="facilityCtrl">
 					<dl class="layui-anim layui-anim-upbit">
 					<dd lay-value="" class="layui-select-tips">请选择</dd>
 					<dd lay-value="1" class="">启用</dd>
-					<dd lay-value="2" class="">未启用</dd>
+					<dd lay-value="0" class="">未启用</dd>
 					</dl>
 					</div>  
 				</div>
@@ -58,7 +58,7 @@ ng-controller="facilityCtrl">
 		<div class="layui-form-item"  >
 			<label class="layui-form-label">创建时间</label>
 			<div class="layui-input-inline">
-			<input type="text" class="layui-input" id="test1" >
+			<input type="text" class="layui-input" id="test1" name="fy_creation">
 			</div>
 		</div>
 	    <div class="layui-form-item">

@@ -1,49 +1,47 @@
-(function($scope,$http ){ 
-	layui.use([ "element", "form","layer", "jquery", "table" ],function(){
-		let layer = layui.layer;
-		$scope.checklogin=function(){
-			$.get("worker/checklogin.action",function(rs){
-				$scope.userinfo = rs.data;
-				$scope.$apply();
-			});
-		}
+(function($scope,$http ){
+	layui.use([ "element", "form", "jquery", "table","laydate" ],function() {
+		var form = layui.form;
+		var $ = layui.jquery;
+		var layer = layui.layer;
+		var table = layui.table;
+		let tb_instance = null;
+		var laydate = layui.laydate;
+		  //执行一个laydate实例
+		  laydate.render({
+		    elem: '#test1' //指定元素
+		  });
 		
-		$scope.formateWorkerType=function(type){
-			if(type ==1)return "快递员";
-			else if(type == 2)return "仓库管理员";
-			else if( type ==3 )return "调度员";
-		}
+	 $scope.saveTaskInfo=()=>{
+		 console.info("$scope.updatemodel---------");
+		 console.info($scope.updatemodel);
 		 
-		$scope.loginsys=function(){
-			if(!this.login || !this.login.id){
-				layer.msg("请输入工号");
-				return;
-			}
-			if(!this.login.password ){
-				layer.msg("请输入密码");
-				return;
-			}
-			if(!/^\d{1,}$/.test(this.login.id)){
-				layer.msg("工号格式为数字");
-				return;
-			}
-			$.get("worker/login.action",this.login,function(rs){
-				$scope.userinfo = rs.data;
-				$scope.$apply();
-			})
-		}
-		
-		$scope.loginout=function(){
-			$.get("worker/logout.action",function(rs){
-				$scope.userinfo = null;
-				$scope.$apply();
-			})
-		}
-		
-		$scope.checklogin();
-	 
-		
+	 }
+	    var formlist = {};
+	    $scope.searchtaskbykeywords=(e)=>{
+	    	if( $scope.search_fy_name == undefined)return;
+	    	formlist.fy_name = $scope.search_fy_name;
+	    	 $.get("facility/findFacility.action",formlist,function(res){
+	    		 for(var i = 0;i < res.data.length;i++){
+	    			 console.info(res.data[i]);
+	    			 if(res.data[i].fy_type == '1'){
+	    				 res.data[i].fy_type = "吸烟亭"
+		    		 }else if(res.data[i].fy_type == '2'){
+		    			 res.data[i].fy_type = "吸烟柱"
+		    		 }else if(res.data[i].fy_type == '3'){
+		    			 res.data[i].fy_type = "售烟点"
+		    		 }
+	    		 }
+	    		 $scope.facilityModel = res.data;
+			});
+		 }
+	    $scope.searchworkerbykeywords=()=>{
+	    	if( $scope.search_wk_name == undefined)return;
+	    	formlist.wk_name = $scope.search_wk_name;
+	    	 $.post("worker/getList.action",formlist,function(res){
+	    		 console.info(res.data);
+	    		 $scope.workerModel = res.data;
+			});
+		 }
+	    
 	});
- 
-    
 })

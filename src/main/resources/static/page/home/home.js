@@ -3,8 +3,15 @@
 		let layer = layui.layer;
 		$scope.checklogin=function(){
 			$.get("worker/checklogin.action",function(rs){
-				$scope.userinfo = rs.data;
-				$scope.$apply();
+				console.info("检查登陆时返回的rs");
+				console.info(rs);
+				if(rs.code == 0){
+					$scope.userinfo = rs.data.worker;
+					if($scope.userinfo.wk_type == "admin"){
+						$scope.userinfo.wk_type = "管理员"
+					}
+					$scope.$apply();
+				}
 			});
 		}
 		 
@@ -25,6 +32,9 @@
 			console.info(this.login)
 			$.post("worker/loginPC.action",this.login,function(rs){
 				$scope.userinfo = rs.data.worker;
+				if($scope.userinfo.wk_type == "admin"){
+					$scope.userinfo.wk_type = "管理员"
+				}
 				$scope.$apply();
 			})
 		}
