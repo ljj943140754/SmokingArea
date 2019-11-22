@@ -2,13 +2,23 @@ package com.smokeroom.entity;
 
 //任务-路线明细表
 public class TaskRouteDetail {
+	private Integer rdt_id ;
+	
     private Integer rdt_tsk_id;
 
     private Integer rdt_fac_id;
 
     private Integer rdt_tsk_seq;
 
-    public Integer getRdt_tsk_id() {
+    public Integer getRdt_id() {
+		return rdt_id;
+	}
+
+	public void setRdt_id(Integer rdt_id) {
+		this.rdt_id = rdt_id;
+	}
+
+	public Integer getRdt_tsk_id() {
         return rdt_tsk_id;
     }
 
@@ -34,8 +44,8 @@ public class TaskRouteDetail {
 
 	@Override
 	public String toString() {
-		return "TaskRouteDetail [rdt_tsk_id=" + rdt_tsk_id + ", rdt_fac_id=" + rdt_fac_id + ", rdt_tsk_seq="
-				+ rdt_tsk_seq + "]";
+		return "TaskRouteDetail [rdt_id=" + rdt_id + ", rdt_tsk_id=" + rdt_tsk_id + ", rdt_fac_id=" + rdt_fac_id
+				+ ", rdt_tsk_seq=" + rdt_tsk_seq + "]";
 	}
     
     

@@ -70,18 +70,11 @@
   </select>
  
   
-  <select id="selectAll" resultMap="BaseResultMap">
-    select tsk_id, tsk_name, tsk_leader_id, tsk_type, tsk_time, tsk_creation, tsk_createdby, 
-    tsk_lastupdated, tsk_lastupdatedby, tsk_isdel
+  <select id="selectTask" resultMap="BaseResultMap">
+    select <include refid="taskField"/>
     from task
-  </select>
-  
-  <!-- 查询巡更任务操作 条件查询、详情查询、列表查询 -->
-  <select id="get" resultMap="BaseResultMap">
-  	select <include refid="taskField"></include>
-  	from task
-  	where 1
-  	<if test="tsk_id!=null">
+    where 1
+    <if test="tsk_id!=null">
   		and tsk_id=#{tsk_id}
   	</if>
   	<if test="tsk_name!=null">
@@ -90,14 +83,8 @@
   	<if test="tsk_leader_id!=null">
   		and tsk_leader_id=#{tsk_leader_id}
   	</if>
-  	<if test="tsk_type!=null">
-  		and tsk_type=#{tsk_type}
-  	</if>
-  	<if test="tsk_time!=null">
-  		and tsk_time=#{tsk_time}
-  	</if>
   	<if test="tsk_creation!=null">
-  		and datediff(#{tsk_creation}，tsk_creation)=0
+  		and datediff(#{tsk_creation},tsk_creation)=0
   	</if>
   	<if test="tsk_createdby!=null">
   		and tsk_createdby=#{tsk_createdby}
@@ -111,6 +98,42 @@
   	<if test="tsk_isdel!=null">
   		and tsk_isdel=#{tsk_isdel}
   	</if>
-  	order by tsk_creation desc
+	   ORDER BY tsk_creation DESC
   </select>
+  
+  
+  <!-- 查询巡更任务操作 条件查询、详情查询、列表查询 -->
+   <select id="get" resultType="com.smokeroom.entity.ext.TaskVO">
+     SELECT  <include refid="taskField"/>,
+	(SELECT wk_name FROM worker WHERE t.tsk_leader_id=worker.wk_num) wk_name,
+	(SELECT GROUP_CONCAT(wdt_worker_name)
+	FROM task_worker_detail WHERE task_worker_detail.wdt_worker_leader = t.tsk_leader_id) worker_name
+	FROM task AS t WHERE 1
+	<if test="tsk_id!=null">
+  		and tsk_id=#{tsk_id}
+  	</if>
+  	<if test="tsk_name!=null">
+  		and tsk_name=#{tsk_name}
+  	</if>
+  	<if test="tsk_leader_id!=null">
+  		and tsk_leader_id=#{tsk_leader_id}
+  	</if>
+  	<if test="tsk_creation!=null">
+  		and datediff(#{tsk_creation},tsk_creation)=0
+  	</if>
+  	<if test="tsk_createdby!=null">
+  		and tsk_createdby=#{tsk_createdby}
+  	</if>
+  	<if test="tsk_lastupdated!=null">
+  		and datediff(#{tsk_lastupdated},tsk_lastupdated)=0
+  	</if>
+  	<if test="tsk_lastupdatedby!=null">
+  		and tsk_lastupdatedby=#{tsk_lastupdatedby}
+  	</if>
+  	<if test="tsk_isdel!=null">
+  		and tsk_isdel=#{tsk_isdel}
+  	</if>
+	   GROUP BY tsk_id
+	   ORDER BY tsk_creation DESC
+  </select> 
 </mapper>

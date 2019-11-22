@@ -66,7 +66,7 @@ public class ActivityController extends BaseController{
 		return ResultData.success().setData(mapper.getActivity(act));
 	}
 	
-	/*查看已发布的活动列表 CMS端  小程序端 调用
+	/*查看已发布的活动列表 CMS端  调用
 	 * 已时间倒序的方式查看
 	 * */
 	@ApiOperation("查看活动列表")

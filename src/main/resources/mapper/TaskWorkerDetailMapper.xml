@@ -2,15 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smokeroom.mapper.TaskWorkerDetailMapper">
   <resultMap id="BaseResultMap" type="com.smokeroom.entity.TaskWorkerDetail">
-    <result column="wdt_tsk_id" jdbcType="INTEGER" property="wdt_tsk_id" />
+    <id column="wdt_id" jdbcType="INTEGER" property="wdt_id"/>
+    <result column="wdt_worker_leader" jdbcType="INTEGER" property="wdt_worker_leader" />
     <result column="wdt_worker_id" jdbcType="INTEGER" property="wdt_worker_id" />
+    <result column="wdt_worker_name" jdbcType="VARCHAR" property="wdt_worker_name"/>
   </resultMap>
-  <insert id="insert" parameterType="com.smokeroom.entity.TaskWorkerDetail">
-    insert into task_worker_detail (wdt_tsk_id, wdt_worker_id)
-    values (#{wdt_tsk_id,jdbcType=INTEGER}, #{wdt_worker_id,jdbcType=INTEGER})
+  <sql id="TaskWorkerField">
+  	 wdt_id,wdt_worker_leader, wdt_worker_id,wdt_worker_name
+  </sql>
+  
+  <!-- 添加巡更人员明细  -->
+  <insert id="insert" parameterType="com.smokeroom.entity.ext.TaskWorkerDetailVO">
+    insert into task_worker_detail (wdt_worker_leader, wdt_worker_id,wdt_worker_name)
+    values (#{wdt_worker_leader},#{wdt_worker_id},#{wdt_worker_name})
   </insert>
+  
+   <!-- 删除巡更人员明细  -->
+   <delete id="delete" parameterType="com.smokeroom.entity.ext.TaskWorkerDetailVO">
+   		delete from task_worker_detail where wdt_id=#{wdt_id}
+   </delete>
+  
   <select id="selectAll" resultMap="BaseResultMap">
     select wdt_tsk_id, wdt_worker_id
     from task_worker_detail
+  </select>
+  
+  <!-- 获取巡更人员明细 -->
+  <select id="getTaskWorker" resultType="com.smokeroom.entity.ext.TaskWorkerDetailVO">
+  	SELECT <include refid="TaskWorkerField"/>,wk_phone FROM task
+	INNER JOIN task_worker_detail
+	INNER JOIN worker
+	ON task.tsk_leader_id=task_worker_detail.wdt_worker_leader AND task_worker_detail.wdt_worker_id= worker.wk_num
+	WHERE task.tsk_id=#{tsk_id}
   </select>
 </mapper>

@@ -200,7 +200,7 @@
 		rp_content	报告文字内容	（必）
 		rp_title	报告标题		（必）
 
-	查看巡更任务 工作人员权限（小程序调用）
+	查看巡更任务 工作人员权限（小程序调用 CMS调用）
 		路由：http://localhost/report/getTask.action
 		tsk_leader_id	领队工作人员id	(必) 不传的换查看全部人员的任务
 
@@ -269,6 +269,13 @@
 2019-11-20 activity_join_in 表添加了
 	ji_enroll_name		报名名字
 	ji_enroll_phone		报名电话
+	
+2019-11-21 人员明细表task_worker_detail 添加了
+	wdt_worker_leader	巡更任务领队人
+	wdt_worker_name		巡更人员名字
+	
+	修改添加巡更任务、删除巡更任务、修改巡更任务
+	
 	
 
 

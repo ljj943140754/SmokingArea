@@ -2,18 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smokeroom.mapper.TaskRouteDetailMapper">
   <resultMap id="BaseResultMap" type="com.smokeroom.entity.TaskRouteDetail">
+  	<id column="rdt_id" jdbcType="INTEGER" property="rdt_id" />
     <result column="rdt_tsk_id" jdbcType="INTEGER" property="rdt_tsk_id" />
     <result column="rdt_fac_id" jdbcType="INTEGER" property="rdt_fac_id" />
     <result column="rdt_tsk_seq" jdbcType="INTEGER" property="rdt_tsk_seq" />
   </resultMap>
-  <insert id="insert" parameterType="com.smokeroom.entity.TaskRouteDetail">
-    insert into task_route_detail (rdt_tsk_id, rdt_fac_id, rdt_tsk_seq
-      )
-    values (#{rdt_tsk_id,jdbcType=INTEGER}, #{rdt_fac_id,jdbcType=INTEGER}, #{rdt_tsk_seq,jdbcType=INTEGER}
-      )
+  
+  <sql id="routeDetailField">rdt_tsk_id, rdt_fac_id, rdt_tsk_seq</sql>
+  
+  <!-- 插入巡更任务路线 -->
+  <insert id="insert" parameterType="com.smokeroom.entity.ext.TaskRouteDetailVO">
+    insert into task_route_detail (<include refid="routeDetailField"/>)
+    values (#{rdt_tsk_id,jdbcType=INTEGER}, #{rdt_fac_id,jdbcType=INTEGER}, #{rdt_tsk_seq,jdbcType=INTEGER})
   </insert>
+  
+  <!-- 删除巡更路线 -->
+  <delete id="delete" parameterType="com.smokeroom.entity.ext.TaskRouteDetailVO">
+  	delete from task_route_detail WHERE rdt_id=#{rdt_id}
+  </delete>
+
   <select id="selectAll" resultMap="BaseResultMap">
     select rdt_tsk_id, rdt_fac_id, rdt_tsk_seq
     from task_route_detail
+  </select>
+  
+  <!-- 获取巡更路线 CMS端 -->
+  <select id="get" resultType="com.smokeroom.entity.ext.TaskRouteDetailVO">
+ 	SELECT rdt_id,<include refid="routeDetailField"/>,fy_name FROM task
+	INNER JOIN task_route_detail
+	INNER JOIN facility
+	ON task.tsk_id=task_route_detail.rdt_tsk_id AND task_route_detail.rdt_fac_id=facility.fy_id
+	WHERE task.tsk_id=#{tsk_id}
+	ORDER BY task_route_detail.rdt_tsk_seq ASC
   </select>
 </mapper>

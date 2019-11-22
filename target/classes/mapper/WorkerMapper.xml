@@ -87,10 +87,10 @@
    		and wk_openid = #{wk_openid}
     </if>
     <if test="wk_name!=null and wk_name!=''">
-   		and wk_name = #{wk_name}
+   		and wk_name like  concat('%',#{wk_name},'%')
     </if>
      <if test="wk_phone!=null and wk_phone!=''">
-   		and wk_phone = #{wk_phone}
+   		and wk_phone like concat('%',#{wk_phone},'%')
      </if>
       <if test="wk_isdel!=null">
    		and wk_isdel = #{wk_isdel}

@@ -78,7 +78,10 @@
     	and fy_type=#{fy_type}
     </if>
     <if test="fy_name!=null and fy_name!=''">
-    	and fy_name=#{fy_name}
+    	and fy_name like concat('%',#{fy_name},'%')
+    </if>
+    <if test="fy_detail!=null and fy_detail!=''">
+    	and fy_detail like concat('%',#{fy_detail},'%')
     </if>
     <if test="fy_creation!=null">
     	and datediff(#{fy_creation},fy_creation)=0

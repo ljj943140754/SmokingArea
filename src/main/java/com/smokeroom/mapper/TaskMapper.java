@@ -10,7 +10,7 @@ public interface TaskMapper {
 
     Task selectByPrimaryKey(Integer tsk_id);
 
-    List<Task> selectAll();
+    List<Task> selectTask(Task task);
 
     int updateByPrimaryKey(Task record);
     

@@ -22,6 +22,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aliyun.oss.OSSClient;
@@ -42,10 +43,12 @@ public class UploadController extends BaseController {
 	 
 	private static final long serialVersionUID = 5522372203700422672L;
 	
-	@Permission(role = {Role.ADMIN,Role.USER,Role.WORKER})
+	 //@Permission(role = {Role.ADMIN,Role.USER,Role.WORKER})
 	@GetMapping("policy.action")
 	public ResultData doGet(HttpServletRequest request, HttpServletResponse response){
-
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		
+		System.err.println("进来了。。。");
 		String accessId = "LTAI4FhR1cQLXY2vQRRhkXL8"; // 请填写您的AccessKeyId。
 		String accessKey = "T0HeCFIuqy6v3zszkY5BUOYaolRV5E"; // 请填写您的AccessKeySecret。
 		String endpoint = "oss-cn-beijing.aliyuncs.com"; // 请填写您的 endpoint。
@@ -86,5 +89,13 @@ public class UploadController extends BaseController {
 		}
 		return null;
 	}
+	
+//	@GetMapping("policy.action")
+//	public  String doGet(String name,HttpServletRequest request, HttpServletResponse response){
+//		response.setHeader("Access-Control-Allow-Origin", "*");
+//		System.err.println("进来了。。。"+name);
+//		
+//		return "OK";
+//	}
  
 }
