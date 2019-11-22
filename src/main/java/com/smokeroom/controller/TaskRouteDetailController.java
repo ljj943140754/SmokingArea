@@ -44,7 +44,11 @@ public class TaskRouteDetailController extends BaseController{
 	}
 	
 	/*
-	 * 添加巡更路线 CMS 端调用 管理员权限 */
+	 * 添加巡更路线 CMS 端调用 管理员权限
+	 * 根据需求分析，在创建路线的同时将会同时创建
+	 * 任务进度表 task_procgress 任务签到表 sign_in_record 对应数据
+	 * 后台自动创建，mysql 创建存储过程 myRoute()
+	 *  */
 	@ApiOperation("添加巡更路线")
 	@Permission(role={Role.ADMIN})
 	@PostMapping("addTaskRoute.action")
@@ -55,7 +59,8 @@ public class TaskRouteDetailController extends BaseController{
 		return ResultData.success().setData(taskRouteDetailMapper.insert(route));
 	}
 	
-	/*删除巡更路线 CMS 端调用 管理员权限*/
+	/*删除巡更路线 CMS 端调用 管理员权限
+	 * 删除路线表同时删除巡更签到表、巡更进度表 后台处理*/
 	@ApiOperation("删除巡更路线")
 	@Permission(role={Role.ADMIN})
 	@PostMapping("delTaskRoute.action")

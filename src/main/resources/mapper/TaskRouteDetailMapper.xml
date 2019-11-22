@@ -10,15 +10,18 @@
   
   <sql id="routeDetailField">rdt_tsk_id, rdt_fac_id, rdt_tsk_seq</sql>
   
-  <!-- 插入巡更任务路线 -->
+  <!-- 插入巡更任务路线 调用存储过程同时插入 路线表、巡更签到表 、巡更进度表 -->
   <insert id="insert" parameterType="com.smokeroom.entity.ext.TaskRouteDetailVO">
-    insert into task_route_detail (<include refid="routeDetailField"/>)
-    values (#{rdt_tsk_id,jdbcType=INTEGER}, #{rdt_fac_id,jdbcType=INTEGER}, #{rdt_tsk_seq,jdbcType=INTEGER})
+	call myRoute(#{rdt_tsk_id},#{rdt_fac_id},#{rdt_tsk_seq})
   </insert>
   
-  <!-- 删除巡更路线 -->
+  <!-- 删除巡更路线 同时删除 路线表、巡更签到表 、巡更进度表 连表删除 -->
   <delete id="delete" parameterType="com.smokeroom.entity.ext.TaskRouteDetailVO">
-  	delete from task_route_detail WHERE rdt_id=#{rdt_id}
+  	DELETE d,p,r FROM task_route_detail d
+	INNER JOIN task_procgress p
+	INNER JOIN sign_in_record r
+	ON d.rdt_fac_id=r.sin_fac_id AND d.rdt_tsk_id=r.sin_tsk_id AND r.sin_prog_id=p.tp_id 
+	WHERE d.rdt_id=#{rdt_id}
   </delete>
 
   <select id="selectAll" resultMap="BaseResultMap">

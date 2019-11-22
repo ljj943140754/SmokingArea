@@ -2,19 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smokeroom.mapper.SignInRecordMapper">
   <resultMap id="BaseResultMap" type="com.smokeroom.entity.SignInRecord">
+    <id column="sin_id" jdbcType="INTEGER" property="sin_id"/>
     <result column="sin_tsk_id" jdbcType="INTEGER" property="sin_tsk_id" />
     <result column="sin_fac_id" jdbcType="INTEGER" property="sin_fac_id" />
     <result column="sin_worker_id" jdbcType="INTEGER" property="sin_worker_id" />
+    <result column="sin_prog_id" jdbcType="INTEGER" property="sin_prog_id"/>
     <result column="sin_creation" jdbcType="TIMESTAMP" property="sin_creation" />
   </resultMap>
+  
   <insert id="insert" parameterType="com.smokeroom.entity.SignInRecord">
     insert into sign_in_record (sin_tsk_id, sin_fac_id, sin_worker_id, 
       sin_creation)
     values (#{sin_tsk_id,jdbcType=INTEGER}, #{sin_fac_id,jdbcType=INTEGER}, #{sin_worker_id,jdbcType=INTEGER}, 
       #{sin_creation,jdbcType=TIMESTAMP})
   </insert>
+  
   <select id="selectAll" resultMap="BaseResultMap">
     select sin_tsk_id, sin_fac_id, sin_worker_id, sin_creation
     from sign_in_record
   </select>
+  
+  <!-- 工作人员扫码，封装对象 signInBO 接收参数
+  		参数列表： 任务id 设施id 领队id 工作人员id 
+  		领队id 用于查询小组有多少员工，除这些员工外，扫码无效 -->
+  <update id="updateSignIn" parameterType="com.smokeroom.entity.ext.signInBO">
+  	UPDATE task_procgress p 
+	INNER JOIN sign_in_record s
+	ON s.sin_prog_id=p.tp_id
+	SET p.tp_wk_id=#{wdt_worker_id},p.tp_status=1,p.tp_finish_time=NOW(),
+	sin_worker_id=#{wdt_worker_id},sin_creation=NOW()
+	WHERE sin_tsk_id=#{sin_tsk_id} AND sin_fac_id=#{sin_fac_id} AND #{wdt_worker_id} IN( 
+	SELECT wdt_worker_id FROM task_worker_detail
+	WHERE wdt_worker_leader=#{wdt_worker_leader});
+  </update>
+  
 </mapper>

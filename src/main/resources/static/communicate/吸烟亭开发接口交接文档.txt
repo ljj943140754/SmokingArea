@@ -276,6 +276,19 @@
 	
 	修改添加巡更任务、删除巡更任务、修改巡更任务
 	
+2019-11-22 
+	根据需求分析，在创建路线的同时将会同时创建
+	任务进度表 task_procgress 任务签到表 sign_in_record 对应数据
+	后台自动创建，mysql 创建存储过程 myRoute()；
+	
+DELIMITER $
+CREATE PROCEDURE myRoute(IN rdt_tsk_id INTEGER,IN rdt_fac_id INTEGER,IN rdt_tsk_seq INTEGER)
+BEGIN
+    INSERT INTO task_route_detail VALUES (NULL,rdt_tsk_id,rdt_fac_id,rdt_tsk_seq);
+    INSERT INTO task_procgress VALUES (NULL,rdt_tsk_id,NULL,0,NOW(),NULL);
+    INSERT INTO sign_in_record VALUES(NULL,rdt_tsk_id,rdt_fac_id,NULL,NULL,LAST_INSERT_ID());
+END $
+	
 	
 
 

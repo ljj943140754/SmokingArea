@@ -1,6 +1,7 @@
 package com.smokeroom.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,7 +66,7 @@ public class TaskController extends BaseController {
 	// 查看巡更任务 CMS端调用
 	@ApiOperation("查看巡更任务 条件查询/列表查询 CMS调用 ")
 	@Permission(role = { Role.ADMIN })
-	@PostMapping("getTask.action")
+	@GetMapping("getTask.action")
 	public ResultData getTask(Task task) {
 		info("条件查询巡更任务" + task);
 		return ResultData.success().setData(mapper.selectTask(task));
@@ -74,7 +75,7 @@ public class TaskController extends BaseController {
 	// 查看巡更任务 小程序端调用
 	@ApiOperation("查看巡更任务 条件查询/列表查询 一对多查询 ")
 	@Permission(role = { Role.WORKER })
-	@PostMapping("findTask.action")
+	@GetMapping("findTask.action")
 	public ResultData findTask(Task task) {
 		info("条件查询巡更任务" + task);
 		return ResultData.success().setData(mapper.get(task));
