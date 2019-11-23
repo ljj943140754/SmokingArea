@@ -2,7 +2,7 @@ package com.smokeroom.entity;
 
 import java.util.Date;
 //巡更-签到表
-public class SignInRecord {
+public class SignInRecord extends pageObject{
 	
 	private Integer sin_id;
 	

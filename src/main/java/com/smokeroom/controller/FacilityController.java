@@ -9,13 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
 
 import com.common.ano.Permission;
 import com.common.bean.ResultData;
 import com.common.controller.BaseController;
 import com.common.enu.Role;
+import com.github.pagehelper.PageHelper;
 import com.smokeroom.entity.Facility;
 import com.smokeroom.mapper.FacilityMapper;
 
@@ -46,7 +46,7 @@ public class FacilityController extends BaseController {
 	}
 	
 	@ApiOperation("设施删除管理，管理员权限")
-	//@Permission(role = Role.ADMIN )
+	@Permission(role = Role.ADMIN )
 	@GetMapping("delete.action")
 	public ResultData delFacility(Facility fac,HttpSession ss) {
 		System.err.println("delete.action = "+ fac);
@@ -56,13 +56,12 @@ public class FacilityController extends BaseController {
 	}
 	
 	@ApiOperation("设施查找管理，管理员权限")
-//	@Permission(role = Role.ADMIN )
+	@Permission(role = Role.ADMIN )
 	@GetMapping("findFacility.action")
 	public ResultData findFacility(Facility fac) {
 		info("查找设施："+fac);
-		System.err.println(fac);
-		List<Facility> flt= mapper.getFacility(fac);
-		System.err.println(flt.size());
+		//分页功能
+		PageHelper.startPage(fac.getPageNum(), fac.getPageSize());
 		return ResultData.success().setData((mapper.getFacility(fac)));
 	}
 	
@@ -73,7 +72,6 @@ public class FacilityController extends BaseController {
 		info("删除修改 VR 修改设施："+fac);
 		return ResultData.success().setData((mapper.updateByPrimaryKey(fac)));
 	}
-	
 	
 
 }

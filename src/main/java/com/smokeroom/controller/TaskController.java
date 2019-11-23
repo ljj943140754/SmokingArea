@@ -10,6 +10,7 @@ import com.common.ano.Permission;
 import com.common.bean.ResultData;
 import com.common.controller.BaseController;
 import com.common.enu.Role;
+import com.github.pagehelper.PageHelper;
 import com.smokeroom.entity.Task;
 import com.smokeroom.mapper.TaskMapper;
 import com.smokeroom.service.ITaskService;
@@ -69,6 +70,8 @@ public class TaskController extends BaseController {
 	@GetMapping("getTask.action")
 	public ResultData getTask(Task task) {
 		info("条件查询巡更任务" + task);
+		//分页功能
+		PageHelper.startPage(task.getPageNum(), task.getPageSize());
 		return ResultData.success().setData(mapper.selectTask(task));
 	}
 
@@ -78,6 +81,8 @@ public class TaskController extends BaseController {
 	@GetMapping("findTask.action")
 	public ResultData findTask(Task task) {
 		info("条件查询巡更任务" + task);
+		//分页功能
+		//PageHelper.startPage(task.getPageNum(), task.getPageSize());
 		return ResultData.success().setData(mapper.get(task));
 	}
 

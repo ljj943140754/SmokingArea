@@ -3,7 +3,7 @@ package com.smokeroom.entity;
 import java.util.Date;
 
 //用户实体表
-public class User {
+public class User extends pageObject{
     private Integer ur_id;
 
     private String ur_openid;

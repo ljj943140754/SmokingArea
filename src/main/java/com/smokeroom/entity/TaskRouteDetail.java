@@ -1,7 +1,7 @@
 package com.smokeroom.entity;
 
 //任务-路线明细表
-public class TaskRouteDetail {
+public class TaskRouteDetail extends pageObject{
 	private Integer rdt_id ;
 	
     private Integer rdt_tsk_id;

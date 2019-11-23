@@ -11,6 +11,7 @@ import com.common.ano.Permission;
 import com.common.bean.ResultData;
 import com.common.controller.BaseController;
 import com.common.enu.Role;
+import com.github.pagehelper.PageHelper;
 import com.smokeroom.entity.Message;
 import com.smokeroom.mapper.MessageMapper;
 import com.smokeroom.service.impl.timerCloseMessage;
@@ -68,6 +69,8 @@ public class MessageController extends BaseController {
 	@GetMapping("get.action")
 	public ResultData get( Message query ) {
 		info("查询消息：" + query);
+		//分页功能
+		PageHelper.startPage(query.getPageNum(), query.getPageSize());
 		return ResultData.success().setData( mapper.get(query));
 	}
 }

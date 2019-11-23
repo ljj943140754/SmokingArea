@@ -11,6 +11,7 @@ import com.common.ano.Permission;
 import com.common.bean.ResultData;
 import com.common.controller.BaseController;
 import com.common.enu.Role;
+import com.github.pagehelper.PageHelper;
 import com.smokeroom.entity.Task;
 import com.smokeroom.entity.ext.TaskWorkerDetailVO;
 import com.smokeroom.mapper.TaskWorkerDetailMapper;
@@ -40,6 +41,8 @@ public class TaskWorkerDetailController extends BaseController{
 	@GetMapping("getWorkerDetail.action")
 	public ResultData getWorkerDetail(Task task){
 		info("获取人员明细:"+task);
+		//分页功能
+		//PageHelper.startPage(task.getPageNum(), task.getPageSize());
 		return ResultData.success().setData(taskWorkerDetailMapper.getTaskWorker(task));
 	}
 	

@@ -3,8 +3,9 @@ package com.smokeroom.entity;
 import java.util.Date;
 /**
  * 设施实体类*/
-public class Facility {
-    private Integer fy_id;
+public class Facility extends pageObject{
+
+	private Integer fy_id;
 
     private String fy_lat;
 

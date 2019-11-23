@@ -12,6 +12,7 @@ import com.common.ano.Permission;
 import com.common.bean.ResultData;
 import com.common.controller.BaseController;
 import com.common.enu.Role;
+import com.github.pagehelper.PageHelper;
 import com.smokeroom.entity.ActivityJoinIn;
 import com.smokeroom.mapper.ActivityJoinInMapper;
 import com.smokeroom.service.IActivityJoinInService;
@@ -53,9 +54,12 @@ public class ActivityJoinInController extends BaseController{
 	 * 封装了 实体类 MyActivityVO 继承于Activity 定义链接查询需要的字段
 	 * */
 	@ApiOperation("查看我的报名")
+	@Permission(role={Role.USER})
 	@GetMapping("getMyActivity.action")
 	public ResultData getMyActivity(ActivityJoinIn actJo){
 		info("查看我的报名");
+		//分页功能
+		PageHelper.startPage(actJo.getPageNum(), actJo.getPageSize());
 		return ResultData.success().setData(mapper.getSignActivity(actJo));
 	}
 	

@@ -13,7 +13,7 @@ import com.smokeroom.entity.taskProcgress;
 import com.smokeroom.mapper.TaskRecordMapper;
 /*定时添加巡更签到纪录，方便管理员查看那个小队缺勤*/
 @Service
-@TimeStage("20:33")
+@TimeStage("23:30")
 public class samedayTaskRecord implements FixTimeStageService{
 
 	@Autowired

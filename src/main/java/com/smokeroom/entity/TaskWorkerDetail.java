@@ -1,7 +1,7 @@
 package com.smokeroom.entity;
 
 //任务-人员明细表
-public class TaskWorkerDetail {
+public class TaskWorkerDetail extends pageObject{
 	private Integer wdt_id;
 	
     private Integer wdt_worker_leader;

@@ -2,7 +2,7 @@ package com.smokeroom.entity;
 
 import java.util.Date;
 //巡更任务表
-public class Task {
+public class Task extends pageObject{
     private Integer tsk_id;
 
     private String tsk_name;

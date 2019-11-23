@@ -3,7 +3,7 @@ package com.smokeroom.entity;
 import java.util.Date;
 
 //我的痕迹
-public class Trace {
+public class Trace extends pageObject{
     private Integer te_id;
 
     private Integer te_fy_id;

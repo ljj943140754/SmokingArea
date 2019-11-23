@@ -3,7 +3,7 @@ package com.smokeroom.entity;
 import java.util.Date;
 /**
  * 活动实体类*/
-public class Activity {
+public class Activity extends pageObject{
     private Integer at_id;
 
     private Integer at_uid;

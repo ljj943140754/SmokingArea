@@ -10,6 +10,7 @@ import com.common.ano.Permission;
 import com.common.bean.ResultData;
 import com.common.controller.BaseController;
 import com.common.enu.Role;
+import com.github.pagehelper.PageHelper;
 import com.smokeroom.entity.Trace;
 import com.smokeroom.entity.ext.userTraceVO;
 import com.smokeroom.mapper.TraceMapper;
@@ -71,6 +72,8 @@ public class TraceController extends BaseController {
 	@GetMapping("selectMyTrace.action")
 	public ResultData selectMyTrace(Trace trace) {
 		info("用户查看我的痕迹"+trace);
+		//分页功能
+		//PageHelper.startPage(trace.getPageNum(), trace.getPageSize());
 		return ResultData.success().setData(mapper.get(trace));
 	}
 

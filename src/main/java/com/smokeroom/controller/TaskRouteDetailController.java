@@ -11,6 +11,7 @@ import com.common.ano.Permission;
 import com.common.bean.ResultData;
 import com.common.controller.BaseController;
 import com.common.enu.Role;
+import com.github.pagehelper.PageHelper;
 import com.smokeroom.entity.Task;
 import com.smokeroom.entity.ext.TaskRouteDetailVO;
 import com.smokeroom.mapper.TaskRouteDetailMapper;
@@ -40,6 +41,8 @@ public class TaskRouteDetailController extends BaseController{
 	@GetMapping("getRouteDetail.action")
 	public ResultData routeDetail(Task task){
 		info("查看巡更任务测试 "+task);
+		//分页功能
+		//PageHelper.startPage(task.getPageNum(), task.getPageSize());
 		return ResultData.success().setData(taskRouteDetailMapper.get(task));
 	}
 	

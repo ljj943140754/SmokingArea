@@ -9,6 +9,8 @@ import com.common.ano.Permission;
 import com.common.bean.ResultData;
 import com.common.controller.BaseController;
 import com.common.enu.Role;
+import com.github.pagehelper.PageHelper;
+import com.smokeroom.entity.pageObject;
 import com.smokeroom.mapper.TaskRecordMapper;
 
 import io.swagger.annotations.Api;
@@ -27,8 +29,10 @@ public class TaskRecordController extends BaseController {
 	@ApiOperation("查询所有巡更任务签到纪录")
 	@Permission(role = { Role.ADMIN })
 	@GetMapping("getTaskRecord.action")
-	public ResultData getTaskRecord() {
+	public ResultData getTaskRecord(pageObject page) {
 		info("条件查询巡更任务" );
+		//分页功能
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		return ResultData.success().setData(taskRecordMapper.selectAll());
 	}
 

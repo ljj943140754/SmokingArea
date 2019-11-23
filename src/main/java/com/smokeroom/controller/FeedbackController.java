@@ -14,6 +14,7 @@ import com.common.ano.Permission;
 import com.common.bean.ResultData;
 import com.common.controller.BaseController;
 import com.common.enu.Role;
+import com.github.pagehelper.PageHelper;
 import com.smokeroom.entity.Feedback;
 import com.smokeroom.mapper.FeedbackMapper;
 
@@ -49,6 +50,8 @@ public class FeedbackController extends BaseController{
 	@GetMapping("selectAll.action")
 	public ResultData selectAll(Feedback fee){
 		info("查看用户反馈");
+		//分页功能
+		PageHelper.startPage(fee.getPageNum(), fee.getPageSize());
 		return ResultData.success().setData(mapper.get(fee));
 	}
 	
@@ -67,6 +70,8 @@ public class FeedbackController extends BaseController{
 	@GetMapping("userRecord.action")
 	public ResultData userRecord(Feedback fee) {
 		info("用户查看意见记录：");
+		//分页功能
+		PageHelper.startPage(fee.getPageNum(), fee.getPageSize());
 		return ResultData.success().setData(mapper.selectByPrimaryKey(fee));
 	}
 	

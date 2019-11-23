@@ -3,7 +3,7 @@ package com.smokeroom.entity;
 import java.util.Date;
 
 //消息表
-public class Message {
+public class Message extends pageObject{
     private Integer msg_id;
 
     private String msg_content;

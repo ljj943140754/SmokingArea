@@ -1,6 +1,9 @@
 package com.common.bean;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.github.pagehelper.PageInfo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -69,6 +72,11 @@ public class ResultData implements Serializable{
 	public ResultData setData(Object data) {
 		this.data = data;
 		return this;
+	}
+	//重载 setData 方法统一返回分页 List 对象
+	public ResultData setData(List list) {
+		 PageInfo page = new PageInfo(list);
+		return this.setData(page);
 	}
 
 	public String getToken() {

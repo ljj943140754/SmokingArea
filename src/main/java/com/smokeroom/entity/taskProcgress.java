@@ -2,7 +2,7 @@ package com.smokeroom.entity;
 
 import java.util.Date;
 
-public class taskProcgress {
+public class taskProcgress extends pageObject{
 	private Integer tp_id;
 	private Integer tp_task_id;
 	private Integer tp_wk_id;

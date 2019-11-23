@@ -3,7 +3,7 @@ package com.smokeroom.entity;
 import java.util.Date;
 
 /*任务巡更签到纪录表  方便管理员查看那个小队缺勤*/
-public class TaskRecord {
+public class TaskRecord extends pageObject{
 	private Integer tr_id;
 	private Integer tr_task_id;
 	private Integer tr_worker_leader;

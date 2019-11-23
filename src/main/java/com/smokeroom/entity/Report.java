@@ -2,7 +2,7 @@ package com.smokeroom.entity;
 
 import java.util.Date;
 //巡更报告实体类
-public class Report {
+public class Report extends pageObject{
     private Integer rp_id;
 
     private String rp_title;

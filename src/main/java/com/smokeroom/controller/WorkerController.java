@@ -2,7 +2,6 @@ package com.smokeroom.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.RandomStringUtils;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.common.ano.Permission;
 import com.common.bean.CommonUser;
 import com.common.bean.ResultData;
@@ -21,12 +19,12 @@ import com.common.enu.HttpSessionKey;
 import com.common.enu.Role;
 import com.common.utils.MyStringUtils;
 import com.common.utils.SendSms;
+import com.github.pagehelper.PageHelper;
 import com.smokeroom.entity.User;
 import com.smokeroom.entity.Worker;
 import com.smokeroom.entity.ext.WorkerLoginVO;
 import com.smokeroom.mapper.UserMapper;
 import com.smokeroom.mapper.WorkerMapper;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -48,7 +46,6 @@ public class WorkerController extends BaseController {
 	
 	@Autowired
 	private UserMapper map;
-
 
 	@ApiOperation("登陆检测")
 	@GetMapping("checklogin.action")
@@ -98,6 +95,8 @@ public class WorkerController extends BaseController {
 	@ApiOperation("查询员工列表/条件查询")
 	@PostMapping("getList.action")
 	public ResultData getWorkerList(Worker wor){
+		info("查询员工列表/条件查询"+wor);
+		PageHelper.startPage(wor.getPageNum(), wor.getPageSize());
 		return ResultData.success().setData(mapper.get(wor));
 	}
 

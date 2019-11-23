@@ -12,7 +12,9 @@ import com.common.ano.Permission;
 import com.common.bean.ResultData;
 import com.common.controller.BaseController;
 import com.common.enu.Role;
+import com.github.pagehelper.PageHelper;
 import com.smokeroom.entity.Activity;
+import com.smokeroom.entity.pageObject;
 import com.smokeroom.mapper.ActivityMapper;
 
 import io.swagger.annotations.Api;
@@ -63,6 +65,8 @@ public class ActivityController extends BaseController{
 	@GetMapping("getAct.action")
 	public ResultData getActivity (Activity act){
 		info("查看己发布活动 ");
+		//分页功能
+		PageHelper.startPage(act.getPageNum(), act.getPageSize());
 		return ResultData.success().setData(mapper.getActivity(act));
 	}
 	
@@ -72,8 +76,10 @@ public class ActivityController extends BaseController{
 	@ApiOperation("查看活动列表")
 	@Permission(role={Role.ADMIN})
 	@GetMapping("getAllAct.action")
-	public ResultData getAllActivity(){
+	public ResultData getAllActivity(pageObject page){
 		info("查看活动列表 ");
+		//分页功能
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		return ResultData.success().setData(mapper.selectAll());
 	}
 	/*

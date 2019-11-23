@@ -3,7 +3,7 @@ package com.smokeroom.entity;
 import java.util.Date;
 
 //用户反馈表
-public class Feedback {
+public class Feedback extends pageObject{
     private Integer fb_id;
 
     private Integer fb_uid;

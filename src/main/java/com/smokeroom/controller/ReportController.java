@@ -11,6 +11,7 @@ import com.common.ano.Permission;
 import com.common.bean.ResultData;
 import com.common.controller.BaseController;
 import com.common.enu.Role;
+import com.github.pagehelper.PageHelper;
 import com.smokeroom.entity.Report;
 import com.smokeroom.entity.Task;
 import com.smokeroom.mapper.ReportMapper;
@@ -54,6 +55,8 @@ public class ReportController extends BaseController{
 	@GetMapping("getReport.action")
 	public ResultData getReport(Report rep){
 		info("查看巡更报表"+rep);
+		//分页功能
+		PageHelper.startPage(rep.getPageNum(), rep.getPageSize());
 		return ResultData.success().setData(reportMapper.get(rep));
 	}
 	
