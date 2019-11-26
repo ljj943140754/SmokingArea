@@ -6,11 +6,11 @@
 <body>
 <!--查询管理-->
 <form class="layui-form ng-pristine ng-valid ng-scope" lay-filter="facilityUpdateform" 
-ng-controller="facility_updateCtrl">
+ng-controller="facilityUpdateCtrl" ng-model="updatemodel">
 		<div class="layui-form-item">
 				<label class="layui-form-label">类型</label>
 				<div class="layui-input-inline">
-					<select lay-filter="fy_type" class="layui-input" name="fy_type">
+					<select lay-filter="fy_type" class="layui-input" name="fy_type" >
 						<option value="">请选择</option>
 					    <option value="1">吸烟亭</option>
 					    <option value="2">吸烟柱</option>
@@ -18,7 +18,7 @@ ng-controller="facility_updateCtrl">
 					</select>
 					<div class="layui-unselect layui-form-select">
 					<div class="layui-select-title">
-					<input type="text" placeholder="请选择" value="" 
+					<input type="text" placeholder="请选择" ng-model="updatemodel.fy_type" 
 					readonly="" class="layui-input layui-unselect">
 					<i class="layui-edge"></i>
 					</div>
@@ -32,20 +32,20 @@ ng-controller="facility_updateCtrl">
 				</div>
 				<label class="layui-form-label">名称</label>
 				<div class="layui-input-inline">
-					<input name="fy_name" class="layui-input">
+					<input name="fy_name" class="layui-input" ng-model="updatemodel.fy_name">
 				</div>
 	    </div>
 		<div class="layui-form-item"  >
 		    <label class="layui-form-label">是否启用</label>
 				<div class="layui-input-inline">
-					<select lay-filter="fy_type" class="layui-input" name="fy_isdel">
+					<select lay-filter="fy_type" class="layui-input" name="fy_isdel" >
 						<option value="">请选择</option>
 						<option value="1">启用</option>
 						<option value="0">未启用</option>
 					</select>
 					<div class="layui-unselect layui-form-select">
 					<div class="layui-select-title">
-					<input type="text" placeholder="请选择" value="" 
+					<input type="text" placeholder="请选择" ng-model="updatemodel.fy_isdel"  
 					readonly="" class="layui-input layui-unselect">
 					<i class="layui-edge"></i>
 					</div>
@@ -58,29 +58,29 @@ ng-controller="facility_updateCtrl">
 			</div>
 			<label class="layui-form-label">创建时间</label>
 			<div class="layui-input-inline">
-			<input type="text" class="layui-input" id="test1" name="fy_creation">
+			<input type="text" class="layui-input" id="test1" name="fy_creation" ng-model="updatemodel.fy_creation" >
 			</div>
 		</div>
 		<div class="layui-form-item"  >
 		 <label class="layui-form-label">精度</label>
 			<div class="layui-input-inline">
-				<input name="fy_lng" class="layui-input" placeholder="选填">
+				<input name="fy_lng" class="layui-input" placeholder="选填" ng-model="updatemodel.fy_lng">
 			</div>
 		 <label class="layui-form-label">维度</label>
 			<div class="layui-input-inline">
-				<input name="fy_lat" class="layui-input" placeholder="选填">
+				<input name="fy_lat" class="layui-input" placeholder="选填" ng-model="updatemodel.fy_lat">
 			</div>
 		</div>
 		<div class="layui-form-item">
 	    		<label class="layui-form-label">详细描述</label>
 				<div class="layui-input-block">
-					<input name="fy_detail" class="layui-input" placeholder="选填">  
+					<input name="fy_detail" class="layui-input" placeholder="选填" ng-model ="updatemodel.fy_detail">  
 				</div>
 	    </div>
 	    <div class="layui-form-item ng-scope" >
 	    		<label class="layui-form-label">VR链接</label>
 				<div class="layui-input-block">
-					<input name="fy_res_link" class="layui-input" placeholder="选填">  
+					<input name="fy_res_link" class="layui-input" placeholder="选填" ng-model ="updatemodel.fy_res_link">  
 				</div>
 	    </div>
 	    <div class="layui-form-item">

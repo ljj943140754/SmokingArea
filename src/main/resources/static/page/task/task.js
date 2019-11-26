@@ -21,8 +21,8 @@
 		
 	 $scope.query=()=>{
 		 let model = form.val("taskform");
-		 console.info("task中的model");
-		 console.info(model);
+//		 console.info("task中的model");
+//		 console.info(model);
 		 tb_instance.reload({
 			 url: 'task/getTask.action',
 			 where: { 
@@ -30,7 +30,23 @@
 			 } 
 		 });
 	 }
-		 
+	 $scope.redact=()=>{
+		 var checkStatus = table.checkStatus('taskTable'); //idTest 即为基础参数 id 对应的值
+		 var da =  checkStatus.data[0];
+		 goToUrl( "#!/task_update",'get', JSON.stringify(da) );
+	 }
+	 
+	 function goToUrl(url,method,data){
+	        var form = document.createElement("form");
+	        form.action = url;
+	        form.method = method;
+	        form.style.display = "none";
+	        document.body.appendChild(form);
+	        sessionStorage.setItem( "taskdata" , data);
+	        form.submit();
+	        return form;
+	    }
+	 
 		//删除表格。
 	    $scope.deleteById=function(){
 			var checkStatus = table.checkStatus('taskTable'); //idTest 即为基础参数 id 对应的值
@@ -49,12 +65,22 @@
 		//商品表格。
 		 tb_instance = table.render({
 			elem : '#taskTable',
-			method:"post",
 			page: {
 				limits: [5,10,15] , 
 	            limit: 10 ,
+	            groups: 1
 			}, 
-          
+			request: {
+                pageName: 'pageNum' //页码的参数名称，默认：page
+                ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            },
+            parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
+//                console.log(res);
+  				return {
+                      "code": res.code, //解析接口状态
+                      "data": res.data.list //解析数据列表
+                  };
+              },
 			url : 'task/getTask.action', //数据接口
 			cols : [ [ //表头
 			{
@@ -84,8 +110,8 @@
 			  var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
 			 
 			  if(layEvent === 'detail'){
-				  console.info("获得当前行数据");
-			    console.info(data);
+//				  console.info("获得当前行数据");
+//			    console.info(data);
 			  } 
 			});
 		 

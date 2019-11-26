@@ -13,12 +13,17 @@
 		 var formlist = {};
 		 //fy_createdby , fy_creation , fy_detail ,fy_isdel ,fy_name
 		 //fy_lat , fy_lng , fy_res_link , fy_type
-		
+		 $scope.getFacilityData=function(){
+	    	 var facilitydata = JSON.parse(sessionStorage.getItem("facilitydata"));
+	    	 console.info( "获取的该行的数据------" );
+	    	 console.info( facilitydata );
+	    	 $scope.updatemodel =  facilitydata ;
+	    	 console.info("$scope.updatemodel------");
+	    	 console.info( $scope.updatemodel );
+		 }
 			$scope.checklogin=function(){
 				form.render('select');
 				$.get("worker/checklogin.action",function(rs){
-					console.info( "faclility_insert中获取的登陆状态" );
-					console.info( rs.data );
 					formlist.fy_createdby = rs.data.worker.wk_num ;
 				});
 				
@@ -46,7 +51,7 @@
 				}
 			
 			$scope.checklogin();
-
+			$scope.getFacilityData();
 	});
 })
 

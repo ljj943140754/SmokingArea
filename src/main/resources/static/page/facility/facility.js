@@ -12,18 +12,22 @@
 		    elem: '#test1' //指定元素
 		  });
 		
-	 /* $scope.sitelist = [];
-	   $.get("worker/getList.action",function(res){
-			if(res.code == 0){
-				$scope.sitelist = res.data;
-				//angular重渲染
-				$scope.$apply();
-				//下拉框重载。
-				form.render('select');
-			}
-
-		}) */
-		
+	  $scope.redact=()=>{
+			 var checkStatus = table.checkStatus('facilityTable'); //idTest 即为基础参数 id 对应的值
+			 var da =  checkStatus.data[0];
+			 goToUrl( "#!/facility_update",'get', JSON.stringify(da) );
+		 }
+		 
+	 function goToUrl(url,method,data){
+	        var form = document.createElement("form");
+	        form.action = url;
+	        form.method = method;
+	        form.style.display = "none";
+	        document.body.appendChild(form);
+	        sessionStorage.setItem( "facilitydata" , data);
+	        form.submit();
+	        return form;
+	    }
 	 $scope.query=()=>{
 		 let model = form.val("facilityform");
 			 tb_instance.reload({
@@ -59,7 +63,17 @@
 				limits: [5,10,15] , 
 	            limit: 10 ,
 			}, 
-          
+			request: {
+                pageName: 'pageNum' //页码的参数名称，默认：page
+                ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            },
+            parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
+                console.log(res);
+  				return {
+                      "code": res.code, //解析接口状态
+                      "data": res.data.list //解析数据列表
+                  };
+              },
 			url : 'facility/findFacility.action', //数据接口
 			cols : [ [ //表头
 			{

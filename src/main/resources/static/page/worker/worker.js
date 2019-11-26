@@ -6,24 +6,10 @@
 		var table = layui.table;
 		let tb_instance = null;
 		var laydate = layui.laydate;
-		  
 		  //执行一个laydate实例
 		  laydate.render({
 		    elem: '#test1' //指定元素
 		  });
-		
-	 /* $scope.sitelist = [];
-	   $.get("worker/getList.action",function(res){
-			if(res.code == 0){
-				$scope.sitelist = res.data;
-				//angular重渲染
-				$scope.$apply();
-				//下拉框重载。
-				form.render('select');
-			}
-
-		}) */
-		
 	 $scope.query=()=>{
 		 let model = form.val("workerform");
 		 console.info("worker中的model");
@@ -59,12 +45,26 @@
 		 tb_instance = table.render({
 			elem : '#workerTable',
 			method:"post",
-			page: {
-				limits: [5,10,15] , 
-	            limit: 10 ,
-			}, 
-          
+			page:{
+				limits:[3,5,10],
+				groups : 1 ,
+				prev : "上一页" ,
+				next : "下一页"
+			},
 			url : 'worker/getList.action', //数据接口
+			request: {
+                pageName: 'pageNum' //页码的参数名称，默认：page
+                ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            },
+			parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
+              console.log(res);
+				return {
+                    "code": res.code, //解析接口状态
+//                    "msg": res.msg, //解析提示文本
+//                    "count": res.data.total, //解析数据长度
+                    "data": res.data.list //解析数据列表
+                };
+            },
 			cols : [ [ //表头
 			{
 				 type:"radio",

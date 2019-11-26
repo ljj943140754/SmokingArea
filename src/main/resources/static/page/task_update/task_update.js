@@ -10,13 +10,20 @@
 		  laydate.render({
 		    elem: '#test1' //指定元素
 		  });
-		
+     //获取想要编辑的值
+     $scope.getTaskData=function(){
+    	 var taskdata = JSON.parse(sessionStorage.getItem("taskdata"));
+    	 console.info( taskdata );
+    	 console.info( taskdata.tsk_name );
+	 }
+     
 	 $scope.saveTaskInfo=()=>{
 		 console.info("$scope.updatemodel---------");
 		 console.info($scope.updatemodel);
 		 
 	 }
 	    var formlist = {};
+	    //查询设施
 	    $scope.searchtaskbykeywords=(e)=>{
 	    	if( $scope.search_fy_name == undefined)return;
 	    	formlist.fy_name = $scope.search_fy_name;
@@ -34,6 +41,7 @@
 	    		 $scope.facilityModel = res.data;
 			});
 		 }
+	    //查询工作人员
 	    $scope.searchworkerbykeywords=()=>{
 	    	if( $scope.search_wk_name == undefined)return;
 	    	formlist.wk_name = $scope.search_wk_name;
@@ -42,6 +50,6 @@
 	    		 $scope.workerModel = res.data;
 			});
 		 }
-	    
+	    $scope.getTaskData(); 
 	});
 })

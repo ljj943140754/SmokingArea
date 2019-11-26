@@ -35,7 +35,7 @@ dl.layui-nav-child dd a:before{
 </head>
 <body>
 <!--编辑巡更任务-->
-<div class="layui-collapse ng-scope" ng-controller="task_updateCtrl" ng-app="myApp">
+<div class="layui-collapse ng-scope" ng-controller="taskUpdatetCtrl" ng-app="myApp">
   <div class="layui-colla-item">
     <h2 class="layui-colla-title layui-bg-green">巡更任务修改</h2>
     <div class="layui-colla-content layui-show">
@@ -106,7 +106,8 @@ dl.layui-nav-child dd a:before{
 				  	  	   <th><label ng-bind="item.fy_detail" class="ng-binding"></label></th>
 				  	  	   <th><input class="layui-input ng-pristine ng-untouched ng-valid ng-empty" ng-model="item.seq"></th>
 					       <th>
-					       	 <a ng-click="addRoute($index)" class="layui-btn layui-btn-xs" lay-event="insert">添加<i class="layui-icon layui-icon-insert"></i></a>
+					       	 <a ng-click="addRoute($index)" class="layui-btn layui-btn-xs"
+					       	  lay-event="insert">添加<i class="layui-icon layui-icon-insert"></i></a>
 					       </th>
 				  	  </tr>
 				  	</tbody>
