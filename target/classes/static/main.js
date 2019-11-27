@@ -4,21 +4,36 @@ layui.use([ "element"  ], function() { });
 //2 angular初始化
 const app = angular.module('Express_Sys',['ngRoute']);
 
+app.controller("menuCtrl",($scope)=>{
+	let hash =  location.hash;
+	let key = hash.substring(hash.lastIndexOf("/") + 1 ,hash.length);
+	$scope.active={};
+	$scope.active[key]=" layui-this ";//前后留一点空格。防止和其他类黏在一起。
+	 
+})
 //3 页面配置。
 const pages={
-		//suffix:"page/",
-		//prefix:"",
 		config:[
+				
 			 	["/home","page/home/home","homeCtrl"],
-				["/facility","page/facility/facility","facilityCtrl"],
-				["/facility_insert","page/facility_insert/facility_insert","facility_insertCtrl"],
-				["/facility_update","page/facility_update/facility_update","facility_updateCtrl"],
-				["/task","page/task/task","taskCtrl"],
-				["/task_insert","page/task_insert/task_insert","task_insertCtrl"],
-				["/task_update","page/task_update/task_update","task_updateCtrl"],
-				["/upload","page/upload/upload","uploadCtrl"],
 				["/worker","page/worker/worker","workerCtrl"],
-				["/worker_insert","page/worker_insert/worker_insert","worker_insertCtrl"]
+				["/worker_insert","page/worker_insert/worker_insert","workerInsertCtrl"],
+				
+				["/facility","page/facility/facility","facilityCtrl"],
+				["/facility_insert","page/facility_insert/facility_insert","facilityInsertCtrl"],
+				["/facility_update","page/facility_update/facility_update","facilityUpdateCtrl"],
+				
+				["/upload","page/upload/upload","uploadCtrl"] ,
+			 	
+				
+				["/task","page/task/task","taskCtrl"] , 
+			 	["/task_insert","page/task_insert/task_insert","taskInsertCtrl"],
+			 	["/task_update","page/task_update/task_update","taskUpdatetCtrl"],
+			 	
+			 	["/news_insert","page/news_insert/news_insert","newsInsertCtrl"]
+			 	
+			 	 
+			 
 			]
 };
 
@@ -59,7 +74,7 @@ function require(path,args){
 	 layui.use(["jquery"],function(){
 		var jq = layui.jquery;
 		jq.getScript(path, function(data, status, jqxhr) {
-			 let callback = eval(data);
+			 let callback = eval(data);//核心在这呢
 			 callback.apply(null,args);
 			 args[0].$apply();
 		});

@@ -51,6 +51,7 @@ public class TaskWorkerDetailController extends BaseController{
 	@Permission(role={Role.ADMIN})
 	@PostMapping("addTaskWorker.action")
 	public ResultData addTaskWorker(TaskWorkerDetailVO worker){
+		System.out.println("需要添加的人员---"+worker);
 		info("添加巡更人员明细"+worker);
 		return quickReturn(taskWorkerDetailMapper.insert(worker));
 	}
