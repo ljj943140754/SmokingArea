@@ -71,7 +71,6 @@
                 console.log(res);
   				return {
                       "code": res.code, //解析接口状态
-                      "count": res.data.total,
                       "data": res.data.list //解析数据列表
                   };
               },

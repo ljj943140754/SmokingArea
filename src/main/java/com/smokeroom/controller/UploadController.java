@@ -9,14 +9,18 @@ import java.security.KeyFactory;
 import java.security.PublicKey;
 import java.security.spec.X509EncodedKeySpec;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -33,6 +37,7 @@ import com.common.ano.Permission;
 import com.common.bean.ResultData;
 import com.common.controller.BaseController;
 import com.common.enu.Role;
+import com.smokeroom.entity.Resource;
 
 //import org.junit.Assert;
 import net.sf.json.JSONObject;
@@ -55,7 +60,7 @@ public class UploadController extends BaseController {
 		String bucket = "smokeroom"; // 请填写您的 bucketname 。
 		String host = "https://" + bucket + "." + endpoint; // host的格式为 bucketname.endpoint
 		// callbackUrl为 上传回调服务器的URL，请将下面的IP和Port配置为您自己的真实信息。
-		//String callbackUrl = "http://localhost:8080";
+		String callbackUrl = "http://go23760150.qicp.vip:52052/upload/callback.action";
 		String dir = "image"; // 用户上传文件时指定的前缀。
 
 		OSSClient client = new OSSClient(endpoint, accessId, accessKey);
@@ -77,8 +82,21 @@ public class UploadController extends BaseController {
 			respMap.put("policy", encodedPolicy);
 			respMap.put("signature", postSignature);
 			respMap.put("dir", dir);
+			String key = getKey(dir, "Test7.png");
+			String finalname = getFinalName(host, key);
+			respMap.put("finalname", finalname);
+			respMap.put("key", key);
 			respMap.put("host", host);
 			respMap.put("expire", String.valueOf(expireEndTime / 1000));
+			
+			//回调地址。
+			JSONObject jasonCallback = new JSONObject();
+			jasonCallback.put("callbackUrl", callbackUrl);
+			jasonCallback.put("callbackBody",
+					"serialVersionUID="+serialVersionUID+"&filename=${object}&finalname="+finalname+"&size=${size}&mimeType=${mimeType}&height=${imageInfo.height}&width=${imageInfo.width}");
+			jasonCallback.put("callbackBodyType", "application/x-www-form-urlencoded");
+			String base64CallbackBody = BinaryUtil.toBase64String(jasonCallback.toString().getBytes());
+			respMap.put("callback", base64CallbackBody);
 			 
 			response.setHeader("Access-Control-Allow-Origin", "*");
 			response.setHeader("Access-Control-Allow-Methods", "GET, POST");
@@ -90,12 +108,42 @@ public class UploadController extends BaseController {
 		return null;
 	}
 	
-//	@GetMapping("policy.action")
-//	public  String doGet(String name,HttpServletRequest request, HttpServletResponse response){
-//		response.setHeader("Access-Control-Allow-Origin", "*");
-//		System.err.println("进来了。。。"+name);
-//		
-//		return "OK";
-//	}
- 
+	public static String getKey(String dir,String srcname) {
+		String suffix = srcname.substring(srcname.lastIndexOf("."), srcname.length());
+		String time = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+		String randomid = UUID.randomUUID().toString();
+		String uuidid = randomid.substring(randomid.lastIndexOf("-")+1, randomid.length());
+		String filename = dir + "/" +time + "/"+uuidid+suffix;
+		return filename;
+	}
+	public static String getFinalName(String host,String key) {
+		   return host +"/"+key;
+	}
+	
+	@RequestMapping("callback.action")
+	public ResultData uploadCallback(HttpServletRequest rq) {
+		//filename  image/2019-11-10/1573373024800
+		//host  https://smokeroom.oss-cn-beijing.aliyuncs.com/image/2019-11-10/1573373024800
+		System.err.println("进入回调函数。。。。");
+		String sUID = rq.getParameter("serialVersionUID");
+		if(sUID != null ) {
+			long id = Long.parseLong( sUID );
+			if(id == serialVersionUID ) {
+				String finalname = rq.getParameter("finalname");
+				Resource rs = new Resource();
+				rs.setRs_url( finalname );
+				/*mapper.insert( rs );*/
+				info("上传成功   资源路径为： " + finalname);
+				return ResultData.success("上传成功").setData( finalname );
+			}
+		}
+		return ResultData.fail("上传失败");
+		
+	}
+	
+	public static void main(String[] args) {
+		String uuid = UUID.randomUUID().toString();
+		System.err.println("uuid"+uuid.substring(uuid.lastIndexOf("-")+1, uuid.length()));
+	}
+	
 }

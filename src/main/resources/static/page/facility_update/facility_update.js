@@ -18,7 +18,8 @@
 	    	 console.info( "获取的该行的数据------" );
 	    	 console.info( facilitydata );
 	    	 $scope.updatemodel =  facilitydata ;
-	    	 $scope.$apply();
+	    	 console.info("$scope.updatemodel------");
+	    	 console.info( $scope.updatemodel );
 		 }
 			$scope.checklogin=function(){
 				form.render('select');
