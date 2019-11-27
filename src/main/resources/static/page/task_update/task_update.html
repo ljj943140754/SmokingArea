@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" >
+<style type="text/css">
+dl.layui-nav-child dd a:before{
+  content: "";
+  width:20px;
+  display:inline-block;
+}
+.center-line{
+   display:block;
+   text-align:center;
+   color:#d2d2d2;
+}
+.center-line:before{
+	  content:"";
+	  display:inline-block;
+	  float:left;
+	  border-top:1px solid #d2d2d2;
+      width:40%;
+      margin-top:10px;
+ 
+
+}
+.center-line:after{
+      content:"";
+      float:right;
+ 	  display:inline-block;
+	  border-top:1px solid #d2d2d2;
+	  margin-top:10px;
+      width:40%;
+}
+</style>
+</head>
+<body>
+<!--编辑巡更任务-->
+<div class="layui-collapse ng-scope" ng-controller="taskUpdatetCtrl" ng-app="myApp">
+  <div class="layui-colla-item">
+    <h2 class="layui-colla-title layui-bg-green">巡更任务修改</h2>
+    <div class="layui-colla-content layui-show">
+	 
+		<div class="layui-form-item">
+				<label class="layui-form-label">任务名称</label>
+				<div class="layui-input-inline">
+					<input ng-model="updatemodel.tsk_name" class="layui-input ng-pristine ng-untouched ng-valid ng-not-empty" lay-verify="required">
+				</div>
+				
+			    <label class="layui-form-label">领队</label>
+				<div class="layui-input-inline">
+					<input placeholder="输入领队名字搜索  选填" ng-model="updatemodel.wk_name" ng-keyup="searchworker()" class="layui-input ng-pristine ng-untouched ng-valid ng-not-empty" lay-verify="required">
+					<select ng-show="searchworkerlist.length > 0" lay-ignore="" style="width:190px;height:38px;" id="searchworkerselect" class="ng-hide">
+					   <option value="">--请选择--</option>
+					</select>
+					<input type="hidden" ng-model="tsk_leader_id" class="layui-input ng-pristine ng-untouched ng-valid ng-empty" autocomplete="off">
+				</div>
+	    </div>
+	   <div class="layui-form-item">
+			    <label class="layui-form-label">时间描述</label>
+				<div class="layui-input-block">
+					 <textarea class="layui-textarea ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="updatemodel.tsk_time"></textarea>
+				</div>
+	    </div>		
+				
+	    <div class="layui-form-item">
+	    		<label class="layui-form-label"></label>
+	    		<div class="layui-input-block">
+					<button lay-filter="go" ng-click="saveTaskInfo()" class="layui-btn ng-scope" >
+				     更新
+					<span class="layui-icon layui-icon-form"></span>
+					</button>
+				</div>
+	    </div>
+    
+    </div>
+  </div>
+  <div class="layui-colla-item">
+    <h2 class="layui-colla-title layui-bg-green">巡更路线修改</h2>
+    <div class="layui-colla-content layui-show layui-row">
+     <div class="layui-col-md5">
+			<div class="layui-form-item">
+				    <label class="layui-form-label">位置点名称</label>
+					<div class="layui-input-inline">
+						<input class="layui-input ng-valid ng-dirty ng-valid-parse ng-not-empty ng-touched" 
+						style="width:300px;" ng-model="search_fy_name" ng-keyup="searchtaskbykeywords()"
+						placeholder="请输入2个以上的关键字搜索再添加">
+					</div>
+		    </div>	
+		    <div class="layui-form-item">
+			<!-- <table id="facilityTable" lay-filter="facilitylist"></table> -->
+            <table class="layui-table" ng-controller="facilityCtrl" ng-model="facilityModel">
+				  <thead>
+				    <tr>
+				      <th width="60">类型</th>
+				      <th width="200">位置名称</th>
+				      <th width="200">位置明细</th>
+				      <th width="60">序号</th>
+				      <th width="60">操作</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	  <!-- ngRepeat: item in facilityModel -->
+				  	  <tr ng-repeat="item in facilityModel" class="ng-scope" >
+				  	  	   <th><label ng-bind="item.fy_type"class="ng-binding"></label></th>
+				  	  	   <th><label ng-bind="item.fy_name" class="ng-binding"></label></th>
+				  	  	   <th><label ng-bind="item.fy_detail" class="ng-binding"></label></th>
+				  	  	   <th><input class="layui-input ng-pristine ng-untouched ng-valid ng-empty" ng-model="item.seq"></th>
+					       <th>
+					       	 <a ng-click="addRoute($index)" class="layui-btn layui-btn-xs"
+					       	  lay-event="insert">添加<i class="layui-icon layui-icon-insert"></i></a>
+					       </th>
+				  	  </tr>
+				  	</tbody>
+			</table>
+		    </div>	     
+     </div>
+      <div class="layui-col-md6 layui-col-md-offset1">
+			<a class="center-line">当前巡更路线</a>        
+			<ul class="layui-timeline">
+			  <li class="layui-timeline-item ng-scope" ng-repeat="item in routemodel  | orderBy : '+detail.rdt_tsk_seq'">
+			    <i class="layui-icon layui-timeline-axis"></i>
+			    <div class="layui-timeline-content layui-text">
+			      <div>
+			      	<label style="font-size:28px;" class="ng-binding" ng-bind="item.fy_name"></label>
+			      	<span class="layui-badge ng-binding" style="border-radius:10px;" ng-bind="item.rdt_tsk_seq"></span>
+			      	<a href="unsafe:javascript:void(0);" ng-click="deleteRoute(item)" title="删除"
+			      	 class="layui-btn layui-btn-xs layui-btn-danger layui-icon layui-icon-delete"></a>
+			      </div>
+			      <p class="ng-binding"></p>
+			    </div>
+			  </li>
+			</ul>
+      </div>	  
+  </div>
+  </div>
+  <div class="layui-colla-item">
+    <h2 class="layui-colla-title layui-bg-green">巡更人员修改</h2>
+    <div class="layui-colla-content layui-show layui-row">
+      <div class="layui-col-md5">
+      
+	 		<div class="layui-form-item">
+				    <label class="layui-form-label">员工姓名</label>
+					<div class="layui-input-inline">
+						<input class="layui-input ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" style="width:300px;" ng-model="search_wk_name" ng-keyup="searchworkerbykeywords()" placeholder="请输入员工姓名">
+					</div>
+		    </div>	
+		    
+		    <div class="layui-form-item">
+				<table class="layui-table" ng-model="workerModel">
+				  <thead>
+				    <tr>
+				      <th width="60">工号</th>
+				      <th width="100">姓名</th>
+				      <th width="100">手机号</th>
+				      <th>操作</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	  <tr ng-repeat="item in workerModel" class="ng-scope">
+				  	  	   <th><label ng-bind="item.wk_num" class="ng-binding"></label></th>
+					  	   <th><label ng-bind="item.wk_name" class="ng-binding"></label></th>
+				  	  	   <th><label ng-bind="item.wk_phone" class="ng-binding"></label></th>
+					       <th>
+					       	 <a ng-click="addWorker(item)" class="layui-btn layui-btn-xs">添加巡更人员<i class="layui-icon layui-icon-insert"></i></a>
+					       </th>
+				  	  </tr>
+				  </tbody>
+				</table>
+		    </div>
+		    	     
+      </div>
+        
+      <div class="layui-col-md6 layui-col-md-offset1">
+      		 <a class="center-line">当前巡更人员</a>     
+			 <table class="layui-table" ng-model="workermembersModel">
+				  <thead>
+				    <tr>
+				      <th width="60">工号</th>
+				      <th width="100">姓名</th>
+				      <th width="100">手机号</th>
+				      <th>操作</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	  <!-- ngRepeat: item in workermembersModel -->
+				  	  <tr ng-repeat="item in workermembersModel" class="ng-scope">
+				  	  	   <th><label ng-bind="item.wdt_worker_id" class="ng-binding"></label></th>
+					  	   <th><label ng-bind="item.wdt_worker_name" class="ng-binding"></label></th>
+				  	  	   <th><label ng-bind="item.wk_phone" class="ng-binding"></label></th>
+					       <th>
+					       	 <a ng-click="removeWorker(item)" class="layui-btn layui-btn-xs">移除<i class="layui-icon layui-icon-insert"></i></a>
+					       </th>
+				  	  </tr>
+				  </tbody>
+			</table>    
+      </div>	
+    </div>
+  </div>
+</div>
+<script type="text/html" id="addFacility" class="ng-scope">
+  <a ng-click="addRoute($index)" class="layui-btn layui-btn-xs" lay-event="insert">添加<i class="layui-icon layui-icon-insert"></i></a>
+</script>
+</body>
+</html>

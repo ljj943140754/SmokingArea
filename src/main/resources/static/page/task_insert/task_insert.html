@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" >
+</head>
+<body>
+<!--添加巡更任务-->
+<form class="layui-form ng-pristine ng-valid ng-scope" lay-filter="taskInsertForm" ng-controller="taskInsertCtrl">
+		<div class="layui-form-item">
+				<label class="layui-form-label">任务名称</label>
+				<div class="layui-input-inline">
+					<input ng-model="insertmodel.tsk_name" class="layui-input ng-pristine ng-untouched ng-valid ng-empty" lay-verify="required" name="tsk_name">
+				</div>
+				
+			    <label class="layui-form-label">领队</label>
+				<div class="layui-input-inline">
+					<input placeholder="输入领队名字搜索  选填" ng-model="insertmodel.tsk_leader_name" ng-keyup="searchworker()" class="layui-input ng-pristine ng-untouched ng-valid ng-empty" lay-verify="required">
+					<select ng-show="searchworkerlist.length > 0" lay-ignore="" style="width: 190px; height: 38px; display: inline-block;" id="searchworkerselect" class="ng-hide">
+					   <option value="">--请选择--</option>
+					   <!-- ngRepeat: item in searchworkerlist -->
+					</select>
+					<input type="hidden" ng-model="tsk_leader_id" class="layui-input ng-pristine ng-untouched ng-valid ng-empty" autocomplete="off" name="tsk_leader_id">
+				</div>
+	    </div>
+	   <div class="layui-form-item">
+			    <label class="layui-form-label">时间描述</label>
+				<div class="layui-input-block">
+					 <textarea class="layui-textarea ng-pristine ng-untouched ng-valid ng-empty" ng-model="insertmodel.tsk_time" name="tsk_time"></textarea>
+				</div>
+		 </div>		
+				
+	    <div class="layui-form-item">
+	    		<label class="layui-form-label"></label>
+	    		<div class="layui-input-block">
+					<button lay-submit="" lay-filter="go" class="layui-btn" ng-click="insert()">
+					添加
+					<span class="layui-icon layui-icon-form"></span>
+					</button>
+					<button type="reset" class="layui-btn layui-btn-primary">重置
+					<span class="layui-icon layui-icon-refresh"></span>
+					</button>
+				</div>
+	    </div>
+	</form>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" >
+</head>
+<style class="ng-scope">
+.layui-table-cell{
+    height:80px;
+    line-height: 80px;
+}
+</style>
+<body>
+<!--上传管理-->
+<form class="layui-form ng-pristine ng-valid ng-scope" lay-filter="workform" ng-controller="uploadCtrl">
+		<div class="layui-form-item">
+				<label class="layui-form-label">操作</label>
+				<div class="layui-input-block">
+					<button class="layui-btn" onclick="uploadinput.click()">选择文件</button>
+					<button class="layui-btn" ng-click="startupload()">开始上传</button>
+					<div hidden=""><input type="file" id="uploadinput" onchange="showSelectText.value=this.value;"></div>
+					<span ng-show="!uploadfinish" style="font-size:28px;"
+				    class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop ng-hide"></span>
+					<input class="layui-input" id="showSelectText" readonly="readonly">
+				</div>
+	    </div>
+		<table id="table" lay-filter="table"></table>
+</form>
+
+</div>
+		</div>
+		<div class="layui-footer">底部固定区域</div>
+	</div>
+	
+</body>
+</html>

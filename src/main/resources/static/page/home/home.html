@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" >
+</head>
+<body>
+
+<div ng-controller="homeCtrl">
+       <div  ng-show="!!userinfo">
+         	<div class="layui-form-item"  >
+				<label class="layui-form-label">姓名</label>
+			    <label   class="layui-input-inline" style="line-height:40px;" >
+			     {{userinfo.wk_name}} 
+			    </label>
+			</div>
+			<div class="layui-form-item"  >
+				<label  class="layui-form-label">岗位</label>
+			    <label   class="layui-input-inline" style="line-height:40px;">
+			     {{userinfo.wk_type}} 
+			    </label>
+			</div>
+			<div class="layui-form-item"  >
+				<label class="layui-form-label">  工号</label>
+			     <label  class="layui-input-inline" style="line-height:40px;">  {{userinfo.wk_num}} </label>
+			</div>
+			<div class="layui-form-item"  >
+				<label  class="layui-form-label">电话</label>
+			    <label   class="layui-input-inline" style="line-height:40px;">
+			     {{userinfo.wk_phone}} 
+			    </label>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label"> </label>
+			    <button type="button" class="layui-btn " ng-click="loginout()">注销
+			   	 <span class="layui-icon layui-icon-face-cry"></span>
+			    </button>
+			</div>
+        </div>
+       <div  ng-show="!userinfo">
+			<div style="width: 320px; height: 220px; margin: 20% auto;">
+			    <form class="layui-form layui-form-pane" method="get" action="">
+			        <div class="layui-form-item">
+			            <label class="layui-form-label">账号：</label>
+			            <div class="layui-input-inline">
+			                <input type="text" name="account" class="layui-input" 
+							lay-verify="account" placeholder="管理员账号" autocomplete="on"
+							 maxlength="20" ng-model="login.wk_num"/>
+			            </div>
+			        </div>
+			        <div class="layui-form-item">
+			            <label class="layui-form-label">密码：</label>
+			            <div class="layui-input-inline">
+			                <input type="password" name="password" class="layui-input"
+							 lay-verify="password" ng-model="login.wk_password"
+							 placeholder="管理员密码" maxlength="20"/>
+			            </div>
+			        </div>
+			       <!-- <div class="layui-form-item">
+			            <label class="layui-form-label">验证码：</label>
+			
+			            <div class="layui-input-inline">
+			            <input  name="code" class="layui-input" lay-verify="code"
+							 placeholder="验证码" maxlength="4"/>
+						<img src="../../img/v.png" onclick="getImage()"
+							  title="单击刷新验证码" id="img_rand_code" alt=""> 
+						<input type="text" name="title" required  lay-verify="required"
+							 placeholder="请输入验证码" autocomplete="off" class="layui-input verity">
+			            </div>
+			        </div>-->
+			        <div class="layui-form-item">
+			            <button type="reset" class="layui-btn layui-btn-danger btn-reset">重置</button>
+			            <button type="button" class="layui-btn btn-submit" lay-submit="" 
+						lay-filter="sub" ng-click="loginsys()">
+							立即登录</button>
+			        </div>
+			    </form>
+			</div>
+       </div>  
+
+		 <div id="allmap" style="width:100%;height:400px;"></div>
+</div>
+
+</body>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" >
+</head>
+<body>
+
+<div ng-controller="homeCtrl">
+       <div  ng-show="!!userinfo">
+         	<div class="layui-form-item"  >
+				<label class="layui-form-label">姓名</label>
+			    <label   class="layui-input-inline" style="line-height:40px;" >
+			     {{userinfo.wk_name}} 
+			    </label>
+			</div>
+			<div class="layui-form-item"  >
+				<label  class="layui-form-label">岗位</label>
+			    <label   class="layui-input-inline" style="line-height:40px;">
+			     {{userinfo.wk_type}} 
+			    </label>
+			</div>
+			<div class="layui-form-item"  >
+				<label class="layui-form-label">  工号</label>
+			     <label  class="layui-input-inline" style="line-height:40px;">  {{userinfo.wk_id}} </label>
+			</div>
+			<div class="layui-form-item"  >
+				<label  class="layui-form-label">电话</label>
+			    <label   class="layui-input-inline" style="line-height:40px;">
+			     {{userinfo.wk_phone}} 
+			    </label>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label"> </label>
+			    <button type="button" class="layui-btn " ng-click="loginout()">注销
+			   	 <span class="layui-icon layui-icon-face-cry"></span>
+			    </button>
+			</div>
+        </div>
+       <div  ng-show="!userinfo">
+			<div style="width: 320px; height: 220px; margin: 20% auto;">
+			    <form class="layui-form layui-form-pane" method="get" action="">
+			        <div class="layui-form-item">
+			            <label class="layui-form-label">账号：</label>
+			            <div class="layui-input-inline">
+			                <input type="text" name="account" class="layui-input" 
+							lay-verify="account" placeholder="管理员账号" autocomplete="on"
+							 maxlength="20" ng-model="login.wk_num"/>
+			            </div>
+			        </div>
+			        <div class="layui-form-item">
+			            <label class="layui-form-label">密码：</label>
+			            <div class="layui-input-inline">
+			                <input type="password" name="password" class="layui-input"
+							 lay-verify="password" ng-model="login.wk_password"
+							 placeholder="管理员密码" maxlength="20"/>
+			            </div>
+			        </div>
+			       <!-- <div class="layui-form-item">
+			            <label class="layui-form-label">验证码：</label>
+			
+			            <div class="layui-input-inline">
+			            <input  name="code" class="layui-input" lay-verify="code"
+							 placeholder="验证码" maxlength="4"/>
+						<img src="../../img/v.png" onclick="getImage()"
+							  title="单击刷新验证码" id="img_rand_code" alt=""> 
+						<input type="text" name="title" required  lay-verify="required"
+							 placeholder="请输入验证码" autocomplete="off" class="layui-input verity">
+			            </div>
+			        </div>-->
+			        <div class="layui-form-item">
+			            <button type="reset" class="layui-btn layui-btn-danger btn-reset">重置</button>
+			            <button type="button" class="layui-btn btn-submit" lay-submit="" 
+						lay-filter="sub" ng-click="loginsys()">
+						<span class="layui-icon layui-icon-face-smile"></span>
+						立即登录</button>
+			        </div>
+			    </form>
+			</div>
+       </div>  
+
+		 <div id="allmap" style="width:100%;height:400px;"></div>
+</div>
+
+</body>
+</html>
