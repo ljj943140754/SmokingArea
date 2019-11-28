@@ -21,7 +21,8 @@
 					console.info( rs.data );
 					formlist.fy_createdby = rs.data.worker.wk_num ;
 				});
-				
+				sessionStorage.removeItem('facilitydata');
+				sessionStorage.removeItem('taskdata');
 			}
 			
 			 $scope.insert=()=>{

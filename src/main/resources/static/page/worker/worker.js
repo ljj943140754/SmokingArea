@@ -10,6 +10,11 @@
 		  laydate.render({
 		    elem: '#test1' //指定元素
 		  });
+		  
+		  $scope.inint=function(){
+			  sessionStorage.removeItem('facilitydata');
+			  sessionStorage.removeItem('taskdata');
+			}
 	 $scope.query=()=>{
 		 let model = form.val("workerform");
 		 console.info("worker中的model");
@@ -17,7 +22,10 @@
 			 tb_instance.reload({
 				 url: 'worker/getList.action',
 				 where: { 
-					
+					 wk_name:model.wk_name,
+					 wk_phone:model.wk_phone,
+					 wk_num:model.wk_num,
+					 wk_creation:model.wk_creation,
 				 } 
 			 });
 	 }
@@ -27,11 +35,7 @@
 			var checkStatus = table.checkStatus('workerTable'); //idTest 即为基础参数 id 对应的值
 			if( checkStatus.data.length > 0){
 				var da =  checkStatus.data[0];
-				console.info("da");
-				 console.info(da);
 				 layer.confirm('确认删除吗', function(index){
-					 console.info("index");
-					 console.info(index);
 					 $.get("worker/deleteWorker.action",da,function(res){
 							layui.layer.msg("删除成功");
 							//表格重载。
@@ -57,7 +61,6 @@
                 ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
             },
 			parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
-              console.log(res);
 				return {
                     "code": res.code, //解析接口状态
 //                    "msg": res.msg, //解析提示文本
@@ -85,6 +88,6 @@
 				title : "创建时间",	
 			}] ]
 		});
-
+		 $scope.inint();
 	});
 })

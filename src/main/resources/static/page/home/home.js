@@ -13,6 +13,8 @@
 					$scope.$apply();
 				}
 			});
+			sessionStorage.removeItem('facilitydata');
+			sessionStorage.removeItem('taskdata');
 		}
 		 
 		$scope.loginsys=function(){

@@ -11,21 +11,20 @@
 				elem: '#test1' //指定元素
 			});
 		 var formlist = {};
-		 //fy_createdby , fy_creation , fy_detail ,fy_isdel ,fy_name
-		 //fy_lat , fy_lng , fy_res_link , fy_type
 		 $scope.getFacilityData=function(){
 	    	 var facilitydata = JSON.parse(sessionStorage.getItem("facilitydata"));
-	    	 console.info( "获取的该行的数据------" );
-	    	 console.info( facilitydata );
 	    	 $scope.updatemodel =  facilitydata ;
 	    	 $scope.$apply();
+	    	 if(facilitydata==undefined||facilitydata==''){
+	    		 layer.msg("数据无效，请在查询页面选择数据并点击编辑按钮");
+	    	 }
 		 }
 			$scope.checklogin=function(){
 				form.render('select');
 				$.get("worker/checklogin.action",function(rs){
 					formlist.fy_createdby = rs.data.worker.wk_num ;
 				});
-				
+				sessionStorage.removeItem('taskdata');
 			}
 			
 			 $scope.update=()=>{

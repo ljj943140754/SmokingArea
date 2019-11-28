@@ -95,7 +95,7 @@
       <if test="wk_isdel!=null">
    		and wk_isdel = #{wk_isdel}
       </if>
-      <if test="wk_creation!=null and wk_creation!=''">
+      <if test="wk_creation!=null">
     	 and datediff(#{wk_creation},wk_creation)=0
       </if>
   </select>
