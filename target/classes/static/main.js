@@ -29,10 +29,9 @@ const pages={
 				["/task","page/task/task","taskCtrl"] , 
 			 	["/task_insert","page/task_insert/task_insert","taskInsertCtrl"],
 			 	["/task_update","page/task_update/task_update","taskUpdatetCtrl"],
+			 	["/taskReport","page/taskReport/taskReport","taskReportCtrl"],
+			 	["/taskRate","page/taskRate/taskRate","taskRateCtrl"]
 			 	
-			 	["/news_insert","page/news_insert/news_insert","newsInsertCtrl"]
-			 	
-			 	 
 			 
 			]
 };

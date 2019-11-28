@@ -95,8 +95,13 @@
       <if test="wk_isdel!=null">
    		and wk_isdel = #{wk_isdel}
       </if>
+<<<<<<< HEAD
       <if test="wk_creation!=null">
     	and DATEDIFF(#{wk_creation},wk_creation)=0
+=======
+      <if test="wk_creation!=null and wk_creation!=''">
+    	 and datediff(#{wk_creation},wk_creation)=0
+>>>>>>> branch 'master' of https://github.com/ljj943140754/SmokingArea.git
       </if>
   </select>
 </mapper>
