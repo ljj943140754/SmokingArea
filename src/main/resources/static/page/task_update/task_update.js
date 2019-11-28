@@ -12,14 +12,55 @@
 		  laydate.render({
 		    elem: '#test1' //指定元素
 		  });
+	//搜索领队 
+	 var leaderName = {};
+	 $scope.searchworker=(value)=>{
+		 $scope.getIDByName( value , false);
+	 }
+	 //通过领队名字模糊查询并获取ID
+	 $scope.getIDByName=function(value,bo){
+		 leaderName.wk_name = value ;
+		 $.post("worker/getList.action",leaderName,function(res){
+    		 $scope.searchworkerlist = res.data.list;
+    		 $scope.$apply();
+		});
+		 if(bo){
+			 $scope.updatemodel.tsk_leader_id = $scope.searchworkerlist[0].wk_num;
+		 }
+	 }
+	 //通过领队ID获取领队名字
+	 var leaderID = {};
+	 $scope.getNameById=function(){
+		 leaderID.wk_num = $scope.updatemodel.tsk_leader_id;
+		 $.post("worker/getList.action",leaderID,function(res){
+			 $scope.updatemodel.wk_name = res.data.list[0].wk_name;
+    		 $scope.$apply();
+		});
+	 }
+	 //选中下拉框中的值将值赋值到输入框中
+	 $scope.getselect=()=>{
+		var selectvalue = $("#searchworkerselect").val();
+		if($scope.updatemodel != undefined ){
+			$scope.updatemodel.wk_name = selectvalue;
+		}
+		}  
      //获取想要编辑的值
      $scope.getTaskData=function(){
+    	 sessionStorage.removeItem('facilitydata');
     	 var taskdata = JSON.parse(sessionStorage.getItem("taskdata"));
+    	 console.log("需要修改的巡更任务");
+    	 console.log( taskdata );
     	 thedata = taskdata;
-    	 console.log( "当前任务---" );
-    	 console.log( thedata );
+    	 $scope.updatemodel = thedata ;
+    	 console.log("当前的数据task");
+    	 console.log( $scope.updatemodel );
+    	 $scope.$apply();
+    	 if(taskdata==undefined||taskdata==''){
+    		 layer.msg("数据无效，请在查询页面选择数据并点击编辑按钮");
+    	 }
     	 $scope.getworker();
     	 $scope.getRoute();
+     	 $scope.getNameById();
 	 }
      //获取当前任务工作人员
      $scope.getworker=()=>{
@@ -49,16 +90,22 @@
     		 $scope.$apply();
 		});
 	 }
+    
    //删除任务工作人员
      $scope.removeWorker=(item)=>{
     	 $.post("task-worker-detail/delTaskWorker.action",item,function(res){
     		 $scope.getworker();
 		});
      }
+     
      //更新按钮
 	 $scope.saveTaskInfo=()=>{
-		
-		 
+		 $scope.getIDByName( $scope.updatemodel.wk_name , true);
+		 console.log("获取更新后的巡更数据");
+		 console.log($scope.updatemodel);
+//    	 $.post("task/update.action",$scope.updatemodel,function(res){
+//    		
+//		});
 	 }
 	    var formlist = {};
 	    //查询设施
@@ -90,18 +137,25 @@
 	    	 $.get("task-route-detail/getRouteDetail.action",thedata,function(res){
 	    		 $scope.routemodel = res.data.list;
 	    		 $scope.$apply();
+	    		 console.log("执行$scope.$apply()后");
 			});
 	     }
 	     //添加任务路线
+	     var RouteData = {};
 	     $scope.addRoute=(index)=>{
 	    	 var route = $scope.facilityModel[ index ];
-	    	 insertdata.fy_name = route.fy_name;
-	    	 insertdata.rdt_tsk_seq = route.seq;
-	    	 insertdata.rdt_tsk_id = thedata.tsk_id;
-	    	 insertdata.rdt_fac_id = route.fy_id;
-	    	 $.post("task-route-detail/addTaskRoute.action",insertdata,function(res){
-	    		 $scope.getRoute();
-			});
+	    	 RouteData.fy_name = route.fy_name;
+	    	 RouteData.rdt_tsk_seq = route.seq;
+	    	 RouteData.rdt_tsk_id = thedata.tsk_id;
+	    	 RouteData.rdt_fac_id = route.fy_id;
+	    	 $.ajax({
+	    		   type: "POST",
+	    		   url: "task-route-detail/addTaskRoute.action",
+	    		   data: RouteData,
+	    		   success: function(res){
+	    			   $scope.getRoute();
+	    		   }
+	    		});
 	     }
 	     //删除任务路线
 	     $scope.deleteRoute=(item)=>{

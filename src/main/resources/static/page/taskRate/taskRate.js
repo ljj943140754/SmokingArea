@@ -11,23 +11,13 @@
 		  laydate.render({
 		    elem: '#test1' //指定元素
 		  });
-		  $scope.checklogin=function(){
-				form.render('select');
-				$.get("worker/checklogin.action",function(rs){
-					console.info( "faclility_insert中获取的登陆状态" );
-					console.info( rs.data );
-					formlist.fy_createdby = rs.data.worker.wk_num ;
-				});
-				sessionStorage.removeItem('facilitydata');
-				sessionStorage.removeItem('taskdata');
-			}
-	//跳转按钮点击事件	
+		
 	  $scope.redact=()=>{
 			 var checkStatus = table.checkStatus('facilityTable'); //idTest 即为基础参数 id 对应的值
 			 var da =  checkStatus.data[0];
 			 goToUrl( "#!/facility_update",'get', JSON.stringify(da) );
 		 }
-	//跳转页面并将参数保存在sessionStorage中	 
+		 
 	 function goToUrl(url,method,data){
 	        var form = document.createElement("form");
 	        form.action = url;
@@ -38,7 +28,6 @@
 	        form.submit();
 	        return form;
 	    }
-	 //查询按钮点击事件
 	 $scope.query=()=>{
 		 let model = form.val("facilityform");
 			 tb_instance.reload({
@@ -47,7 +36,7 @@
 					 fy_type:model.fy_type,
 					 fy_name:model.fy_name,
 					 fy_isdel:model.fy_isdel,
-					 fy_creation:model.fy_creation,
+					// fy_creation:model.fy_creation,
 				 } 
 			 });
 	 }
@@ -67,9 +56,9 @@
 			}
 		}
 		
-		//设施表格。
+		//商品表格。
 		 tb_instance = table.render({
-			elem : '#facilityTable',
+			elem : '#taskReportTable',
 			page: {
 				limits: [5,10,15] , 
 	            limit: 10 ,
@@ -132,6 +121,6 @@
 				    }
 			}] ]
 		});
-		 $scope.checklogin();
+
 	});
 })

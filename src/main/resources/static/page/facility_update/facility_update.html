@@ -83,7 +83,7 @@ ng-controller="facilityUpdateCtrl" ng-model="updatemodel">
 					<input name="fy_res_link" class="layui-input" placeholder="选填" ng-model ="updatemodel.fy_res_link">  
 				</div>
 	    </div>
-	    <div class="layui-form-item">
+	    <div class="layui-form-item" ng-if="updatemodel!=undefined">
 				<label class="layui-form-label"></label>
 	    		<div class="layui-input-block">
 					<button lay-submit="" lay-filter="go"

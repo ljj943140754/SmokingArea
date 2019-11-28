@@ -11,12 +11,10 @@
 				elem: '#test1' //指定元素
 				,type: 'datetime'
 			});
-		// var formlist = {};
-		 //fy_createdby , fy_creation , fy_detail ,fy_isdel ,fy_name
-		 //fy_lat , fy_lng , fy_res_link , fy_type
-		
 			$scope.init=function(){
 				form.render('select');
+				sessionStorage.removeItem('facilitydata');
+				sessionStorage.removeItem('taskdata');
 			}
 			
 			 $scope.insert=()=>{
@@ -31,9 +29,7 @@
 						}
 					});
 				}
-			
 			$scope.init();
-
 	});
 })
 

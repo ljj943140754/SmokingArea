@@ -14,9 +14,9 @@
 		  $scope.checklogin=function(){
 				form.render('select');
 				$.get("worker/checklogin.action",function(rs){
-					
 				});
-				
+				sessionStorage.removeItem('facilitydata');
+				sessionStorage.removeItem('taskdata');
 			}
 		
 	 $scope.query=()=>{

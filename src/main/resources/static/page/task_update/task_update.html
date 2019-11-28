@@ -48,9 +48,12 @@ dl.layui-nav-child dd a:before{
 				
 			    <label class="layui-form-label">领队</label>
 				<div class="layui-input-inline">
-					<input placeholder="输入领队名字搜索  选填" ng-model="updatemodel.wk_name" ng-keyup="searchworker()" class="layui-input ng-pristine ng-untouched ng-valid ng-not-empty" lay-verify="required">
-					<select ng-show="searchworkerlist.length > 0" lay-ignore="" style="width:190px;height:38px;" id="searchworkerselect" class="ng-hide">
+					<input placeholder="输入领队名字搜索  选填" ng-model="updatemodel.wk_name" ng-keyup="searchworker(updatemodel.wk_name)" 
+					class="layui-input ng-pristine ng-untouched ng-valid ng-not-empty" lay-verify="required">
+					<select ng-show="searchworkerlist.length > 0" lay-ignore="" class="layui-input"
+					 style="width:190px;height:38px;" id="searchworkerselect" class="ng-hide" ng-click="getselect()">
 					   <option value="">--请选择--</option>
+					   <option ng-repeat="item in searchworkerlist">{{item.wk_name}}</option>
 					</select>
 					<input type="hidden" ng-model="tsk_leader_id" class="layui-input ng-pristine ng-untouched ng-valid ng-empty" autocomplete="off">
 				</div>
@@ -62,7 +65,7 @@ dl.layui-nav-child dd a:before{
 				</div>
 	    </div>		
 				
-	    <div class="layui-form-item">
+	    <div class="layui-form-item" ng-if="updatemodel!=undefined">
 	    		<label class="layui-form-label"></label>
 	    		<div class="layui-input-block">
 					<button lay-filter="go" ng-click="saveTaskInfo()" class="layui-btn ng-scope" >
