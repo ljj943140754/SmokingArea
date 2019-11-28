@@ -117,14 +117,14 @@ dl.layui-nav-child dd a:before{
       <div class="layui-col-md6 layui-col-md-offset1">
 			<a class="center-line">当前巡更路线</a>        
 			<ul class="layui-timeline">
-			  <!-- ngRepeat: item in routemodel  | orderBy : '+detail.rdt_tsk_seq' -->
 			  <li class="layui-timeline-item ng-scope" ng-repeat="item in routemodel  | orderBy : '+detail.rdt_tsk_seq'">
-			    <i class="layui-icon layui-timeline-axis"></i>
+			    <i class="layui-icon layui-timeline-axis"></i>
 			    <div class="layui-timeline-content layui-text">
 			      <div>
-			      	<label style="font-size:28px;" class="ng-binding">沃尔玛超市入口右吸烟亭</label>
-			      	<span class="layui-badge ng-binding" style="border-radius:10px;">1</span>
-			      	<a href="unsafe:javascript:void(0);" ng-click="deleteRoute(item.detail)" title="删除" class="layui-btn layui-btn-xs layui-btn-danger layui-icon layui-icon-delete"></a>
+			      	<label style="font-size:28px;" class="ng-binding" ng-bind="item.fy_name"></label>
+			      	<span class="layui-badge ng-binding" style="border-radius:10px;" ng-bind="item.rdt_tsk_seq"></span>
+			      	<a href="unsafe:javascript:void(0);" ng-click="deleteRoute(item)" title="删除"
+			      	 class="layui-btn layui-btn-xs layui-btn-danger layui-icon layui-icon-delete"></a>
 			      </div>
 			      <p class="ng-binding"></p>
 			    </div>
@@ -184,8 +184,8 @@ dl.layui-nav-child dd a:before{
 				  <tbody>
 				  	  <!-- ngRepeat: item in workermembersModel -->
 				  	  <tr ng-repeat="item in workermembersModel" class="ng-scope">
-				  	  	   <th><label ng-bind="item.wk_num" class="ng-binding"></label></th>
-					  	   <th><label ng-bind="item.wk_name" class="ng-binding"></label></th>
+				  	  	   <th><label ng-bind="item.wdt_worker_id" class="ng-binding"></label></th>
+					  	   <th><label ng-bind="item.wdt_worker_name" class="ng-binding"></label></th>
 				  	  	   <th><label ng-bind="item.wk_phone" class="ng-binding"></label></th>
 					       <th>
 					       	 <a ng-click="removeWorker(item)" class="layui-btn layui-btn-xs">移除<i class="layui-icon layui-icon-insert"></i></a>

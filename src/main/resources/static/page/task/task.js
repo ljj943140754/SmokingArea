@@ -78,6 +78,7 @@
 //                console.log(res);
   				return {
                       "code": res.code, //解析接口状态
+                      "count": res.data.total,
                       "data": res.data.list //解析数据列表
                   };
               },
@@ -110,11 +111,28 @@
 			  var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
 			 
 			  if(layEvent === 'detail'){
-//				  console.info("获得当前行数据");
-//			    console.info(data);
+					  if( data.tsk_time != undefined || data.tsk_time !=''){
+						  console.info( "data.tsk_time" );
+						  console.info( data.tsk_time );
+						  var startnum = data.tsk_time.indexOf(":");
+						  var endnum = data.tsk_time.indexOf(",");
+						  var starttime = data.tsk_time.substring(startnum+1 , endnum);
+						  var endtime = data.tsk_time.substring(endnum+5 , data.tsk_time.length);
+						  data.tsk_time = "开始时间："+starttime+",结束时间:"+endtime
+					  }
+					  $scope.taskmodel = data ;
+				  $.get("task-worker-detail/getWorkerDetail.action",data,function(res){
+			    		 $scope.workerModel = res.data.list;
+			    		 $scope.$apply();
+				  });
+				  $.get("task-route-detail/getRouteDetail.action",data,function(res){
+					  	$scope.routemodel = res.data.list;
+					  	$scope.$apply();
+				  });
+				  $scope.$apply();
+				  console.log("");
 			  } 
 			});
-		 
 		 $scope.checklogin();
 	});
 })
