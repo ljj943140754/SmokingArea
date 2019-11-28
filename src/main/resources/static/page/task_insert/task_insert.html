@@ -5,11 +5,11 @@
 </head>
 <body>
 <!--添加巡更任务-->
-<form class="layui-form ng-pristine ng-valid ng-scope" lay-filter="taskInsertForm" ng-controller="taskInsertCtrl">
+<form class="layui-form ng-pristine ng-valid ng-scope" lay-filter="taskInsertForm" ng-controller="taskInsertCtrl" onkeydown="if(event.keyCode==13){return false;}">
 		<div class="layui-form-item">
 				<label class="layui-form-label">任务名称</label>
 				<div class="layui-input-inline">
-					<input ng-model="insertmodel.tsk_name" class="layui-input ng-pristine ng-untouched ng-valid " lay-verify="required" name="tsk_name">
+					<input ng-model="insertmodel.tsk_name" class="layui-input ng-pristine ng-untouched ng-valid " lay-verify="required" name="tsk_name" >
 				</div>
 				
 			    <label class="layui-form-label">领队</label>
@@ -37,7 +37,7 @@
 	    <div class="layui-form-item">
 	    		<label class="layui-form-label"></label>
 	    		<div class="layui-input-block">
-					<button  lay-filter="go"  ng-click="insert()">
+					<button  lay-filter="go" class="layui-btn" ng-click="insert()">
 					添加
 					<span class="layui-icon layui-icon-form"></span>
 					</button>
