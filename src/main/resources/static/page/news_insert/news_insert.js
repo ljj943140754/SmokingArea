@@ -6,6 +6,8 @@
 				$scope.userinfo = rs.data;
 				$scope.$apply();
 			});
+			sessionStorage.removeItem('facilitydata');
+			sessionStorage.removeItem('taskdata');
 		}
 		
 		$scope.formateWorkerType=function(type){
