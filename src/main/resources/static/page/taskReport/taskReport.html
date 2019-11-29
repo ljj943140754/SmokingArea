@@ -5,12 +5,12 @@
 </head>
 <body>
 <!--查询管理-->
-<form class="layui-form ng-pristine ng-valid ng-scope" lay-filter="facilityform" 
+<form class="layui-form ng-pristine ng-valid ng-scope" lay-filter="taskReportform" 
 ng-controller="taskReportCtrl">
 		<div class="layui-form-item">
 				<label class="layui-form-label">类型</label>
 				<div class="layui-input-inline">
-					<select lay-filter="fy_type" class="layui-input" name="fy_type">
+					<select lay-filter="fy_type" class="layui-input" >
 						<option value="">请选择</option>
 					    <option value="1">吸烟亭</option>
 					    <option value="2">吸烟柱</option>
@@ -32,14 +32,14 @@ ng-controller="taskReportCtrl">
 				</div>
 				<label class="layui-form-label">报告人员</label>
 				<div class="layui-input-inline">
-					<input name="fy_name" class="layui-input">
+					<input name="rp_worker_id" class="layui-input">
 				</div>
 			  <label class="layui-form-label">处理状态</label>
 				<div class="layui-input-inline">
-					<select lay-filter="fy_type" class="layui-input" name="fy_isdel">
+					<select lay-filter="fy_type" class="layui-input" name="rp_state">
 						<option value="">请选择</option>
-						<option value="1">启用</option>
-						<option value="0">未启用</option>
+						<option value="1">已处理</option>
+						<option value="0">未处理</option>
 					</select>
 					<div class="layui-unselect layui-form-select">
 					<div class="layui-select-title">
@@ -49,8 +49,8 @@ ng-controller="taskReportCtrl">
 					</div>
 					<dl class="layui-anim layui-anim-upbit">
 					<dd lay-value="" class="layui-select-tips">请选择</dd>
-					<dd lay-value="1" class="">启用</dd>
-					<dd lay-value="0" class="">未启用</dd>
+					<dd lay-value="1" class="">已处理</dd>
+					<dd lay-value="0" class="">未处理</dd>
 					</dl>
 					</div>  
 				</div>
@@ -58,7 +58,7 @@ ng-controller="taskReportCtrl">
 		<div class="layui-form-item"  >
 			<label class="layui-form-label">报告时间</label>
 			<div class="layui-input-inline">
-			<input type="text" class="layui-input" id="test1" name="fy_creation">
+			<input type="text" class="layui-input" id="test1" name="rp_creation">
 			</div>
 		</div>
 	    <div class="layui-form-item">
@@ -68,11 +68,6 @@ ng-controller="taskReportCtrl">
 					 class="layui-btn" ng-click="query()">
 					查询
 					<span class="layui-icon layui-icon-search"></span>
-					</button>
-					<button lay-submit="" lay-filter="go" 
-					class="layui-btn" ng-click="redact()">
-					<i class="layui-icon">&#xe642;</i>
-					编辑
 					</button>
 					<button type="reset" class="layui-btn layui-btn-primary">重置
 					<span class="layui-icon layui-icon-refresh"></span>
@@ -84,49 +79,7 @@ ng-controller="taskReportCtrl">
 					</button>
 				</div>
 	    </div>
-		<!--  <table id="taskReportTable" lay-filter="taskReportlist"></table>-->
-		<table class="layui-table"  lay-filter="test">
-		  <thead>
-		    <tr>
-		      <th >任务报表ID</th>
-		      <th >报告标题</th>
-		      <th >报告内容</th>
-		      <th >报告图片/VR</th>
-		      <th >工作人员</th>
-		      <th >报告时间</th>
-		      <th >处理状态</th>
-		    </tr>
-		  </thead>
-		   <tbody>
-				<tr  >
-		  	  	  <th >1001</th>
-			      <th >金融城Max-D座5号</th>
-			      <th >金融城Max-D座的5号吸烟亭坏了不能抽烟</th>
-			      <th ><img alt="" src="../img/xyt.png"></th>
-			      <th >张三</th>
-			      <th >2019-11-26</th>
-			      <th >已处理</th>
-		  	    </tr>
-		  	    <tr  >
-		  	  	  <th >1002</th>
-			      <th >金融城Max-D座1号</th>
-			      <th >金融城Max-D座的1号吸烟亭坏了不能抽烟</th>
-			      <th ><img alt="" src="../img/xyt.png"></th>
-			      <th >李四</th>
-			      <th >2019-11-27</th>
-			      <th >已处理</th>
-		  	    </tr>
-		  	    <tr  >
-		  	  	  <th >1003</th>
-			      <th >金融城Max-D座2号</th>
-			      <th >金融城Max-D座的2号吸烟亭坏了不能抽烟</th>
-			      <th ><img alt="" src="../img/xyt.png"></th>
-			      <th >王五</th>
-			      <th >2019-11-28</th>
-			      <th >未处理</th>
-		  	    </tr>
-			</tbody>
-		</table>
+		<table id="taskReportTable" lay-filter="taskReportlist"></table>
 	</form>
 
 </body>
