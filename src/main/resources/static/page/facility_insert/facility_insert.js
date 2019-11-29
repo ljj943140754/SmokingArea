@@ -20,6 +20,7 @@
 					console.info( "faclility_insert中获取的登陆状态" );
 					console.info( rs.data );
 					formlist.fy_createdby = rs.data.worker.wk_num ;
+					formlist.fy_lastupdatedby = rs.data.worker.wk_num ;
 				});
 				sessionStorage.removeItem('facilitydata');
 				sessionStorage.removeItem('taskdata');

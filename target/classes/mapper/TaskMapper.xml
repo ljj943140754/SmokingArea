@@ -77,11 +77,14 @@
     <if test="tsk_id!=null">
   		and tsk_id=#{tsk_id}
   	</if>
-  	<if test="tsk_name!=null">
+  	<if test="tsk_name!=null and tsk_name!=''">
   		and tsk_name=#{tsk_name}
   	</if>
   	<if test="tsk_leader_id!=null">
   		and tsk_leader_id=#{tsk_leader_id}
+  	</if>
+  	<if test="tsk_type!=null">
+  		and tsk_type=#{tsk_type}
   	</if>
   	<if test="tsk_creation!=null">
   		and datediff(#{tsk_creation},tsk_creation)=0

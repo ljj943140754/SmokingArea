@@ -21,12 +21,13 @@
 		
 	 $scope.query=()=>{
 		 let model = form.val("taskform");
-//		 console.info("task中的model");
-//		 console.info(model);
+		 console.info("task中的model");
+		 console.info(model);
 		 tb_instance.reload({
 			 url: 'task/getTask.action',
 			 where: { 
-				 tsk_name: model.tsk_name
+				 tsk_type: model.tsk_type,
+				 tsk_name: model.tsk_name,
 			 } 
 		 });
 	 }
@@ -99,6 +100,13 @@
 				field : 'tsk_creation',
 				title : "创建时间" ,
 			}, {
+				field : 'tsk_type',
+				title : "任务类型" ,
+				templet:function(d){
+				    if(d.tsk_type =="1")return "日任务";
+				    else  if(d.tsk_type =="2")return "周任务";
+				    }
+			},{
 				title : "操作",
 				width:75,
 				toolbar: '#barDemo'

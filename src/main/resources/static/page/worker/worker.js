@@ -17,8 +17,11 @@
 			}
 	 $scope.query=()=>{
 		 let model = form.val("workerform");
-		 console.info("worker中的model");
-		 console.info(model);
+//		 console.log("model.wk_creation");console.log( model.wk_creation );
+//		 if( model.wk_creation =='' ){
+//			 console.log("model.wk_creation的值为空字符串");
+//		 }
+		 if(  model.wk_creation !=''  ){
 			 tb_instance.reload({
 				 url: 'worker/getList.action',
 				 where: { 
@@ -28,6 +31,16 @@
 					 wk_creation:model.wk_creation,
 				 } 
 			 });
+		 }else{
+			 tb_instance.reload({
+				 url: 'worker/getList.action',
+				 where: { 
+					 wk_name:model.wk_name,
+					 wk_phone:model.wk_phone,
+					 wk_num:model.wk_num,
+				 } 
+			 });
+		 }
 	 }
 		 
 		//删除表格。
