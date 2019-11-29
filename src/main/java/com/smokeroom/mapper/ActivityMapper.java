@@ -1,7 +1,9 @@
 package com.smokeroom.mapper;
 
-import com.smokeroom.entity.Activity;
 import java.util.List;
+
+import com.smokeroom.entity.Activity;
+import com.smokeroom.entity.ext.activityVO;
 
 public interface ActivityMapper {
     int deleteByPrimaryKey(Integer at_id);
@@ -14,7 +16,8 @@ public interface ActivityMapper {
 
     int updateByPrimaryKey(Activity record);
     
-    List<Activity> getActivity(Activity record);
+    /*List<Activity> getActivity(Activity record);*/
+    List<activityVO> getActivity(Activity record);
     
     int updateSignCount(Activity act);
 }

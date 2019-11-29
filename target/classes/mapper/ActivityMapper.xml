@@ -87,10 +87,10 @@
     from activity where at_status=1 order by at_creation DESC
   </select>
   
-  <!-- 用户查看自己发布活动  -->
+  <!-- 小程序查看活动/列表查询/条件查询  -->
   <select id="getActivity" resultType="com.smokeroom.entity.ext.activityVO">
-	SELECT <include refid="ActivityField"/>,GROUP_CONCAT(s.ur_nickname,s.ur_avatarurl,s.ji_creation) userData FROM 
-	(SELECT <include refid="ActivityField"/>,ji_creation,ur_avatarurl,ur_nickname FROM activity
+	SELECT <include refid="ActivityField"/>,GROUP_CONCAT(s.ur_nickname,s.ji_creation,s.ur_avatarurl) userData FROM 
+	(SELECT <include refid="ActivityField"/>,ur_nickname,ji_creation,ur_avatarurl FROM activity
 	LEFT JOIN activity_join_in ON at_id = ji_at_id  LEFT JOIN USER ON ji_uid=ur_id) s
 	WHERE 1
 	<if test="at_uid!=null and at_uid!=''">

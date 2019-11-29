@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.common.bean.ResultData;
 import com.smokeroom.entity.Activity;
 import com.smokeroom.entity.ActivityJoinIn;
+import com.smokeroom.entity.ext.activityVO;
 import com.smokeroom.mapper.ActivityJoinInMapper;
 import com.smokeroom.mapper.ActivityMapper;
 import com.smokeroom.service.IActivityJoinInService;
@@ -46,7 +47,7 @@ public class IActivityJoinInServiceImpl implements IActivityJoinInService{
 		
 		Activity act = new Activity();
 		act.setAt_id(actJo.getJi_at_id());
-		List<Activity> list = activitymapper.getActivity(act);
+		List<activityVO> list = activitymapper.getActivity(act);
 		if(list.size()>0){
 			if(list.get(0).getAt_sign_count() >= list.get(0).getAt_max_count()){
 				System.err.println("报名人数已满");
