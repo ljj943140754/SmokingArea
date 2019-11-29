@@ -1,7 +1,7 @@
 package com.smokeroom.service;
 
+import com.common.bean.ResultData;
 import com.smokeroom.entity.Activity;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author haiger412
  * @since 2019-10-30
  */
-public interface IActivityService extends IService<Activity> {
-
+public interface IActivityService{
+	ResultData ActivityHandle(Activity act);
 }

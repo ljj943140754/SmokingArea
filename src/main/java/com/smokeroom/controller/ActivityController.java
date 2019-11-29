@@ -1,12 +1,9 @@
 package com.smokeroom.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
 
 import com.common.ano.Permission;
@@ -16,8 +13,8 @@ import com.common.enu.Role;
 import com.github.pagehelper.PageHelper;
 import com.smokeroom.entity.Activity;
 import com.smokeroom.entity.pageObject;
-import com.smokeroom.entity.ext.activityVO;
 import com.smokeroom.mapper.ActivityMapper;
+import com.smokeroom.service.impl.IActivityServiceImpl;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,6 +33,9 @@ import io.swagger.annotations.ApiOperation;
 public class ActivityController extends BaseController {
 	@Autowired
 	private ActivityMapper mapper;
+	
+	@Autowired
+	private IActivityServiceImpl service;
 
 	// CMS 调用 小程序端调用
 	@ApiOperation("修改活动  启动 关闭")
@@ -74,21 +74,7 @@ public class ActivityController extends BaseController {
 		info("小程序查看活动/列表查询/条件查询 ");
 		// 分页功能
 		PageHelper.startPage(act.getPageNum(), act.getPageSize());
-		List<activityVO> list = mapper.getActivity(act);
-		for (activityVO ac : list) {
-			if (ac.getUserData() != null) {
-				String data = ac.getUserData();
-				String[] strings = data.split(",");
-				for (String s : strings) {
-					String ur_nickname="";
-					String ji_creation="";
-					String ur_avatarurl="";
-					
-				}
-			}
-		}
-
-		return ResultData.success().setData(mapper.getActivity(act));
+		return ResultData.success().setData(service.ActivityHandle(act));
 	}
 
 	/*

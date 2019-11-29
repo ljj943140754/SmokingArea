@@ -47,7 +47,7 @@ public class IActivityJoinInServiceImpl implements IActivityJoinInService{
 		
 		Activity act = new Activity();
 		act.setAt_id(actJo.getJi_at_id());
-		List<activityVO> list = activitymapper.getActivity(act);
+		List<Activity> list = activitymapper.getActivity(act);
 		if(list.size()>0){
 			if(list.get(0).getAt_sign_count() >= list.get(0).getAt_max_count()){
 				System.err.println("报名人数已满");
