@@ -56,19 +56,13 @@ public class ActivityController extends BaseController {
 	}
 
 	/*
-	 * 用户可以通过 小程序调用 at_id 查看活动详情 at_uid 查看自己的发布全部活动 at_status 活动是否开启 其他字段条件查询
-	 */
-	/*
-	 * @ApiOperation("小程序查看活动/列表查询/条件查询")
-	 * 
-	 * @Permission(role={Role.USER})
-	 * 
-	 * @GetMapping("getAct.action") public ResultData getActivity (Activity
-	 * act){ info("小程序查看活动/列表查询/条件查询 "); //分页功能
-	 * PageHelper.startPage(act.getPageNum(), act.getPageSize()); return
-	 * ResultData.success().setData(mapper.getActivity(act)); }
+	 * 用户可以通过 小程序调用
+	 *  at_id 查看活动详情 
+	 *  at_uid 查看自己的发布全部活动 
+	 *  at_status 活动是否开启 其他字段条件查询
 	 */
 	@ApiOperation("小程序查看活动/列表查询/条件查询")
+	@Permission(role={Role.USER})
 	@GetMapping("getAct.action")
 	public ResultData getActivity(Activity act) {
 		info("小程序查看活动/列表查询/条件查询 ");

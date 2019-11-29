@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.common.bean.ResultData;
 import com.smokeroom.entity.Activity;
-import com.smokeroom.entity.ActivityTest;
+import com.smokeroom.entity.ActivityUser;
 import com.smokeroom.entity.ext.activityBO;
 import com.smokeroom.entity.ext.activityVO;
 import com.smokeroom.mapper.ActivityMapper;
@@ -42,10 +42,10 @@ public class IActivityServiceImpl implements IActivityService {
 			
 			if (acVo.getUserData() != null) {
 				String data = acVo.getUserData();
-				List<ActivityTest> ActivityTest = new ArrayList<ActivityTest>();
+				List<ActivityUser> ActivityTest = new ArrayList<ActivityUser>();
 				String[] strings = data.split(",");
 				for (String s : strings) {
-					ActivityTest bo = new ActivityTest();
+					ActivityUser bo = new ActivityUser();
 					String string1 = s.substring(0, s.indexOf("2"));
 					String string2 = s.substring(s.indexOf("2"), s.indexOf("h")+1);
 					String string3 = s.substring(s.indexOf("h"), s.length());

@@ -1,6 +1,6 @@
 package com.smokeroom.entity;
 
-public class ActivityTest{
+public class ActivityUser{
 	  
 	private String ur_nickname;
 	private String ji_creation;
