@@ -14,9 +14,7 @@
 		  $scope.checklogin=function(){
 				form.render('select');
 				$.get("worker/checklogin.action",function(rs){
-					console.info( "faclility_insert中获取的登陆状态" );
-					console.info( rs.data );
-					formlist.fy_createdby = rs.data.worker.wk_num ;
+					
 				});
 				sessionStorage.removeItem('facilitydata');
 				sessionStorage.removeItem('taskdata');
@@ -41,6 +39,7 @@
 	 //查询按钮点击事件
 	 $scope.query=()=>{
 		 let model = form.val("facilityform");
+		 if( model.fy_creation!=''){
 			 tb_instance.reload({
 				 url: 'facility/findFacility.action',
 				 where: { 
@@ -50,6 +49,16 @@
 					 fy_creation:model.fy_creation,
 				 } 
 			 });
+		 }else{
+			 tb_instance.reload({
+				 url: 'facility/findFacility.action',
+				 where: { 
+					 fy_type:model.fy_type,
+					 fy_name:model.fy_name,
+					 fy_isdel:model.fy_isdel,
+				 } 
+			 });
+		 }
 	 }
 		 
 		//删除表格。

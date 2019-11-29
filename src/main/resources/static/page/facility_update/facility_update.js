@@ -37,8 +37,6 @@
 					formlist.fy_lng = model.fy_lng;
 					formlist.fy_res_link = model.fy_res_link;
 					formlist.fy_type = model.fy_type;
-					console.info( "formlist" );
-					console.info( formlist );
 					$.post("facility/deleteVR.action",formlist,function(res){
 						if(res.code == -1){
 							layui.layer.msg(res.error);

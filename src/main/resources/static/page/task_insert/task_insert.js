@@ -64,9 +64,7 @@
 						}
 					});
 				}
-			
 			$scope.checklogin();
-
 	});
 })
 

@@ -19,9 +19,7 @@
 			
 			 $scope.insert=()=>{
 					let model = form.val("workerInsertform");
-					console.info( "model" );
-					console.info( model );
-					$.post("facility/insert.action",model,function(res){
+					$.post("worker/insert.action",model,function(res){
 						if(res.code == -1){
 							layui.layer.msg(res.error);
 						}else{
