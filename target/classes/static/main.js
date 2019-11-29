@@ -30,7 +30,7 @@ const pages={
 			 	["/task_insert","page/task_insert/task_insert","taskInsertCtrl"],
 			 	["/task_update","page/task_update/task_update","taskUpdatetCtrl"],
 			 	["/taskReport","page/taskReport/taskReport","taskReportCtrl"],
-			 	["/taskRate","page/taskRate/taskRate","taskRateCtrl"]
+			 	["/taskRecord","page/taskRecord/taskRecord","taskRecordCtrl"]
 			 	
 			 
 			]

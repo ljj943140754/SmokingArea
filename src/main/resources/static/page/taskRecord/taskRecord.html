@@ -6,11 +6,11 @@
 <body>
 <!--查询管理-->
 <form class="layui-form ng-pristine ng-valid ng-scope" lay-filter="facilityform" 
-ng-controller="taskRateCtrl">
+ng-controller="taskRecordCtrl">
 		<div class="layui-form-item">
 				<label class="layui-form-label">类型</label>
 				<div class="layui-input-inline">
-					<select lay-filter="fy_type" class="layui-input" name="fy_type">
+					<select lay-filter="fy_type" class="layui-input" >
 						<option value="">请选择</option>
 					    <option value="1">吸烟亭</option>
 					    <option value="2">吸烟柱</option>
@@ -32,14 +32,14 @@ ng-controller="taskRateCtrl">
 				</div>
 				<label class="layui-form-label">领队人员</label>
 				<div class="layui-input-inline">
-					<input name="fy_name" class="layui-input">
+					<input name="tr_worker_leader" class="layui-input">
 				</div>
 			  <label class="layui-form-label">完成状态</label>
 				<div class="layui-input-inline">
-					<select lay-filter="fy_type" class="layui-input" name="fy_isdel">
+					<select lay-filter="fy_type" class="layui-input" name="tr_iscomplete">
 						<option value="">请选择</option>
-						<option value="1">启用</option>
-						<option value="0">未启用</option>
+						<option value="1">已完成</option>
+						<option value="0">未完成</option>
 					</select>
 					<div class="layui-unselect layui-form-select">
 					<div class="layui-select-title">
@@ -49,8 +49,8 @@ ng-controller="taskRateCtrl">
 					</div>
 					<dl class="layui-anim layui-anim-upbit">
 					<dd lay-value="" class="layui-select-tips">请选择</dd>
-					<dd lay-value="1" class="">启用</dd>
-					<dd lay-value="0" class="">未启用</dd>
+					<dd lay-value="1" class="">已完成</dd>
+					<dd lay-value="0" class="">未完成</dd>
 					</dl>
 					</div>  
 				</div>
@@ -58,7 +58,7 @@ ng-controller="taskRateCtrl">
 		<div class="layui-form-item"  >
 			<label class="layui-form-label">进度时间</label>
 			<div class="layui-input-inline">
-			<input type="text" class="layui-input" id="test1" name="fy_creation">
+			<input type="text" class="layui-input" id="test1" name="tr_creation">
 			</div>
 		</div>
 	    <div class="layui-form-item">
@@ -69,70 +69,22 @@ ng-controller="taskRateCtrl">
 					查询
 					<span class="layui-icon layui-icon-search"></span>
 					</button>
-					<button lay-submit="" lay-filter="go" 
+					<button type="reset" class="layui-btn layui-btn-primary">重置
+					<span class="layui-icon layui-icon-refresh"></span>
+					</button>
+				<!--<button lay-submit="" lay-filter="go" 
 					class="layui-btn" ng-click="redact()">
 					<i class="layui-icon">&#xe642;</i>
 					编辑
-					</button>
-					<button type="reset" class="layui-btn layui-btn-primary">重置
-					<span class="layui-icon layui-icon-refresh"></span>
 					</button>
 					<button lay-submit="" lay-filter="go" 
 					class="layui-btn layui-btn-danger" ng-click="deleteById()">
 					<i class="layui-icon">&#xe640;</i>
 					删除
-					</button>
+					</button>-->
 				</div>
 	    </div>
-		<table id="taskReportTable" lay-filter="taskReportlist"></table>-->
-		<table class="layui-table"  lay-filter="test">
-		  <thead>
-		    <tr>
-		      <th >任务记录ID</th>
-		      <th >任务名</th>
-		      <th >领队人员</th>
-		      <th >完成状态</th>
-		      <th >进度时间</th>
-		    </tr>
-		  </thead>
-		   <tbody>
-				<tr  >
-		  	  	  <th >1101</th>
-			      <th >金融城Max-D座5号</th>
-			      <th >张三</th>
-			      <th >已完成</th>
-			      <th >2019-11-28</th>
-		  	    </tr>
-		  	    <tr  >
-		  	  	  <th >1102</th>
-			      <th >会展城A区</th>
-			      <th >李四</th>
-			      <th >已完成</th>
-			      <th >2019-11-28</th>>
-		  	    </tr>
-		  	    <tr  >
-		  	  	   <th >1103</th>
-			      <th >会展城B区</th>
-			      <th >王五</th>
-			      <th >未完成</th>
-			      <th >2019-11-28</th>
-		  	    </tr>
-		  	    <tr  >
-		  	  	   <th >1104</th>
-			      <th >会展城第一中学</th>
-			      <th >赵六</th>
-			      <th >已完成</th>
-			      <th >2019-11-28</th>
-		  	    </tr>
-		  	    <tr  >
-		  	  	   <th >1105</th>
-			      <th >金融城Max-A座5号</th>
-			      <th >熊大</th>
-			      <th >已完成</th>
-			      <th >2019-11-28</th>
-		  	    </tr>
-			</tbody>
-		</table>
+		<table id="taskRecordTable" lay-filter="taskRecordlist"></table>
 	</form>
 
 </body>
